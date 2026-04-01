@@ -4,11 +4,8 @@ import {
   TrendingUp,
   CheckCircle,
   Users,
-  UserPlus,
-  AlertTriangle,
   Eye,
   Activity,
-  XCircle,
 } from "lucide-react";
 
 import Loader from "../../Components/Loader";
@@ -146,7 +143,7 @@ const DeptDashboard = () => {
       </div>
 
       {/* ================= MAIN CARDS ================= */}
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5 justify-content-center">
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 mb-5">
         <StatCard
           title="Total Tickets"
           value={totalTickets}
@@ -157,17 +154,15 @@ const DeptDashboard = () => {
           progressColor="#4361ee"
         />
 
-        {pendingCount > 0 && (
-          <StatCard
-            title="Unassigned Tickets"
-            value={pendingCount}
-            progress={getPercentage(pendingCount)}
-            icon={<Clock size={24} strokeWidth={2.5} />}
-            iconBg="#fff0ed"
-            iconColor="#e76f51"
-            progressColor="#e76f51"
-          />
-        )}
+        <StatCard
+          title="Unassigned Tickets"
+          value={pendingCount}
+          progress={getPercentage(pendingCount)}
+          icon={<Clock size={24} strokeWidth={2.5} />}
+          iconBg="#fff0ed"
+          iconColor="#e76f51"
+          progressColor="#e76f51"
+        />
 
         {assignedCount > 0 && (
           <StatCard
@@ -204,19 +199,16 @@ const DeptDashboard = () => {
             progressColor="#2a9d8f"
           />
         )}
-      </div>
 
-      {/* ================= SMALL CARDS ================= */}
-      <div className="row g-4 mb-5">
-        <div className="col-md-6 col-lg-4">
-          <SmallCard
-            title="Total Team Members"
-            value={teamStats?.summary?.totalMembers || 0}
-            icon={<Users size={22} strokeWidth={2.5} />}
-            iconBg="#f0f3ff"
-            iconColor="#4361ee"
-          />
-        </div>
+        <StatCard
+          title="Total Team Members"
+          value={teamStats?.summary?.totalMembers || 0}
+          progress="100%"
+          icon={<Users size={24} strokeWidth={2.5} />}
+          iconBg="#f0f3ff"
+          iconColor="#4361ee"
+          progressColor="#4361ee"
+        />
       </div>
 
       {/* ================= RECENT TICKETS TABLE ================= */}

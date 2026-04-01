@@ -31,7 +31,7 @@ const Slider = ({ open, toggleSidebar }) => {
       // style={{ position: "relative", height: "50px" }}
       >
         {open && (
-          <div className="d-flex align-items-center justify-content-between px-2 mb-3"
+          <div className="d-flex align-items-center justify-content-between px-0 mb-3"
           // style={{
           //   position: "absolute",
           //   left: "40%",

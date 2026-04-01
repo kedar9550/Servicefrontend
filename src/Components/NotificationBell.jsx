@@ -112,7 +112,8 @@ const NotificationBell = () => {
         style={{ cursor: 'pointer', position: 'relative', marginTop:'8px' }}
         onClick={() => setShowDropdown(!showDropdown)}
       >
-        <Bell size={24} color="#555" />
+        <Bell size={24} color="var(--text-color)" />
+
         {unreadCount > 0 && (
           <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.65em' }}>
             {unreadCount > 99 ? '99+' : unreadCount}
@@ -121,41 +122,89 @@ const NotificationBell = () => {
       </div>
 
       {showDropdown && (
-        <div className="dropdown-menu show shadow" style={{ position: 'absolute', right: '-10px', top: '50px', width: '320px', maxHeight: '400px', overflowY: 'auto', zIndex: 1050, border: '1px solid #ddd' }}>
-          <div className="d-flex justify-content-between align-items-center px-3 py-2 border-bottom bg-light">
-            <h6 className="m-0 fw-bold">Notifications</h6>
+        <div 
+          className="dropdown-menu show shadow notification-scrollbar" 
+          style={{ 
+            position: 'absolute', 
+            right: '-10px', 
+            top: '60px', 
+            width: '350px', 
+            maxHeight: '450px', 
+            overflowY: 'auto', 
+            zIndex: 1050, 
+            backgroundColor: 'var(--card-bg)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '12px',
+            padding: '0'
+          }}
+        >
+          <div 
+            className="d-flex justify-content-between align-items-center px-3 py-3 border-bottom"
+            style={{ borderColor: 'var(--border-color) !important' }}
+          >
+            <h6 className="m-0 fw-bold" style={{ color: 'var(--text-color)' }}>Notifications</h6>
             {unreadCount > 0 && (
-              <span style={{ fontSize: '0.8em', cursor: 'pointer', color: '#0d6efd' }} onClick={markAllAsRead}>
+              <span 
+                style={{ fontSize: '0.8em', cursor: 'pointer', color: 'var(--accent-color)', fontWeight: '600' }} 
+                onClick={markAllAsRead}
+              >
                 Mark all as read
               </span>
             )}
           </div>
-          <div className="list-group list-group-flush">
+
+          <div className="list-group list-group-flush" style={{ backgroundColor: 'transparent' }}>
             {notifications.length === 0 ? (
-              <div className="text-center p-4 text-muted">No new notifications</div>
+              <div className="text-center p-4" style={{ color: 'var(--secondary-color)' }}>No new notifications</div>
             ) : (
               notifications.map((notif) => (
                 <button
                   key={notif._id}
-                  className={`list-group-item list-group-item-action border-bottom ${!notif.isRead ? 'bg-white font-weight-bold' : 'bg-light text-muted'}`}
+                  className="list-group-item list-group-item-action border-bottom"
                   onClick={() => handleNotificationClick(notif)}
-                  style={{ textAlign: 'left' }}
+                  style={{ 
+                    textAlign: 'left',
+                    backgroundColor: !notif.isRead ? 'rgba(var(--primary-color-rgb, 11, 82, 153), 0.05)' : 'transparent',
+                    borderColor: 'var(--border-color)',
+                    padding: '12px 16px',
+                    transition: 'background-color 0.2s ease'
+                  }}
                 >
-                  <div className="d-flex w-100 justify-content-between align-items-center">
-                    <strong className="mb-1" style={{ fontSize: '0.9em', color: !notif.isRead ? '#000': '#666' }}>{notif.title}</strong>
-                    <div className="d-flex align-items-center" style={{ gap: '8px' }}>
-                      <small style={{ fontSize: '0.75em' }}>
+                  <div className="d-flex w-100 justify-content-between align-items-center mb-1">
+                    <strong 
+                      style={{ 
+                        fontSize: '0.95em', 
+                        color: 'var(--text-color)',
+                        fontWeight: !notif.isRead ? '700' : '500'
+                      }}
+                    >
+                      {notif.title}
+                    </strong>
+                    <div className="d-flex align-items-center" style={{ gap: '10px' }}>
+                      <small style={{ fontSize: '0.75em', color: 'var(--secondary-color)' }}>
                         {new Date(notif.createdAt).toLocaleDateString()}
                       </small>
                       <Trash2 
-                        size={14} 
+                        size={16} 
                         className="text-danger" 
-                        style={{ cursor: 'pointer' }}
+                        style={{ 
+                          cursor: 'pointer',
+                          opacity: 0.7
+                        }}
                         onClick={(e) => handleDeleteNotification(e, notif._id)}
                       />
                     </div>
                   </div>
-                  <p className="mb-1" style={{ fontSize: '0.85em' }}>{notif.message}</p>
+                  <p 
+                    className="mb-0" 
+                    style={{ 
+                      fontSize: '0.85em', 
+                      color: !notif.isRead ? 'var(--text-color)' : 'var(--secondary-color)',
+                      lineHeight: '1.4'
+                    }}
+                  >
+                    {notif.message}
+                  </p>
                 </button>
               ))
             )}

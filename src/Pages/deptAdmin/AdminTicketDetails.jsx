@@ -54,9 +54,19 @@ const AdminTicketDetails = () => {
           <div className="card shadow-sm rounded-4 border-0 p-4 mb-4">
             <h5 className="fw-bold mb-3">Internal Comments</h5>
 
-            <div className="mb-3 p-3 bg-light rounded-3">
-              <strong>Rahul:</strong> Investigating the issue.
+            <div className="mb-3 p-3 rounded-3 border" 
+                style={{ 
+                  backgroundColor: 'var(--stat-card-bg)', 
+                  borderColor: 'var(--border-color) !important',
+                  color: 'var(--text-color)' 
+                }}>
+              <div className="d-flex justify-content-between mb-1">
+                <strong style={{ color: 'var(--text-color)' }}>Rahul</strong>
+                <small className="text-secondary" style={{ fontSize: '0.8em' }}>Just now</small>
+              </div>
+              <p className="mb-0" style={{ color: 'var(--text-color)', opacity: 0.9 }}>Investigating the issue.</p>
             </div>
+
 
             <textarea
               className="form-control rounded-3"

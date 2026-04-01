@@ -146,7 +146,7 @@ const DeptDashboard = () => {
       </div>
 
       {/* ================= MAIN CARDS ================= */}
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5 justify-content-center">
         <StatCard
           title="Total Tickets"
           value={totalTickets}
@@ -157,82 +157,66 @@ const DeptDashboard = () => {
           progressColor="#4361ee"
         />
 
-        <StatCard
-          title="Unassigned Tickets"
-          value={pendingCount}
-          progress={getPercentage(pendingCount)}
-          icon={<Clock size={24} strokeWidth={2.5} />}
-          iconBg="#fff0ed"
-          iconColor="#e76f51"
-          progressColor="#e76f51"
-        />
+        {pendingCount > 0 && (
+          <StatCard
+            title="Unassigned Tickets"
+            value={pendingCount}
+            progress={getPercentage(pendingCount)}
+            icon={<Clock size={24} strokeWidth={2.5} />}
+            iconBg="#fff0ed"
+            iconColor="#e76f51"
+            progressColor="#e76f51"
+          />
+        )}
 
-        <StatCard
-          title="Assigned Tickets"
-          value={assignedCount}
-          progress={getPercentage(assignedCount)}
-          icon={<UserCheck size={24} strokeWidth={2.5} />}
-          iconBg="#f0f3ff"
-          iconColor="#4361ee"
-          progressColor="#4361ee"
-        />
+        {assignedCount > 0 && (
+          <StatCard
+            title="Assigned Tickets"
+            value={assignedCount}
+            progress={getPercentage(assignedCount)}
+            icon={<UserCheck size={24} strokeWidth={2.5} />}
+            iconBg="#f0f3ff"
+            iconColor="#4361ee"
+            progressColor="#4361ee"
+          />
+        )}
 
-        <StatCard
-          title="In Progress"
-          value={inProgressCount}
-          progress={getPercentage(inProgressCount)}
-          icon={<TrendingUp size={24} strokeWidth={2.5} />}
-          iconBg="#fff8ec"
-          iconColor="#f4a261"
-          progressColor="#f4a261"
-        />
+        {inProgressCount > 0 && (
+          <StatCard
+            title="In Progress"
+            value={inProgressCount}
+            progress={getPercentage(inProgressCount)}
+            icon={<TrendingUp size={24} strokeWidth={2.5} />}
+            iconBg="#fff8ec"
+            iconColor="#f4a261"
+            progressColor="#f4a261"
+          />
+        )}
 
-        <StatCard
-          title="Resolved Tickets"
-          value={completedCount}
-          progress={getPercentage(completedCount)}
-          icon={<CheckCircle size={24} strokeWidth={2.5} />}
-          iconBg="#e6fcf5"
-          iconColor="#2a9d8f"
-          progressColor="#2a9d8f"
-        />
-
-        {/* <StatCard
-          title="Rejected Tickets"
-          value={rejectedCount}
-          progress={getPercentage(rejectedCount)}
-          icon={<XCircle size={24} strokeWidth={2.5} />}
-          iconBg="#fff5f5"
-          iconColor="#e53e3e"
-          progressColor="#e53e3e"
-        /> */}
+        {completedCount > 0 && (
+          <StatCard
+            title="Resolved Tickets"
+            value={completedCount}
+            progress={getPercentage(completedCount)}
+            icon={<CheckCircle size={24} strokeWidth={2.5} />}
+            iconBg="#e6fcf5"
+            iconColor="#2a9d8f"
+            progressColor="#2a9d8f"
+          />
+        )}
       </div>
 
       {/* ================= SMALL CARDS ================= */}
       <div className="row g-4 mb-5">
-        <SmallCard
-          title="Total Team Members"
-          value={teamStats?.summary?.totalMembers || 0}
-          icon={<Users size={22} strokeWidth={2.5} />}
-          iconBg="#f0f3ff"
-          iconColor="#4361ee"
-        />
-
-        <SmallCard
-          title="Active Assignments"
-          value={teamStats?.summary?.totalActiveTickets || 0}
-          icon={<UserPlus size={22} strokeWidth={2.5} />}
-          iconBg="#e6fcf5"
-          iconColor="#2a9d8f"
-        />
-
-        <SmallCard
-          title="Pending Assignments"
-          value={reports?.summary?.overdueTickets || pendingCount}
-          icon={<AlertTriangle size={22} strokeWidth={2.5} />}
-          iconBg="#fff0ed"
-          iconColor="#e76f51"
-        />
+        <div className="col-md-6 col-lg-4">
+          <SmallCard
+            title="Total Team Members"
+            value={teamStats?.summary?.totalMembers || 0}
+            icon={<Users size={22} strokeWidth={2.5} />}
+            iconBg="#f0f3ff"
+            iconColor="#4361ee"
+          />
+        </div>
       </div>
 
       {/* ================= RECENT TICKETS TABLE ================= */}

@@ -1,0 +1,178 @@
+:root {
+    --bg-color: #f8fafc;
+    --text-color: #1e293b;
+    --card-bg: #ffffff;
+    --header-bg: #ffffff;
+    --sidebar-bg: #0b5299;
+    --sidebar-text: #ffffff;
+    --sidebar-hover: rgba(255, 255, 255, 0.1);
+    --border-color: #e2e8f0;
+    --primary-color: #0b5299;
+    --secondary-color: #64748b;
+    --accent-color: #ff5900;
+    --stat-card-bg: aliceblue;
+    --input-bg: #ffffff;
+    --info-color: #0dcaf0;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --success-color: #198754;
+}
+
+[data-theme="dark"] {
+    --bg-color: #0f172a;
+    --text-color: #f1f5f9;
+    --card-bg: #1e293b;
+    --header-bg: #1e293b;
+    --sidebar-bg: #111827;
+    --sidebar-text: #f1f5f9;
+    --sidebar-hover: rgba(255, 255, 255, 0.05);
+    --border-color: #334155;
+    --primary-color: #38bdf8;
+    --secondary-color: #94a3b8;
+    --accent-color: #fb923c;
+    --stat-card-bg: #1e293b;
+    --input-bg: #334155;
+    --info-color: #38bdf8;
+    --danger-color: #f87171;
+    --warning-color: #fbbf24;
+    --success-color: #4ade80;
+}
+
+[data-bs-theme="dark"] {
+    --bs-body-bg: var(--bg-color);
+    --bs-body-color: var(--text-color);
+    --bs-primary: #38bdf8;
+    --bs-secondary: #94a3b8;
+    --bs-success: #4ade80;
+    --bs-info: #38bdf8;
+    --bs-warning: #fbbf24;
+    --bs-danger: #f87171;
+    --bs-border-color: var(--border-color);
+    --bs-card-bg: var(--card-bg);
+    --bs-tertiary-bg: var(--stat-card-bg);
+    --bs-light: #1e293b;
+    --bs-dark: #f8fafc;
+}
+
+[data-theme="dark"] .stat-card-adaptive {
+    background-color: var(--stat-card-bg) !important;
+}
+
+body {
+    font-family: 'Google Sans' !important;
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+.table {
+    color: var(--text-color) !important;
+    --bs-table-color: var(--text-color);
+    --bs-table-bg: transparent;
+    --bs-table-border-color: var(--border-color);
+}
+
+.table-light {
+    --bs-table-color: var(--text-color);
+    --bs-table-bg: var(--stat-card-bg);
+}
+
+.table-hover>tbody>tr:hover>* {
+    --bs-table-bg-state: var(--sidebar-hover);
+    color: var(--text-color);
+}
+
+.btn-light {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+.btn-light:hover {
+    background-color: var(--stat-card-bg) !important;
+    color: var(--text-color) !important;
+}
+
+.bg-white {
+    background-color: var(--card-bg) !important;
+}
+
+.text-dark {
+    color: var(--text-color) !important;
+}
+
+.border {
+    border-color: var(--border-color) !important;
+}
+
+.text-muted {
+    color: var(--secondary-color) !important;
+}
+
+/* Modal styles for Team Members */
+.modal-content-emp {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+}
+
+/* Material-UI DataGrid Dark Mode Overrides */
+.MuiDataGrid-root,
+.MuiDataGrid-main,
+.MuiDataGrid-virtualScroller,
+.MuiDataGrid-footerContainer,
+.MuiDataGrid-filler,
+.MuiDataGrid-topContainer,
+.MuiTablePagination-root,
+.MuiTablePagination-toolbar,
+.MuiTablePagination-selectLabel,
+.MuiTablePagination-displayedRows,
+.MuiSelect-select,
+.MuiTablePagination-selectIcon {
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+}
+
+.MuiDataGrid-row {
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+}
+
+.MuiDataGrid-row:hover {
+    background-color: var(--sidebar-hover) !important;
+}
+
+.MuiDataGrid-cell {
+    border-bottom: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.MuiDataGrid-columnHeaders {
+    background-color: var(--stat-card-bg) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.MuiDataGrid-withBorderColor {
+    border-color: var(--border-color) !important;
+}
+
+.MuiDataGrid-iconButtonContainer,
+.MuiDataGrid-sortIcon,
+.MuiDataGrid-menuIcon,
+.MuiIconButton-root,
+.MuiButtonBase-root {
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+}
+
+.MuiIconButton-root:hover,
+.MuiButtonBase-root:hover,
+.MuiDataGrid-iconButtonContainer:hover {
+    background-color: var(--sidebar-hover) !important;
+}

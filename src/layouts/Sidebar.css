@@ -1,0 +1,41 @@
+/* Base sidebar link style */
+.nav-link {
+    transition: all 0.25s ease;
+    border-radius: 8px;
+    color: var(--text-color);
+    white-space: nowrap;
+    opacity: 0.8;
+}
+
+.theme-nav-link {
+    color: var(--text-color) !important;
+}
+
+.nav {
+    overflow-x: hidden;
+}
+
+/* Hover effect (for BOTH NavLink and button) */
+.nav-link:hover {
+    background-color: #ff5e00 !important;
+    transform: translateY(4px);
+    color: #fff !important;
+}
+
+/* Active route style */
+.active-link {
+    background-color: var(--primary-color) !important;
+    color: #ffffff !important;
+    border-radius: 8px;
+}
+
+.active-link i {
+    color: #ffffff !important;
+}
+
+.signout:hover {
+    color: #ff0000 !important;
+    height: 45px;
+    padding-left: 17px;
+    border-radius: 8px;
+}

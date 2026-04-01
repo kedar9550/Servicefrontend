@@ -68,7 +68,7 @@ const DeptTickets = () => {
             { field: "department", minWidth: 150, headerName: "Service", flex: 1 },
             {
               field: "assignedTo", minWidth: 150, headerName: "Assigned To", flex: 1.5, headerAlign: "left", renderCell: (params) => (
-                <span className={params.row.assignedTo === 'Unassigned' ? 'text-muted fst-italic' : 'fw-medium text-dark text-wrap'} style={{ display: 'block', width: '100%', wordBreak: 'break-word', whiteSpace: 'normal', lineHeight: '1.2', textAlign: 'left' }}>
+                <span className={params.row.assignedTo === 'Unassigned' ? 'text-muted fst-italic' : 'fw-medium text-wrap'} style={{ display: 'block', width: '100%', wordBreak: 'break-word', whiteSpace: 'normal', lineHeight: '1.2', textAlign: 'left' }}>
                   {toProperCase(params.row.assignedTo)}
                 </span>
               )

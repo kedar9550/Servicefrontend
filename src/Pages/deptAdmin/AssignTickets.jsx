@@ -227,7 +227,7 @@ function AssignTickets() {
                 </span>
             )
         },
-        { field: "dueDate", minWidth: 120, headerName: "Due Date", flex: 1, renderCell: (params) => <span className="text-dark">{params.row.assignedDueDate ? dayjs(params.row.assignedDueDate).format("MMM DD, YYYY") : "-"}</span> },
+        { field: "dueDate", minWidth: 120, headerName: "Due Date", flex: 1, renderCell: (params) => <span>{params.row.assignedDueDate ? dayjs(params.row.assignedDueDate).format("MMM DD, YYYY") : "-"}</span> },
         {
             field: "actions",
             headerName: "Actions",
@@ -259,7 +259,9 @@ function AssignTickets() {
     ];
 
     const pendingRows = tickets.map((t, index) => ({ ...t, id: t._id }));
-    const completedRows = assignedTickets.map((t, index) => ({ ...t, id: t._id }));
+    const completedRows = assignedTickets
+        .filter(t => t.status !== "REJECTED")
+        .map((t, index) => ({ ...t, id: t._id }));
 
     return (
         <div className="container-fluid">

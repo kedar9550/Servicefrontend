@@ -9,13 +9,14 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { toast } from 'react-toastify';
 
+import CommonTable from './CommonTable';
+import { getStatusColor, getPriorityColor } from "./StatusColors";
+
 function Reports() {
     const { user, isSuperAdmin } = useAuth();
     const [stats, setStats] = React.useState(null);
     const [loading, setLoading] = React.useState(true);
     const [departments, setDepartments] = React.useState([]);
-    const [page, setPage] = React.useState(1);
-    const rowsPerPage = 5;
 
     const [filters, setFilters] = React.useState({
         dateRange: 'last30days',
@@ -31,6 +32,8 @@ function Reports() {
             fetchDepartments();
         }
     }, []);
+
+    // ... (rest of fetch logic remains same)
 
     const fetchDepartments = async () => {
         try {
@@ -53,7 +56,6 @@ function Reports() {
 
             const res = await API.get(`/api/complaints/reports?${params.toString()}`);
             setStats(res.data);
-            setPage(1); // Reset to first page on new filter
         } catch (error) {
             console.error("Error fetching stats:", error);
         } finally {
@@ -130,13 +132,52 @@ function Reports() {
         }
     };
 
-    if (loading && !stats) return <Loader />; // Only show loader on initial load or if no data
+    if (loading && !stats) return <Loader />;
     if (!stats && !loading) return <div className="text-center p-5">Failed to load reports.</div>;
 
     const { summary, trendData, statusData, recentTickets } = stats || {};
 
-    const totalPages = Math.ceil((recentTickets?.length || 0) / rowsPerPage);
-    const paginatedTickets = recentTickets?.slice((page - 1) * rowsPerPage, page * rowsPerPage) || [];
+    const columns = [
+        { field: "ticketNumber", headerName: "Ticket ID", minWidth: 130 },
+        { field: "title", headerName: "Subject", flex: 1.5, minWidth: 200, renderCell: (params) => <span className="fw-medium">{params.value}</span> },
+        { field: "assignedTo", headerName: "Assigned To", flex: 1, minWidth: 150 },
+        { 
+            field: "status", 
+            headerName: "Status", 
+            minWidth: 130,
+            renderCell: (params) => (
+                <span className={`badge rounded px-3 py-2 fw-medium ${getStatusColor(params.value)}`}>
+                    {params.value === 'OPEN' ? 'Unassigned' : params.value === 'ASSIGNED' ? 'Assigned' : params.value.replace('_', ' ')}
+                </span>
+            )
+        },
+        { 
+            field: "priority", 
+            headerName: "Priority", 
+            minWidth: 110,
+            renderCell: (params) => (
+                <span className={`badge ${getPriorityColor(params.value)}`}>
+                    {params.value}
+                </span>
+            )
+        },
+        { field: "createdAt", headerName: "Created Date", minWidth: 120, renderCell: (params) => new Date(params.value).toLocaleDateString('en-GB').replace(/\//g, "-") },
+        { 
+            field: "dueDate", 
+            headerName: "Due Date", 
+            minWidth: 120, 
+            renderCell: (params) => {
+                if (!params.value) return "--";
+                const isOverdue = new Date(params.value) < new Date() && params.row.status !== 'RESOLVED' && params.row.status !== 'CLOSED';
+                return <span className={isOverdue ? "text-danger fw-bold" : "text-primary fw-medium"}>
+                    {new Date(params.value).toLocaleDateString('en-GB').replace(/\//g, "-")}
+                </span>;
+            }
+        },
+        { field: "updatedAt", headerName: "Closed Date", minWidth: 120, renderCell: (params) => params.row.status === 'RESOLVED' || params.row.status === 'CLOSED' ? new Date(params.value).toLocaleDateString('en-GB').replace(/\//g, "-") : "--" }
+    ];
+
+    const rows = recentTickets?.map((t, idx) => ({ ...t, id: t._id || idx })) || [];
 
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
@@ -183,10 +224,9 @@ function Reports() {
             </div>
 
             {/* Filters */}
-            <div className="card border-0 shadow-sm rounded-4 p-4 mb-4">
+            <div className="card border-0 shadow-sm rounded-4 p-4 mb-4" style={{ backgroundColor: "var(--card-bg)" }}>
                 <h6 className="fw-bold mb-3">Filter & Date Range</h6>
                 <div className="d-flex gap-3 flex-wrap align-items-end">
-                    {/* Date Range Select */}
                     <div>
                         <label className="form-label small text-muted fw-bold">Duration</label>
                         <div className="input-group" style={{ width: "220px" }}>
@@ -209,7 +249,6 @@ function Reports() {
                         </div>
                     </div>
 
-                    {/* Custom Date Inputs */}
                     {filters.dateRange === 'custom' && (
                         <>
                             <div>
@@ -237,7 +276,6 @@ function Reports() {
                         </>
                     )}
 
-                    {/* Department Select (for Super Admin) */}
                     {isSuperAdmin() && (
                         <div>
                             <label className="form-label small text-muted fw-bold">Department</label>
@@ -250,13 +288,12 @@ function Reports() {
                             >
                                 <option value="all">All Departments</option>
                                 {departments.map(dept => (
-                                    <option key={dept._id} value={dept._id} style={{ color: "var(--text-color)" }}>{dept.name}</option>
+                                    <option key={dept._id} value={dept._id}>{dept.name}</option>
                                 ))}
                             </select>
                         </div>
                     )}
 
-                    {/* Priority Select */}
                     <div>
                         <label className="form-label small text-muted fw-bold">Priority</label>
                         <select 
@@ -266,15 +303,15 @@ function Reports() {
                             value={filters.priority}
                             onChange={handleFilterChange}
                         >
-                            <option value="all" style={{ color: "var(--text-color)" }}>All Priorities</option>
-                            <option value="low" style={{ color: "var(--text-color)" }}>Low</option>
-                            <option value="medium" style={{ color: "var(--text-color)" }}>Medium</option>
-                            <option value="high" style={{ color: "var(--text-color)" }}>High</option>
+                            <option value="all">All Priorities</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
                         </select>
                     </div>
 
                     <button 
-                        className="btn btn-primary px-4 fw-medium h-100" 
+                        className="btn btn-primary px-4 fw-medium" 
                         style={{ height: "38px" }}
                         onClick={applyFilters}
                     >
@@ -283,9 +320,8 @@ function Reports() {
                 </div>
             </div>
 
-            {/* Top KPIs */}
+            {/* KPIs */}
             <div className="row g-4 mb-4">
-                {/* Resolution Rate */}
                 <div className="col-12 col-md-4">
                     <div className="card shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--stat-card-bg)", border: "1px solid var(--border-color)" }}>
                         <div className="d-flex gap-3 mb-2 align-items-center">
@@ -294,7 +330,7 @@ function Reports() {
                             </div>
                             <div>
                                 <h6 className="text-secondary fw-medium mb-1" style={{ fontSize: "0.9rem" }}>Resolution Rate</h6>
-                                <h3 className="fw-bold mb-0">{summary?.resolutionRate || "0%"}</h3>
+                                <h3 className="fw-bold mb-0 text-color-adaptive">{summary?.resolutionRate || "0%"}</h3>
                             </div>
                         </div>
                         <div className="progress mt-3 rounded-pill" style={{ height: "6px" }}>
@@ -303,7 +339,6 @@ function Reports() {
                     </div>
                 </div>
 
-                {/* Avg Handling Time */}
                 <div className="col-12 col-md-4">
                     <div className="card shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--stat-card-bg)", border: "1px solid var(--border-color)" }}>
                         <div className="d-flex gap-3 mb-2 align-items-center">
@@ -312,7 +347,7 @@ function Reports() {
                             </div>
                             <div>
                                 <h6 className="text-secondary fw-medium mb-1" style={{ fontSize: "0.9rem" }}>Avg. Handling Time</h6>
-                                <h3 className="fw-bold mb-0">{summary?.avgHandlingTime || "0 Days"}</h3>
+                                <h3 className="fw-bold mb-0 text-color-adaptive">{summary?.avgHandlingTime || "0 Days"}</h3>
                             </div>
                         </div>
                         <div className="progress mt-3 rounded-pill" style={{ height: "6px" }}>
@@ -321,7 +356,6 @@ function Reports() {
                     </div>
                 </div>
 
-                {/* Overdue Tickets */}
                 <div className="col-12 col-md-4">
                     <div className="card shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--stat-card-bg)", border: "1px solid var(--border-color)" }}>
                         <div className="d-flex gap-3 mb-2 align-items-center">
@@ -330,7 +364,7 @@ function Reports() {
                             </div>
                             <div>
                                 <h6 className="text-secondary fw-medium mb-1" style={{ fontSize: "0.9rem" }}>Overdue Tickets</h6>
-                                <h3 className="fw-bold mb-0">{summary?.overdueTickets || 0}</h3>
+                                <h3 className="fw-bold mb-0 text-color-adaptive">{summary?.overdueTickets || 0}</h3>
                             </div>
                         </div>
                         <div className="progress mt-3 rounded-pill" style={{ height: "6px" }}>
@@ -342,9 +376,8 @@ function Reports() {
 
             {/* Charts Row */}
             <div className="row g-4 mb-4">
-                {/* Trend Area Chart */}
                 <div className="col-12 col-lg-8">
-                    <div className="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <div className="card border-0 shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--card-bg)" }}>
                         <h5 className="fw-bold mb-4">Tickets Trend (Last 30 Days)</h5>
                         <div style={{ height: "250px", width: "100%" }}>
                             <ResponsiveContainer width="100%" height="100%">
@@ -370,9 +403,8 @@ function Reports() {
                     </div>
                 </div>
 
-                {/* Status Pie Chart */}
                 <div className="col-12 col-lg-4">
-                    <div className="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <div className="card border-0 shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--card-bg)" }}>
                         <h5 className="fw-bold mb-4">Tickets by Status</h5>
                         <div style={{ height: "250px", width: "100%" }} className="d-flex justify-content-start align-items-center">
                             <ResponsiveContainer width="100%" height="100%">
@@ -398,106 +430,15 @@ function Reports() {
                 </div>
             </div>
 
-            {/* Detailed Table */}
-            <div className="card border-0 shadow-sm rounded-4 p-4 mb-4">
-                <div className="d-flex justify-content-between align-items-center mb-4">
-                    <h5 className="fw-bold mb-0">Detailed Report Table</h5>
-                    <div className="input-group shadow-sm rounded border" style={{ width: "250px", borderColor: "var(--border-color)" }}>
-                        <input type="text" className="form-control border-end-0 border-0" style={{ backgroundColor: "var(--input-bg)", color: "var(--text-color)" }} placeholder="Search reports..." />
-                        <span className="input-group-text border-0" style={{ backgroundColor: "var(--input-bg)" }}><FileText size={16} className="text-muted"/></span>
-                    </div>
-                </div>
-
-                <div className="table-responsive">
-                    <table className="table align-middle border-top mb-1" style={{ fontSize: "0.95rem" }}>
-                        <thead className="stat-card-adaptive text-muted">
-                            <tr>
-                                <th className="fw-semibold border-0 py-3">Ticket ID</th>
-                                <th className="fw-semibold border-0 py-3">Subject</th>
-                                <th className="fw-semibold border-0 py-3">Assigned To</th>
-                                <th className="fw-semibold border-0 py-3">Status</th>
-                                <th className="fw-semibold border-0 py-3">Priority</th>
-                                <th className="fw-semibold border-0 py-3">Created Date</th>
-                                <th className="fw-semibold border-0 py-3">Due Date</th>
-                                <th className="fw-semibold border-0 py-3">Closed Date</th>
-                            </tr>
-                        </thead>
-                        <tbody className="border-0">
-                            {paginatedTickets.map((t, idx) => {
-                                const isResolved = t.status === 'RESOLVED';
-                                const isOverdue = !isResolved && t.status !== 'CLOSED' && t.dueDate && new Date(t.dueDate) < new Date();
-                                const isUnassigned = t.status === 'OPEN';
-
-                                return (
-                                    <tr key={idx} style={
-                                            isOverdue ? { backgroundColor: "rgba(239, 68, 68, 0.1)", borderLeft: "4px solid #ef4444" } : 
-                                            isResolved ? { backgroundColor: "rgba(34, 197, 94, 0.1)" } : 
-                                            isUnassigned ? { backgroundColor: "rgba(249, 115, 22, 0.1)" } : 
-                                            t.status === 'IN_PROGRESS' ? { backgroundColor: "rgba(234, 179, 8, 0.1)" } : 
-                                            t.status === 'ASSIGNED' ? { backgroundColor: "rgba(59, 130, 246, 0.1)" } : {}
-                                        }>
-                                        <td className="text-muted">{t.ticketNumber}</td>
-                                        <td className="fw-medium" style={{ color: "var(--text-color)" }}>{t.title}</td>
-                                        <td className="text-muted">{t.assignedTo}</td>
-                                        <td>
-                                            {(() => {
-                                                let badgeColor = '#f97316'; // Orange (Unassigned)
-                                                let badgeText = isUnassigned ? 'Unassigned' : 'Assigned';
-
-                                                if (isResolved) {
-                                                    badgeColor = '#22c55e'; // Green
-                                                    badgeText = 'Resolved';
-                                                } else if (t.status === 'IN_PROGRESS') {
-                                                    badgeColor = '#eab308'; // Yellow
-                                                    badgeText = 'In Progress';
-                                                } else if (t.status === 'ASSIGNED') {
-                                                    badgeColor = '#3b82f6'; // Blue
-                                                    badgeText = 'Assigned';
-                                                }
-
-                                                return (
-                                                    <span className="badge rounded px-3 py-2 fw-medium" style={{ backgroundColor: badgeColor, color: '#fff' }}>
-                                                        {badgeText}
-                                                    </span>
-                                                );
-                                            })()}
-                                        </td>
-                                    <td className="text-secondary">{t.priority}</td>
-                                    <td className="text-secondary">{new Date(t.createdAt).toLocaleDateString('en-GB').replace(/\//g, "-")}</td>
-                                    <td className={!t.dueDate ? "text-muted" : (new Date(t.dueDate) < new Date() && t.status !== 'RESOLVED' ? "text-danger fw-bold" : "text-primary fw-medium")}>
-                                        {t.dueDate ? new Date(t.dueDate).toLocaleDateString('en-GB').replace(/\//g, "-") : "--"}
-                                    </td>
-                                    <td className="text-muted fw-bold">{t.updatedAt ? new Date(t.updatedAt).toLocaleDateString('en-GB').replace(/\//g, "-") : "--"}</td>
-                                </tr>
-                            );
-                        })}
-                            {paginatedTickets.length === 0 && (
-                                <tr><td colSpan="7" className="text-center py-5 text-muted">No records found</td></tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* Pagination */}
-                <div className="d-flex justify-content-end align-items-center mt-3 gap-3">
-                    <button 
-                        className="btn btn-sm btn-light border rounded shadow-sm" 
-                        disabled={page === 1} 
-                        onClick={() => setPage(page - 1)}
-                    >
-                        <ChevronLeft size={16} className="text-secondary"/>
-                    </button>
-                    <span className="text-dark fw-medium" style={{ fontSize: "0.9rem" }}>
-                        {page} <span className="text-muted fw-normal mx-1">of</span> {totalPages || 1}
-                    </span>
-                    <button 
-                        className="btn btn-sm btn-light border rounded shadow-sm" 
-                        disabled={page >= totalPages || totalPages === 0} 
-                        onClick={() => setPage(page + 1)}
-                    >
-                        <ChevronRight size={16} className="text-secondary"/>
-                    </button>
-                </div>
+            {/* Detailed Table using CommonTable */}
+            <div className="card border-0 shadow-sm rounded-4 p-4 mb-4" style={{ backgroundColor: "var(--card-bg)" }}>
+                <h5 className="fw-bold mb-4">Detailed Report Table</h5>
+                <CommonTable 
+                    columns={columns} 
+                    rows={rows} 
+                    Data="Tickets Report" 
+                    initialPageSize={10}
+                />
             </div>
 
         </div>

@@ -80,6 +80,8 @@ const NotificationBell = () => {
       navigate('/dept/assign');
     } else if (notif.type === 'TICKET_ASSIGNED') {
       navigate('/dev/assigned');
+    } else if (notif.type === 'ASSIGNMENT_REJECTED') {
+      navigate('/rejected');
     } else if (notif.ticketId) {
       navigate(`/ticketdetails/${notif.ticketId}`); 
     }

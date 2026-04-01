@@ -27,9 +27,9 @@ const EmployeeDashboard = () => {
 
   const stats = {
     total: complaints.length,
-    open: complaints.filter(c => c.status === "OPEN" || c.status === "New").length,
-    progress: complaints.filter(c => c.status === "IN_PROGRESS" || c.status === "In Progress").length,
-    closed: complaints.filter(c => c.status === "RESOLVED" || c.status === "CLOSED").length,
+    open: complaints.filter(c => ["OPEN", "New", "ASSIGNED", "Assigned"].includes(c.status)).length,
+    progress: complaints.filter(c => ["IN_PROGRESS", "In Progress"].includes(c.status)).length,
+    closed: complaints.filter(c => ["RESOLVED", "RESOLVED", "CLOSED", "Closed"].includes(c.status)).length,
   };
 
   const columns = [

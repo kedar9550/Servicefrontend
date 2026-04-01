@@ -6,6 +6,7 @@ import {
   Users,
   Eye,
   Activity,
+  UserPlus,
 } from "lucide-react";
 
 import Loader from "../../Components/Loader";
@@ -154,16 +155,6 @@ const DeptDashboard = () => {
           progressColor="#4361ee"
         />
 
-        <StatCard
-          title="Unassigned Tickets"
-          value={pendingCount}
-          progress={getPercentage(pendingCount)}
-          icon={<Clock size={24} strokeWidth={2.5} />}
-          iconBg="#fff0ed"
-          iconColor="#e76f51"
-          progressColor="#e76f51"
-        />
-
         {assignedCount > 0 && (
           <StatCard
             title="Assigned Tickets"
@@ -208,6 +199,16 @@ const DeptDashboard = () => {
           iconBg="#f0f3ff"
           iconColor="#4361ee"
           progressColor="#4361ee"
+        />
+
+        <StatCard
+          title="Pending Assignments"
+          value={pendingCount}
+          progress={getPercentage(pendingCount)}
+          icon={<Clock size={24} strokeWidth={2.5} />}
+          iconBg="#fff0ed"
+          iconColor="#e76f51"
+          progressColor="#e76f51"
         />
       </div>
 

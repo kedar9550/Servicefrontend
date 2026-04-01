@@ -226,25 +226,22 @@ const RejectedTickets = () => {
                 <p className="text-secondary small mb-3">Tickets that have been finally rejected by the Service admin.</p>
                 <div className="card border-0 shadow-sm rounded-4 p-4">
                     <CommonTable
-                        rows={allRejectedTickets.map((t, index) => {
-                            const rejectedAssignment = t.assignedTo?.find(a => a.status === "REJECTED");
-                            return {
-                                ...t,
-                                id: t._id,
-                                employeeNote: rejectedAssignment?.note || "---"
-                            };
-                        })}
+                        rows={allRejectedTickets.map((t, index) => ({
+                            ...t,
+                            id: t._id,
+                            remarks: t.rejectionReason || "---" // Use admin's rejection reason
+                        }))}
                         columns={[
                             { field: "ticketNumber", headerName: "Ticket ID", minWidth: 150 },
                             { field: "title", minWidth: 150, headerName: "Title", flex: 1, renderCell: (params) => <span className="fw-bold">{params.row.title}</span> },
                             {
-                                field: "employeeNote", align: "left", minWidth: 150, headerName: "Employee Note", flex: 1, renderCell: (params) => <div style={{
+                                field: "remarks", align: "left", minWidth: 150, headerName: "Remarks", flex: 1, renderCell: (params) => <div style={{
                                     width: "100%",
                                     textAlign: "left",
                                     whiteSpace: "normal",
                                     wordBreak: "break-word",
                                     lineHeight: "1.4"
-                                }}>{params.row.employeeNote}</div>
+                                }}>{params.row.remarks}</div>
                             },
                             {
                                 field: "status",

@@ -325,7 +325,12 @@ const TicketDetails = () => {
                         stage.key === "REJECTED" ? (
                           <FaTimesCircle color="#e74c3c" size={16} />
                         ) : (
-                          <FaCheckCircle color="#0b5299" size={16} />
+                          // If ticket is overall REJECTED, don't show success checkmarks for intermediate steps
+                          ticket.status === "REJECTED" && (stage.key === "ASSIGNED" || stage.key === "IN_PROGRESS") ? (
+                            <div style={{ width: 12, height: 12, backgroundColor: "#adb5bd", borderRadius: "50%" }} />
+                          ) : (
+                            <FaCheckCircle color="#0b5299" size={16} />
+                          )
                         )
                       ) : (
                         <FaClock color="#adb5bd" size={14} />
@@ -364,8 +369,9 @@ const TicketDetails = () => {
                       )}
 
                       {stage.key === "REJECTED" && ticket.status === "REJECTED" && (
-                        <div className="text-muted small">
-                          Ticket rejected by administrator
+                        <div className="bg-danger-subtle p-2 rounded mt-2 border-start border-danger border-3">
+                          <p className="mb-1 text-danger-emphasis fw-bold x-small">Rejection Reason:</p>
+                          <p className="mb-0 text-muted small">{ticket.rejectionReason || "No remarks provided."}</p>
                         </div>
                       )}
                     </div>

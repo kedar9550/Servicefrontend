@@ -6,19 +6,11 @@ function Profile() {
 
   const { user, updateUser, getPrimaryRole } = useAuth();
 
-  const departments = [
-    "CSE", "IT", "ECE", "EEE", "MECH", "CIVIL",
-    "AIML", "DS", "IOT", "PETRO & MINING",
-    "MCA", "AGRI", "FORENSIC SCIENCE", "BUSINESS SCHOOL",
-    "OTHER"
-  ];
-
   const [formData, setFormData] = useState({
     fullname: "",
     id: "",
     department: "",
     designation: "",
-    otherDepartment: "",
     email: "",
     phone: "",
     role: getPrimaryRole()
@@ -37,7 +29,6 @@ function Profile() {
         id: user.institutionId || "",
         department: user.department || "",
         designation: user.designation || "",
-        otherDepartment: "",
         email: user.email || "",
         phone: user.phone || "",
         role: getPrimaryRole() || ""
@@ -99,15 +90,8 @@ function Profile() {
     if (!formData.id.trim())
       newErrors.id = "ID required";
 
-    if (!formData.department)
+    if (!formData.department.trim())
       newErrors.department = "Department required";
-
-    if (
-      formData.department === "OTHER" &&
-      !formData.otherDepartment.trim()
-    ) {
-      newErrors.otherDepartment = "Enter department name";
-    }
 
     if (!/^[6-9]\d{9}$/.test(formData.phone))
       newErrors.phone = "Enter valid Indian mobile number";
@@ -123,14 +107,9 @@ function Profile() {
       value = value.replace(/\D/g, "").slice(0, 10);
     }
 
-    if (name === "otherDepartment") {
-      value = value.toUpperCase();
-    }
-
     setFormData(prev => ({
       ...prev,
-      [name]: value,
-      ...(name === "department" && value !== "OTHER" && { otherDepartment: "" })
+      [name]: value
     }));
   };
 
@@ -141,15 +120,10 @@ function Profile() {
     setSubmitting(true);
 
     try {
-      const finalDepartment =
-        formData.department === "OTHER"
-          ? formData.otherDepartment
-          : formData.department;
-
       await API.put("/api/auth/update-profile", {
         name: formData.fullname,
         institutionId: formData.id,
-        department: finalDepartment,
+        department: formData.department,
         designation: formData.designation,
         phone: formData.phone
       });
@@ -292,33 +266,15 @@ function Profile() {
 
                 <div className="col-md-6 mb-3">
                   <label>Department</label>
-                  <select
+                  <input
+                    type="text"
                     name="department"
                     value={formData.department}
                     className="form-control"
                     disabled
-                  >
-                    <option value="" disabled>Select Department</option>
-                    {departments.map(dept => (
-                      <option key={dept} value={dept}>{dept}</option>
-                    ))}
-                  </select>
+                  />
                   {errors.department && <small className="text-danger">{errors.department}</small>}
                 </div>
-
-                {formData.department === "OTHER" && (
-                  <div className="col-md-6 mb-3">
-                    <label>Other Department</label>
-                    <input
-                      type="text"
-                      name="otherDepartment"
-                      value={formData.otherDepartment}
-                      onChange={handleChange}
-                      className="form-control"
-                    />
-                    {errors.otherDepartment && <small className="text-danger">{errors.otherDepartment}</small>}
-                  </div>
-                )}
 
                 <div className="col-md-6 mb-3">
                   <label>Phone</label>

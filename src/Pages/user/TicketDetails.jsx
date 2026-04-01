@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { FaCheckCircle, FaClock, FaUser, FaTimesCircle } from "react-icons/fa";
+import { FaCheckCircle, FaClock, FaUser, FaTimesCircle, FaPaperPlane, FaRocket, FaTelegramPlane } from "react-icons/fa";
 import { FaFilePdf, FaFileWord, FaFileImage, FaFileVideo, FaFileArchive } from "react-icons/fa";
+
+
+
 
 import API from '../../api/axios'
 import Loader from '../../Components/Loader'
@@ -76,7 +79,7 @@ const TicketDetails = () => {
       });
 
       setNewComment("");
-      
+
       // We no longer need to fetchTicketDetails() here because 
       // the new comment will be broadcast via Socket.IO and appended immediately.
 
@@ -223,39 +226,80 @@ const TicketDetails = () => {
             {comments.map((c) => (
               <div key={c._id} className="d-flex mb-3">
                 <div
-                  className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                  style={{ width: 40, height: 40 }}
+                  className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center border shadow-sm"
+                  style={{ width: 42, height: 42, overflow: 'hidden', minWidth: 42 }}
                 >
-                  {c.user?.name?.[0]}
+                  {c.user?.profileImage ? (
+                    <img 
+                      src={`${import.meta.env.VITE_BACKEND_URL}/uploads/profile/${c.user.profileImage}`} 
+                      alt={c.user?.name?.[0]} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      onError={(e) => {
+                        e.target.onerror = null; 
+                        e.target.src = `https://info.aec.edu.in/aec/employeephotos/${c.user.empId}.jpg`;
+                      }}
+                    />
+                  ) : (
+                    <span style={{ fontWeight: '500' }}>{c.user?.name?.[0]}</span>
+                  )}
                 </div>
 
-                <div className="ms-3 bg-light p-3 rounded w-100">
-                  <strong>{c.user?.name}</strong>
-                  <small className="text-muted">
-                    {" "}• {new Date(c.createdAt).toLocaleString()}
-                  </small>
-                  <p className="mb-0">{c.message}</p>
+
+                <div className="ms-3 p-3 rounded-4 w-100 shadow-sm border" 
+                    style={{ 
+                      backgroundColor: 'var(--stat-card-bg)', 
+                      borderColor: 'var(--border-color) !important',
+                      color: 'var(--text-color)' 
+                    }}>
+                  <div className="d-flex justify-content-between align-items-center mb-1">
+                    <strong style={{ color: 'var(--text-color)' }}>{c.user?.name}</strong>
+                    <small className="text-secondary" style={{ fontSize: '0.75em' }}>
+                      {new Date(c.createdAt).toLocaleString()}
+                    </small>
+                  </div>
+                  <p className="mb-0" style={{ color: 'var(--text-color)', fontSize: '0.90em', opacity: 0.9 }}>
+                    {c.message}
+                  </p>
                 </div>
+
               </div>
             ))}
 
             {ticket.status !== "RESOLVED" && ticket.status !== "REJECTED" && (
-              <>
+              <div className="d-flex align-items-end mt-3 gap-2">
                 <textarea
-                  className="form-control mt-3"
+                  className="form-control"
                   placeholder="Add a comment..."
+                  rows="1"
+                  style={{ 
+                    resize: 'none', 
+                    minHeight: '46px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--input-bg)',
+                    color: 'var(--text-color)',
+                    borderColor: 'var(--border-color)'
+                  }}
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                 />
-
                 <button
-                  className="btn btn-primary mt-3 float-end"
+                  className="btn btn-primary d-flex align-items-center justify-content-center"
+                  style={{ 
+                    width: '46px', 
+                    height: '46px', 
+                    minWidth: '46px',
+                    borderRadius: '12px'
+                  }}
                   onClick={handleAddComment}
+                  title="Send Comment"
                 >
-                  Send
+                  <FaTelegramPlane size={18} />
                 </button>
-              </>
+
+
+              </div>
             )}
+
           </div>
 
         </div>
@@ -344,10 +388,11 @@ const TicketDetails = () => {
                   href={`${import.meta.env.VITE_BACKEND_URL}/api/complaints/${ticket._id}/attachments/${file._id}`}
                   target="_blank"
                   rel="noreferrer"
-
+                  className="attachment-link"
                 >
-                  {getFileIcon(file.fileType)} {file.fileName}
+                  {getFileIcon(file.fileType)} <span className="ms-2">{file.fileName}</span>
                 </a>
+
               </div>
             ))}
 

@@ -27,7 +27,7 @@
     --sidebar-text: #f1f5f9;
     --sidebar-hover: rgba(255, 255, 255, 0.05);
     --border-color: #334155;
-    --primary-color: #38bdf8;
+    --primary-color: #BE9332;
     --secondary-color: #94a3b8;
     --accent-color: #fb923c;
     --stat-card-bg: #1e293b;
@@ -136,7 +136,16 @@ body {
 .MuiTablePagination-selectIcon {
     background-color: transparent !important;
     color: var(--text-color) !important;
+    font-family: 'Google Sans' !important;
 }
+
+.MuiTablePagination-selectLabel,
+.MuiTablePagination-displayedRows {
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
 
 .MuiDataGrid-row {
     background-color: transparent !important;
@@ -176,3 +185,106 @@ body {
 .MuiDataGrid-iconButtonContainer:hover {
     background-color: var(--sidebar-hover) !important;
 }
+
+/* MUI Menu & Select fix for both Dark and Light modes */
+.MuiPaper-root.MuiMenu-paper {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.MuiMenuItem-root {
+    font-family: 'Google Sans' !important;
+    color: var(--text-color) !important;
+}
+
+.MuiMenuItem-root:hover {
+    background-color: var(--sidebar-hover) !important;
+}
+
+/* Notification Dropdown Customizations */
+.notification-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.notification-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+.notification-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+.list-group-item-action {
+    color: var(--text-color) !important;
+    background-color: transparent !important;
+}
+
+.list-group-item-action:hover,
+.list-group-item-action:focus {
+    background-color: var(--sidebar-hover) !important;
+    color: var(--text-color) !important;
+}
+
+.dropdown-menu {
+    background-color: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Global Theme Overrides for Bootstrap & Forms */
+.bg-light {
+    background-color: var(--stat-card-bg) !important;
+}
+
+.text-muted {
+    color: var(--secondary-color) !important;
+}
+
+.form-control, .form-select {
+    background-color: var(--input-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--input-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--primary-color-rgb, 11, 82, 153), 0.25) !important;
+}
+
+.form-control::placeholder {
+    color: var(--secondary-color) !important;
+    opacity: 0.7;
+}
+
+/* Attachment Link Visibility Fix */
+.attachment-link {
+    color: var(--text-color) !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.attachment-link:hover {
+    background-color: var(--sidebar-hover);
+    color: var(--accent-color) !important;
+}
+
+.attachments a {
+    color: var(--text-color) !important;
+    text-decoration: none;
+}
+
+.attachments a:hover {
+    color: var(--accent-color) !important;
+}
+

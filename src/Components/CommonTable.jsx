@@ -164,16 +164,11 @@ const CommonTable = ({ rows, columns, initialPageSize = 5, Data = "Data" }) => {
                         borderTop: "1px solid var(--border-color) !important",
                         color: "var(--text-color) !important",
                     },
-                    "& .MuiTablePagination-root, & .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows, & .MuiMenuItem-root": {
-                        fontFamily: "Google Sans !important",
-                        color: "var(--text-color) !important",
-                    },
                     "& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows": {
-                        marginBottom: "0 !important",
-                        marginTop: "0 !important",
                         display: "flex",
                         alignItems: "center",
                     },
+
                     "& .MuiIconButton-root, & .MuiSelect-icon, & .MuiDataGrid-sortIcon, & .MuiDataGrid-iconButtonContainer": {
                         color: "var(--text-color) !important",
                         backgroundColor: "transparent",

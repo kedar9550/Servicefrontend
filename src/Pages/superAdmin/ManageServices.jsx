@@ -5,12 +5,16 @@ import Loader from "../../Components/Loader";
 import API from "../../api/axios";
 import serviceIllustration from "../../assets/service_card_illustration.png";
 import { Settings, UserPlus, Pencil, Trash2 } from "lucide-react";
+import { useTheme } from "../../context/ThemeContext";
 
 const ManageServices = () => {
 
+
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   const [services, setServices] = useState([]);
+
   const [showModal, setShowModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [currentId, setCurrentId] = useState(null);
@@ -120,9 +124,14 @@ const ManageServices = () => {
               className="card stat-card-adaptive shadow-sm border-0 rounded-4 overflow-hidden h-100"
               style={{
                 cursor: "pointer",
-                transition: "transform 0.2s"
+                transition: "transform 0.2s",
+                backgroundImage: theme === 'dark' ? "url('/Service_card_bg_dark.png')" : "url('/Service_card_bg.png')",
+                backgroundSize: "90% auto",
+                backgroundPosition: "top center",
+                backgroundRepeat: "no-repeat"
               }}
               onClick={() => navigate(`/super/service/${service._id}/admins`)}
+
               onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.02)"}
               onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
             >

@@ -129,7 +129,7 @@ const ForgotPassword = () => {
           </div>
 
 
-          <div className="col-12 col-md-5 d-md-flex justify-content-start align-items-center d-none d-md-block">
+          <div className="col-12 col-md-4 d-md-flex justify-content-start align-items-center d-none d-md-block">
             <form className="login_card shadow">
               <p className="h5 fw-bold text-center mb-4 " style={{ color: "var(--primary-color)", fontFamily: "'Poppins', !important", fontWeight: "bold" }}>FORGET PASSWORD</p>
               {/* STEP 1 – EMAIL */}
@@ -224,8 +224,8 @@ const ForgotPassword = () => {
             </form>
           </div>
           {/* RIGHT SIDE IMAGES */}
-          <div className="col-12 col-md-4 d-flex justify-content-start d-none d-md-block">
-            <img src="/forget_illustration1.png" className="img-fluid" alt="illustration" />
+          <div className="col-12 col-md-5 d-flex justify-content-start d-none d-md-block">
+            <img src="/forget_illustration1.png" className="forget_img" alt="illustration" />
           </div>
 
           <div className="col-12 col-md-3 d-none d-md-block">
@@ -238,15 +238,7 @@ const ForgotPassword = () => {
 
           <div className="container d-block d-md-none">
             <div className="row">
-              <div className="d-flex justify-content-center align-items-center">
-                <div className="col-10 forget_image position-relative z-0">
-                  <img src="/forget_illustration_mobile.png" className="img-fluid" alt="forget_image_bg" />
-                </div>
-                <div className="col-2 align-self-end mb-5 z-2">
-                  <img src="/forget_plant.png" className="img-fluid" alt="forget_image_bg" />
-                </div>
-              </div>
-              <div className="col-12 d-flex justify-content-center align-items-center d-block d-md-none">
+              <div className="col-12 d-flex justify-content-center align-items-center mt-5">
                 <form className="forget_card shadow z-1">
                   <p className="h6 fw-bold text-center">FORGET PASSWORD</p>
                   {/* STEP 1 – EMAIL */}

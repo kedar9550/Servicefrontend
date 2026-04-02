@@ -529,7 +529,7 @@ function Signup() {
                 </div>
             </div>
 
-            <div className="auth-footer pb-2" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
+            <div className="auth-footer mb-3" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
                 Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
             </div>
         </div>

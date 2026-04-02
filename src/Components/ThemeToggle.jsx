@@ -14,8 +14,8 @@ const ThemeToggle = () => {
         position: "relative",
         display: "flex",
         alignItems: "center",
-        width: "72px",
-        height: "36px",
+        width: "57px",
+        height: "26px",
         backgroundColor: isLight ? "#ffffff" : "#2d3748",
         border: isLight ? "1.5px solid #e2e8f0" : "1.5px solid #4a5568",
         borderRadius: "50px",
@@ -24,7 +24,9 @@ const ThemeToggle = () => {
         marginRight: "15px",
         outline: "none",
         padding: "0",
-        transition: "all 0.3s ease"
+        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        overflow: "hidden",
+        boxSizing: "border-box"
       }}
     >
       {/* Icon Slots */}
@@ -37,14 +39,14 @@ const ThemeToggle = () => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "0 10px",
+        padding: "0 8px",
         pointerEvents: "none"
       }}>
-        {/* Left Side: Sun in Light mode, Nothing in Dark mode (thumb covers it) */}
-        <div style={{ width: "20px", display: "flex", justifyContent: "center" }}>
+        {/* Left Side: Sun in Light mode */}
+        <div style={{ width: "16px", display: "flex", justifyContent: "center", alignItems: "center" }}>
           {isLight ? (
-            <svg 
-              width="18" height="18" viewBox="0 0 24 24" 
+            <svg
+              width="18" height="18" viewBox="0 0 24 24"
               fill="none" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
             >
               <circle cx="12" cy="12" r="4"></circle>
@@ -53,11 +55,11 @@ const ThemeToggle = () => {
           ) : null}
         </div>
 
-        {/* Right Side: Moon in Dark mode, Nothing in Light mode (thumb covers it) */}
-        <div style={{ width: "20px", display: "flex", justifyContent: "center" }}>
+        {/* Right Side: Moon in Dark mode */}
+        <div style={{ width: "16px", display: "flex", justifyContent: "center", alignItems: "center" }}>
           {!isLight ? (
-            <svg 
-              width="18" height="18" viewBox="0 0 24 24" 
+            <svg
+              width="16" height="16" viewBox="0 0 24 24"
               fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
             >
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -70,15 +72,16 @@ const ThemeToggle = () => {
       <div
         style={{
           position: "absolute",
-          width: "30px",
-          height: "30px",
+          width: "20px",
+          height: "20px",
           borderRadius: "50%",
-          backgroundColor: isLight ? "#fef3c7" : "transparent", 
-          border: isLight ? "4px solid #fbbf24" : "3.5px solid #ffffff", 
-          transition: "transform 0.3s ease-in-out",
-          transform: isLight ? "translateX(36px)" : "translateX(3px)",
+          backgroundColor: isLight ? "#fef3c7" : "transparent",
+          border: isLight ? "4px solid #fbbf24" : "3px solid #ffffff",
+          transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          transform: isLight ? "translateX(32px)" : "translateX(5px)",
           boxSizing: "border-box",
-          top: "2px"
+          top: "2px",
+          left: "0"
         }}
       />
     </button>

@@ -82,10 +82,9 @@
     color: var(--text-color);
     border-radius: 20px;
     padding: 20px;
-    margin-top: 50px;
-    width: 95%;
-    min-width: 350px;
-    margin: 20px auto;
+    width: 90%;
+    max-width: 450px;
+    margin: 40px auto 20px;
 }
 
 
@@ -565,7 +564,7 @@
 
 .forget_img {
     width: 100%;
-    max-width: 400px;
+    max-width: 570px;
 }
 
 /* Time line */

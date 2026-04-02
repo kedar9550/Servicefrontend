@@ -336,6 +336,10 @@ const ForgotPassword = () => {
           </div>
         </div>
       </div>
+      
+      <div className="position-absolute bottom-0 w-100 text-center pb-2" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
+          Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
+      </div>
     </div>
   );
 };

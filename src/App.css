@@ -32,31 +32,31 @@
 
 .bg_container {
     background-color: var(--bg-color);
-    height: 100vh;
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
     overflow-x: hidden;
     position: relative;
-
+    transition: background-color 0.3s ease;
 }
 
 .img-fluid {
-    margin-left: 100px;
+    /* Removed global margin-left: 100px as it breaks mobile views */
+    max-width: 100%;
 }
 
 .main-container {
-    height: 75vh;
-    /* full screen height */
+    min-height: calc(100vh - 120px);
+    /* Fill remaining space after header */
     display: flex;
-    justify-content: space-between;
-    /* left & right layout */
+    justify-content: center;
     align-items: center;
-    /* 🔥 vertical center */
-    padding: 0 60px;
+    padding: 20px;
 }
 
 .header-section {
-    min-height: 120px;
+    min-height: 100px;
+    padding: 10px 20px;
 }
 
 .logo {
@@ -138,10 +138,20 @@
     }
 
     .logo {
-        position: absolute;
-        left: 0px;
-        height: 95px;
+        position: relative;
+        height: 70px;
+        margin-right: auto;
+    }
 
+    .header-section {
+        flex-direction: row !important;
+        justify-content: space-between;
+    }
+
+    .header-section p {
+        flex: 1;
+        text-align: center;
+        margin: 0 !important;
     }
 
     .login_card {
@@ -563,8 +573,22 @@
 }
 
 .forget_img {
+    width: 80%;
+    max-width: 270px;
+}
+
+.auth-footer {
     width: 100%;
-    max-width: 570px;
+    text-align: center;
+    padding: 20px 0;
+    z-index: 100;
+}
+
+@media (min-width: 992px) and (min-height: 800px) {
+    .auth-footer {
+        position: absolute;
+        bottom: 0;
+    }
 }
 
 /* Time line */

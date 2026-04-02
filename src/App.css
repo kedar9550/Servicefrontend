@@ -33,9 +33,11 @@
 .bg_container {
     background-color: var(--bg-color);
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-size: cover;
     background-position: center;
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
     transition: background-color 0.3s ease;
 }
@@ -46,12 +48,12 @@
 }
 
 .main-container {
-    min-height: calc(100vh - 120px);
-    /* Fill remaining space after header */
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 0 20px;
+    width: 100%;
 }
 
 .header-section {
@@ -580,8 +582,23 @@
 .auth-footer {
     width: 100%;
     text-align: center;
-    padding: 20px 0;
-    z-index: 100;
+    padding: 15px 0 0 0;
+    margin-top: auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    position: relative;
+    bottom: 0;
+}
+
+.auth-footer .brand {
+    color: var(--primary-color);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.auth-footer p {
+    margin: 0;
 }
 
 @media (min-width: 992px) and (min-height: 800px) {

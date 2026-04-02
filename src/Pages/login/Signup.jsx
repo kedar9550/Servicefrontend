@@ -244,7 +244,7 @@ function Signup() {
     };
 
     return (
-        <div className='bg_container d-flex flex-column'>
+        <div className='bg_container d-flex flex-column' style={{ height: "100vh", overflowY: "auto" }}>
             <div className="container-fluid flex-grow-1">
                 <div className="row">
                     <div className="col-12 d-flex flex-column flex-md-row align-items-center position-relative header-section ">

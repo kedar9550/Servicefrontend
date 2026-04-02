@@ -244,8 +244,8 @@ function Signup() {
     };
 
     return (
-        <div className='bg_container'>
-            <div className="container-fluid">
+        <div className='bg_container d-flex flex-column'>
+            <div className="container-fluid flex-grow-1">
                 <div className="row">
                     <div className="col-12 d-flex flex-column flex-md-row align-items-center position-relative header-section ">
                         <img
@@ -262,10 +262,9 @@ function Signup() {
                                 Ticket Generation
                             </p>
                         </div>
-
                     </div>
-                    <div className="col-12 col-md-8 d-flex justify-content-center align-items-center">
-                        <div className="signup_card shadow w-100">
+                    <div className="col-12 col-lg-8 d-flex justify-content-center align-items-center">
+                        <div className="signup_card shadow w-100 mx-auto">
                             <p className="h5 fw-bold text-center mt-2 mb-4" style={{ color: "var(--primary-color)", fontFamily: "'Poppins', !important", fontWeight: "bold" }}>SIGNUP</p>
                             <hr />
 
@@ -524,13 +523,13 @@ function Signup() {
 
                         </div>
                     </div>
-                    <div className="signup_page col-12 col-md-4">
+                    <div className="signup_page col-lg-4 d-none d-lg-block">
                         <img src={theme === "dark" ? "/Circle_Gold.png" : "/Circle_Orange.png"} className="sidelogo" alt="side logo" />
                     </div>
                 </div>
             </div>
 
-            <div className="position-absolute bottom-0 w-100 text-center pb-2" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
+            <div className="auth-footer pb-2" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
                 Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
             </div>
         </div>

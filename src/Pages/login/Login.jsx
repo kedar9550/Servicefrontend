@@ -105,10 +105,10 @@ function Login() {
             </div>
           </div>
 
-          <div className="main-container">
+          <div className="main-container row w-100 m-0 p-0 p-lg-3">
             {/* LOGIN FORM */}
-            <div className="col-12 col-md-3">
-              <form onSubmit={handlelogin} className="login_card shadow">
+            <div className="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+              <form onSubmit={handlelogin} className="login_card shadow w-100 mx-auto">
 
                 <p className="h5 fw-bold text-center mb-4" style={{ color: "var(--primary-color)", fontFamily: "'Poppins', !important", fontWeight: "bold" }}>LOGIN</p>
 
@@ -211,11 +211,11 @@ function Login() {
             </div>
 
             {/* RIGHT SIDE IMAGES */}
-            <div className="col-12 col-md-6 d-flex justify-content-center align-items-center ms-5 d-none d-md-block">
-              <img src={theme === "dark" ? "/allserv-dark2.png" : "/allserv.png"} className="img-fluid" alt="illustration" />
+            <div className="col-12 col-lg-7 d-flex justify-content-center align-items-center d-none d-lg-flex">
+              <img src={theme === "dark" ? "/allserv-dark2.png" : "/allserv.png"} className="img-fluid" style={{ maxWidth: "80%" }} alt="illustration" />
             </div>
 
-            <div className="col-12 col-md-3">
+            <div className="col-lg-1 d-none d-lg-block">
               <img src={theme === "dark" ? "/Circle_Gold.png" : "/Circle_Orange.png"} className="sidelogo" alt="side logo" />
             </div>
           </div>
@@ -223,8 +223,8 @@ function Login() {
         </div>
       </div>
 
-      <div className="position-absolute bottom-0 w-100 text-center pb-2" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
-          Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
+      <div className="auth-footer pb-2" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
+        Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
       </div>
     </div>
   );

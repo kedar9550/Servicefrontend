@@ -107,7 +107,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="bg_container">
+    <div className="bg_container d-flex flex-column" style={{ height: "100vh", overflow: "hidden" }}>
       <div className="container-fluid">
         <div className="row">
           {/* HEADER */}
@@ -129,216 +129,120 @@ const ForgotPassword = () => {
           </div>
 
 
-          <div className="col-12 col-md-4 d-md-flex justify-content-start align-items-center d-none d-md-block">
-            <form className="login_card shadow">
-              <p className="h5 fw-bold text-center mb-4 " style={{ color: "var(--primary-color)", fontFamily: "'Poppins', !important", fontWeight: "bold" }}>FORGET PASSWORD</p>
-              {/* STEP 1 – EMAIL */}
-              {step === 1 && (
-                <>
-                  <div className="mb-2">
-                    <div className="input-group">
-                      <span className="input-group-text">
-                        <i className="bi bi-person-badge-fill text-primary"></i>
-                      </span>
-                      <input
-                        type="text"
-                        placeholder="Enter Employee ID"
-                        className="form-control"
-                        name="empid"
-                        value={empid}
-                        onChange={(e) => setEmpid(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <button onClick={sendOtp} disabled={loading} className="submit">
-                    {loading ? "Sending..." : "Send OTP"}
-                  </button>
-                </>
-              )}
-
-              {/* STEP 2 – OTP */}
-              {step === 2 && (
-                <>
-                  {lastDigits && <p className="text-muted small text-center mb-2">OTP sent to registered mobile ending in ******{lastDigits}</p>}
-                  <div className="mb-2">
-                    <div className="input-group">
-                      <span className="input-group-text">
-                        <i className="bi bi-shield-lock-fill text-success"></i>
-                      </span>
-                      <input
-                        type="text"
-                        placeholder="Enter OTP"
-                        className="form-control"
-                        name="text"
-                        value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <button onClick={verifyOtp} disabled={loading} className="submit">
-                    {loading ? "Verifying..." : "Verify"}
-                  </button>
-                </>
-              )}
-
-              {/* STEP 3 – NEW PASSWORD */}
-              {step === 3 && (
-                <>
-                  <div className="mb-2">
-                    <div className="input-group">
-                      <span className="input-group-text">
-                        <i className="bi bi-lock-fill text-success"></i>
-                      </span>
-                      <input
-                        type="password"
-                        placeholder="New Password"
-                        value={newPassword}
-                        className="form-control"
-                        name="password"
-                        onChange={(e) => setNewPassword(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="mb-2">
-                    <div className="input-group">
-                      <span className="input-group-text">
-                        <i className="bi bi-lock-fill text-success"></i>
-                      </span>
-                      <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        value={confirmPassword}
-                        className="form-control"
-                        name="password"
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <button onClick={changePassword} disabled={loading} className="submit">
-                    {loading ? "Changing..." : "Change Password"}
-                  </button>
-                </>
-              )}
-
-              {message && <p className="message">{message}</p>}
-            </form>
-          </div>
-          {/* RIGHT SIDE IMAGES */}
-          <div className="col-12 col-md-5 d-flex justify-content-start d-none d-md-block">
-            <img src="/forget_illustration1.png" className="forget_img" alt="illustration" />
-          </div>
-
-          <div className="col-12 col-md-3 d-none d-md-block">
-            <img src={theme === "dark" ? "/Circle_Gold.png" : "/Circle_Orange.png"} className="sidelogo" alt="side logo" />
-          </div>
-
-
-
-          {/* ------Mobile view------ */}
-
-          <div className="container d-block d-md-none">
-            <div className="row">
-              <div className="col-12 d-flex justify-content-center align-items-center mt-5">
-                <form className="forget_card shadow z-1">
-                  <p className="h6 fw-bold text-center">FORGET PASSWORD</p>
-                  {/* STEP 1 – EMAIL */}
-                  {step === 1 && (
-                    <>
-                      <div className="mb-2">
-                        <div className="input-group">
-                          <span className="input-group-text">
-                            <i className="bi bi-person-badge-fill text-primary"></i>
-                          </span>
-                          <input
-                            type="text"
-                            placeholder="Enter Employee ID"
-                            className="form-control"
-                            name="empid"
-                            value={empid}
-                            onChange={(e) => setEmpid(e.target.value)}
-                          />
-                        </div>
+          <div className="main-container flex-grow-1 row w-100 m-0 p-0">
+            {/* FORGOT PASSWORD FORM */}
+            <div className="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+              <form className="login_card shadow w-100 mx-auto">
+                <p className="h5 fw-bold text-center mb-4 " style={{ color: "var(--primary-color)", fontFamily: "'Poppins', !important", fontWeight: "bold" }}>FORGOT PASSWORD</p>
+                {/* STEP 1 – EMAIL */}
+                {step === 1 && (
+                  <>
+                    <div className="mb-2">
+                      <div className="input-group">
+                        <span className="input-group-text">
+                          <i className="bi bi-person-badge-fill text-primary"></i>
+                        </span>
+                        <input
+                          type="text"
+                          placeholder="Enter Employee ID"
+                          className="form-control"
+                          name="empid"
+                          value={empid}
+                          onChange={(e) => setEmpid(e.target.value)}
+                        />
                       </div>
-                      <button onClick={sendOtp} disabled={loading} className="submit">
-                        {loading ? "Sending..." : "Send OTP"}
-                      </button>
-                    </>
-                  )}
+                    </div>
+                    <button onClick={sendOtp} disabled={loading} className="submit">
+                      {loading ? "Sending..." : "Send OTP"}
+                    </button>
+                  </>
+                )}
 
-                  {/* STEP 2 – OTP */}
-                  {step === 2 && (
-                    <>
-                      {lastDigits && <p className="text-muted small text-center mb-2">OTP sent to registered mobile ending in ******{lastDigits}</p>}
-                      <div className="mb-2">
-                        <div className="input-group">
-                          <span className="input-group-text">
-                            <i className="bi bi-shield-lock-fill text-success"></i>
-                          </span>
-                          <input
-                            type="text"
-                            placeholder="Enter OTP"
-                            className="form-control"
-                            name="text"
-                            value={otp}
-                            onChange={(e) => setOtp(e.target.value)}
-                          />
-                        </div>
+                {/* STEP 2 – OTP */}
+                {step === 2 && (
+                  <>
+                    {lastDigits && <p className="text-muted small text-center mb-2">OTP sent to registered mobile ending in ******{lastDigits}</p>}
+                    <div className="mb-2">
+                      <div className="input-group">
+                        <span className="input-group-text">
+                          <i className="bi bi-shield-lock-fill text-success"></i>
+                        </span>
+                        <input
+                          type="text"
+                          placeholder="Enter OTP"
+                          className="form-control"
+                          name="text"
+                          value={otp}
+                          onChange={(e) => setOtp(e.target.value)}
+                        />
                       </div>
-                      <button onClick={verifyOtp} disabled={loading} className="submit">
-                        {loading ? "Verifying..." : "Verify"}
-                      </button>
-                    </>
-                  )}
+                    </div>
+                    <button onClick={verifyOtp} disabled={loading} className="submit">
+                      {loading ? "Verifying..." : "Verify"}
+                    </button>
+                  </>
+                )}
 
-                  {/* STEP 3 – NEW PASSWORD */}
-                  {step === 3 && (
-                    <>
-                      <div className="mb-2">
-                        <div className="input-group">
-                          <span className="input-group-text">
-                            <i className="bi bi-lock-fill text-success"></i>
-                          </span>
-                          <input
-                            type="password"
-                            placeholder="New Password"
-                            value={newPassword}
-                            className="form-control"
-                            name="password"
-                            onChange={(e) => setNewPassword(e.target.value)}
-                          />
-                        </div>
+                {/* STEP 3 – NEW PASSWORD */}
+                {step === 3 && (
+                  <>
+                    <div className="mb-2">
+                      <div className="input-group">
+                        <span className="input-group-text">
+                          <i className="bi bi-lock-fill text-success"></i>
+                        </span>
+                        <input
+                          type="password"
+                          placeholder="New Password"
+                          value={newPassword}
+                          className="form-control"
+                          name="password"
+                          onChange={(e) => setNewPassword(e.target.value)}
+                        />
                       </div>
-                      <div className="mb-2">
-                        <div className="input-group">
-                          <span className="input-group-text">
-                            <i className="bi bi-lock-fill text-success"></i>
-                          </span>
-                          <input
-                            type="password"
-                            placeholder="Confirm Password"
-                            value={confirmPassword}
-                            className="form-control"
-                            name="password"
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                          />
-                        </div>
+                    </div>
+                    <div className="mb-2">
+                      <div className="input-group">
+                        <span className="input-group-text">
+                          <i className="bi bi-lock-fill text-success"></i>
+                        </span>
+                        <input
+                          type="password"
+                          placeholder="Confirm Password"
+                          value={confirmPassword}
+                          className="form-control"
+                          name="password"
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
                       </div>
-                      <button onClick={changePassword} disabled={loading} className="submit">
-                        {loading ? "Changing..." : "Change Password"}
-                      </button>
-                    </>
-                  )}
+                    </div>
+                    <button onClick={changePassword} disabled={loading} className="submit">
+                      {loading ? "Changing..." : "Change Password"}
+                    </button>
+                  </>
+                )}
 
-                  {message && <p className="message">{message}</p>}
-                </form>
-              </div>
+                {message && <p className="message">{message}</p>}
+              </form>
+            </div>
+            {/* RIGHT SIDE IMAGES */}
+            <div className="col-12 col-lg-7 d-flex justify-content-center align-items-center d-none d-lg-flex">
+              <img src="/forget_illustration1.png" className="forget_img" style={{ maxWidth: "55%" }} alt="illustration" />
+            </div>
+
+            <div className="col-lg-1 d-none d-lg-block">
+              <img src={theme === "dark" ? "/Circle_Gold.png" : "/Circle_Orange.png"} className="sidelogo" alt="side logo" />
             </div>
           </div>
+
+
+
+
         </div>
       </div>
-      
-      <div className="position-absolute bottom-0 w-100 text-center pb-2" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
-          Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
+
+      <div className="auth-footer text-center pb-2" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
+        Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
       </div>
     </div>
   );

@@ -241,7 +241,7 @@ const ForgotPassword = () => {
         </div>
       </div>
 
-      <div className="auth-footer text-center pb-2" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
+      <div className="auth-footer text-center mb-3" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
         Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
       </div>
     </div>

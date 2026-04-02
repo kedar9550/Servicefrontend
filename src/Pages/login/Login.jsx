@@ -223,7 +223,7 @@ function Login() {
         </div>
       </div>
 
-      <div className="auth-footer">
+      <div className="auth-footer mb-3">
         <p>
           Designed & Developed by{" "}
           <span className="brand">IT Applications</span>

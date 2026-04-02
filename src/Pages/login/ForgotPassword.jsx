@@ -144,7 +144,7 @@ const ForgotPassword = () => {
                         </span>
                         <input
                           type="text"
-                          placeholder="Enter Employee ID"
+                          placeholder="Enter Employee ID or Student ID"
                           className="form-control"
                           name="empid"
                           value={empid}

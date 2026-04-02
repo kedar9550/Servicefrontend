@@ -83,7 +83,7 @@ function Login() {
   };
 
   return (
-    <div className="bg_container">
+    <div className="bg_container" style={{ height: "100vh", overflow: "hidden" }}>
       <div className="container-fluid">
         <div className="row">
 
@@ -105,7 +105,7 @@ function Login() {
             </div>
           </div>
 
-          <div className="main-container row w-100 m-0 p-0 p-lg-3">
+          <div className="main-container row w-100 m-0">
             {/* LOGIN FORM */}
             <div className="col-12 col-lg-4 d-flex justify-content-center align-items-center">
               <form onSubmit={handlelogin} className="login_card shadow w-100 mx-auto">
@@ -211,11 +211,11 @@ function Login() {
             </div>
 
             {/* RIGHT SIDE IMAGES */}
-            <div className="col-12 col-lg-7 d-flex justify-content-center align-items-center d-none d-lg-flex">
+            <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center d-none d-lg-flex">
               <img src={theme === "dark" ? "/allserv-dark2.png" : "/allserv.png"} className="img-fluid" style={{ maxWidth: "80%" }} alt="illustration" />
             </div>
 
-            <div className="col-lg-1 d-none d-lg-block">
+            <div className="col-lg-2 d-none d-lg-block">
               <img src={theme === "dark" ? "/Circle_Gold.png" : "/Circle_Orange.png"} className="sidelogo" alt="side logo" />
             </div>
           </div>
@@ -223,8 +223,11 @@ function Login() {
         </div>
       </div>
 
-      <div className="auth-footer pb-2" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
-        Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
+      <div className="auth-footer">
+        <p>
+          Designed & Developed by{" "}
+          <span className="brand">IT Applications</span>
+        </p>
       </div>
     </div>
   );

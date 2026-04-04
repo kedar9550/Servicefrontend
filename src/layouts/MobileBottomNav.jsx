@@ -25,7 +25,7 @@ const MobileBottomNav = () => {
     if (hasRole("EMPLOYEE")) {
         navItems.push(
             { to: "/dev/assigned", icon: "bi-ticket-perforated", label: "Assigned" },
-            { to: "/dev/InProgress", icon: "bi-hourglass-split", label: "Working" },
+            { to: "/dev/InProgress", icon: "bi-hourglass-split", label: "In Progress" },
             { to: "/dev/completed", icon: "bi-check-circle", label: "Completed" }
         );
     }
@@ -63,28 +63,22 @@ const MobileBottomNav = () => {
 
     return (
         <div className="mobile-bottom-nav">
-            {navItems.map((item) => (
-                <NavLink
-                    key={item.to}
-                    to={item.to}
-                    end={item.to === "/"}
-                    className={({ isActive }) =>
-                        `mobile-nav-item ${isActive ? "active" : ""}`
-                    }
-                >
-                    <div className="mobile-nav-icon-wrapper">
-                        <i className={`bi ${item.icon}`}></i>
-                    </div>
-                    <span className="mobile-nav-label">{item.label}</span>
-                </NavLink>
-            ))}
-
-            {/* Logout Button */}
-            <div className="mobile-nav-item" onClick={handleLogout} style={{ cursor: "pointer" }}>
-                <div className="mobile-nav-icon-wrapper">
-                    <i className="bi bi-box-arrow-right text-danger"></i>
-                </div>
-                <span className="mobile-nav-label text-danger">Logout</span>
+            <div className="mobile-nav-inner">
+                {navItems.map((item) => (
+                    <NavLink
+                        key={item.to}
+                        to={item.to}
+                        end={item.to === "/"}
+                        className={({ isActive }) =>
+                            `mobile-nav-item ${isActive ? "active" : ""}`
+                        }
+                    >
+                        <div className="mobile-nav-icon-wrapper">
+                            <i className={`bi ${item.icon}`}></i>
+                        </div>
+                        <span className="mobile-nav-label">{item.label}</span>
+                    </NavLink>
+                ))}
             </div>
         </div>
     );

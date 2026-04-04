@@ -197,7 +197,7 @@ const StatCard = ({
   progressColor,
 }) => {
   return (
-    <div className="col-12 col-md-6 col-lg-4">
+    <div className="col-6 col-md-4 col-lg-3 col-xl">
       <div
         className="card border-0 rounded-4 p-3 p-md-4 h-100 stat-card-adaptive"
         style={{

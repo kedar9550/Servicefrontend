@@ -106,7 +106,7 @@ const EmployeeDashboard = () => {
 
       {/* STAT CARDS */}
       <div className="row g-4 mt-1 mb-5">
-        <div className="col-md-3">
+        <div className="col-6 col-lg-3">
           <StatCard
             title="Total Assigned"
             value={stats.total}
@@ -115,7 +115,7 @@ const EmployeeDashboard = () => {
             bgColorHex="var(--stat-card-bg)"
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-6 col-lg-3">
           <StatCard
             title="Open"
             value={stats.open}
@@ -125,7 +125,7 @@ const EmployeeDashboard = () => {
             baseValue={stats.total}
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-6 col-lg-3">
           <StatCard
             title="In Progress"
             value={stats.progress}
@@ -135,7 +135,7 @@ const EmployeeDashboard = () => {
             baseValue={stats.total}
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-6 col-lg-3">
           <StatCard
             title="Closed"
             value={stats.closed}

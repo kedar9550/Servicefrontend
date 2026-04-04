@@ -18,13 +18,13 @@ const Layout = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const isSmallMobile = windowWidth <= 768;
+  const isSmallMobile = windowWidth <= 992; // Tablet landscape cutoff
   const useMobileNav = isSmallMobile;
 
   return (
     <>
-      <Header 
-        sidebarOpen={useMobileNav ? false : sidebarOpen} 
+      <Header
+        sidebarOpen={useMobileNav ? false : sidebarOpen}
         isMobile={useMobileNav}
       />
 

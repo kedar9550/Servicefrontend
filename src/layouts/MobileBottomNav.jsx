@@ -25,7 +25,7 @@ const MobileBottomNav = () => {
     if (hasRole("EMPLOYEE")) {
         navItems.push(
             { to: "/dev/assigned", icon: "bi-ticket-perforated", label: "Assigned" },
-            { to: "/dev/InProgress", icon: "bi-hourglass-split", label: "Working" },
+            { to: "/dev/InProgress", icon: "bi-hourglass-split", label: "In Progress" },
             { to: "/dev/completed", icon: "bi-check-circle", label: "Completed" }
         );
     }
@@ -78,14 +78,6 @@ const MobileBottomNav = () => {
                     <span className="mobile-nav-label">{item.label}</span>
                 </NavLink>
             ))}
-
-            {/* Logout Button */}
-            <div className="mobile-nav-item" onClick={handleLogout} style={{ cursor: "pointer" }}>
-                <div className="mobile-nav-icon-wrapper">
-                    <i className="bi bi-box-arrow-right text-danger"></i>
-                </div>
-                <span className="mobile-nav-label text-danger">Logout</span>
-            </div>
         </div>
     );
 };

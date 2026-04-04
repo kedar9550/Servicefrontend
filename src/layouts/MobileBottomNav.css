@@ -4,38 +4,51 @@
     left: 0;
     width: 100%;
     height: 120px;
-    /* Even taller to ensure plenty of room for float */
+    /* Tall to allow floating icon and vertical buffer */
     background-color: transparent !important;
+    /* Main container is transparent wrapper */
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-start; /* Fix left cutoff */
     align-items: flex-end;
     z-index: 2000;
-    padding: 40px 10px 10px 10px;
-    /* Added 40px top padding as buffer */
+    padding: 0 10px 12px 10px;
     transition: all 0.3s ease;
     overflow-x: auto;
     overflow-y: visible;
+    /* CRITICAL */
     white-space: nowrap;
     -ms-overflow-style: none;
+    /* IE/Edge */
     scrollbar-width: none;
+    /* Firefox */
     pointer-events: none;
+    /* Allow clicks on page content behind the transparent part */
 }
 
-/* The actual solid background bar */
+/* THE FIX: Solid background bar that stays fixed and doesn't scroll with items */
+/* We use a sibling or a pseudo-element that is NOT part of the scroll content width */
 .mobile-bottom-nav::before {
     content: "";
-    position: absolute;
+    position: fixed;
+    /* FIXED relative to viewport, so it stays full width */
     bottom: 0;
     left: 0;
     width: 100%;
     height: 70px;
-    /* This is the actual visible bar height */
+    /* Visual bar height */
     background-color: var(--card-bg);
+    /* THEME AWARE BACKGROUND */
     border-top: 1px solid var(--border-color);
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
     z-index: -1;
     pointer-events: auto;
-    /* Reactivate clicks on the solid bar */
+}
+
+/* Center items only when they don't overflow the screen width */
+.mobile-bottom-nav::after,
+.mobile-bottom-nav::before {
+    content: "";
+    margin: auto;
 }
 
 .mobile-nav-item {
@@ -46,12 +59,13 @@
     justify-content: flex-end;
     text-decoration: none;
     color: var(--secondary-color);
-    flex: 0 0 calc(100% / 5);
-    min-width: 70px;
+    flex: 0 0 85px; /* Fixed width for better spacing on all screens */
+    min-width: 80px;
     height: 100%;
     transition: all 0.3s ease;
     gap: 0;
-    background-color: transparent !important; /* Force transparent */
+    background-color: transparent !important;
+    /* Force transparent */
     background: transparent !important;
     border: none;
     padding: 0;
@@ -101,18 +115,18 @@
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background-color: #BE9332;
+    background-color: #ff5900; /* Orange for light theme */
     color: #ffffff;
     transform: translateY(-25px);
-    /* Adjusted to sit comfortably in the new padding */
-    box-shadow: 0 8px 25px rgba(190, 147, 50, 0.4);
+    box-shadow: 0 8px 25px rgba(255, 89, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .mobile-nav-item.active i {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
+    /* Reduced from 1.6rem */
     color: #ffffff !important;
     animation: nav-pop 0.3s ease-out;
 }
@@ -121,9 +135,8 @@
     opacity: 1;
     font-weight: 700;
     font-size: 11px;
-    color: #BE9332;
+    color: #ff5900; /* Orange for light theme */
     margin-top: 0px;
-    /* Reduced margin for active state */
 }
 
 /* ── Logout button ── */

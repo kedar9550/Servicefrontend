@@ -298,3 +298,44 @@ body {
 .attachments a:hover {
     color: var(--accent-color) !important;
 }
+
+/* ── MUI DataGrid Tablet/Mobile Responsiveness Overrides (Up to 992px) ── */
+.MuiDataGrid-root {
+    font-size: 0.82rem !important; /* Slightly smaller base font for mobile/tablet */
+}
+
+/* Allow headers to wrap to prevent clipping */
+.MuiDataGrid-columnHeaderTitleContainer {
+    overflow: visible !important;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+    white-space: normal !important;
+    line-height: 1.2 !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+}
+
+/* Reduce cell padding at tablet widths and below to save space */
+@media (max-width: 992px) {
+    .MuiDataGrid-cell {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+    }
+    .MuiDataGrid-columnHeader {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+    }
+    
+    /* Ensure the dashboard container has less padding on tablet */
+    .container-fluid {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    
+    /* Header optimization for tablet font sizes */
+    .navbar {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}

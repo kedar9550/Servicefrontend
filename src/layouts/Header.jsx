@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function Header({ sidebarOpen, isMobile }) {
   const { logout, user } = useAuth();
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
   const navigate = useNavigate();
 
@@ -150,6 +150,24 @@ function Header({ sidebarOpen, isMobile }) {
                 <i className="bi bi-bell" style={{ fontSize: "1rem" }}></i>
                 Notifications
               </button>
+              
+              {/* Theme Toggle - Mobile Menu */}
+              <div 
+                onClick={(e) => { e.stopPropagation(); toggleTheme(); }} 
+                style={{
+                  display: "flex", alignItems: "center", gap: "10px",
+                  width: "100%", padding: "6px 16px",
+                  color: "var(--text-color)", fontSize: "0.88rem",
+                  cursor: "pointer"
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = "var(--sidebar-hover)"}
+                onMouseLeave={e => e.currentTarget.style.background = "none"}
+              >
+                <div style={{ marginLeft: "-8px", pointerEvents: "none" }}>
+                  <ThemeToggle />
+                </div>
+                <span>{theme === "light" ? "Dark Mode" : "Light Mode"}</span>
+              </div>
 
               {/* Divider + Logout */}
               <div style={{ borderTop: "1px solid var(--border-color)", marginTop: "4px", paddingTop: "4px" }}>

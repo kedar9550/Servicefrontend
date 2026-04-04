@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import API from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
+import Footer from "../../Components/Footer";
 
 const ForgotPassword = () => {
   const { theme } = useTheme();
@@ -241,9 +242,7 @@ const ForgotPassword = () => {
         </div>
       </div>
 
-      <div className="auth-footer text-center mb-3" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
-        Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
-      </div>
+      <Footer />
     </div>
   );
 };

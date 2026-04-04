@@ -6,13 +6,24 @@ import { Bell, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const NotificationBell = () => {
+const NotificationBell = ({ externalOpen = false, onExternalClose, hideBell = false }) => {
   const { socket } = useSocket();
   const { user } = useAuth();
   const [notifications, setNotifications] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+
+  const isMobileView = windowWidth <= 768;
+
+  // Open dropdown when triggered externally (e.g. from profile dropdown)
+  useEffect(() => {
+    if (externalOpen) {
+      setShowDropdown(true);
+      if (onExternalClose) onExternalClose();
+    }
+  }, [externalOpen]);
 
   const fetchNotifications = async () => {
     try {
@@ -28,6 +39,12 @@ const NotificationBell = () => {
       fetchNotifications();
     }
   }, [user]);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (!socket) return;
@@ -110,8 +127,15 @@ const NotificationBell = () => {
 
   return (
     <div className="position-relative me-4" ref={dropdownRef}>
+      {/* Bell trigger — hidden on mobile, visible on desktop */}
       <div 
-        style={{ cursor: 'pointer', position: 'relative', marginTop:'8px' }}
+        className="notification-bell-trigger"
+        style={{ 
+          cursor: 'pointer', 
+          position: 'relative', 
+          marginTop:'8px',
+          display: hideBell ? 'none' : 'block'
+        }}
         onClick={() => setShowDropdown(!showDropdown)}
       >
         <Bell size={24} color="var(--text-color)" />
@@ -126,7 +150,22 @@ const NotificationBell = () => {
       {showDropdown && (
         <div 
           className="dropdown-menu show shadow notification-scrollbar" 
-          style={{ 
+          style={isMobileView ? { 
+            /* Mobile: fixed to viewport so it never clips */
+            position: 'fixed', 
+            top: '65px',
+            left: '10px',
+            right: '10px',
+            width: 'auto',
+            maxHeight: '80vh', 
+            overflowY: 'auto', 
+            zIndex: 2100, 
+            backgroundColor: 'var(--card-bg)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '12px',
+            padding: '0'
+          } : { 
+            /* Desktop: original positioning */
             position: 'absolute', 
             right: '-10px', 
             top: '60px', 

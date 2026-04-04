@@ -106,7 +106,7 @@ const Dashboard = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="container-fluid py-4" style={{ backgroundColor: "var(--bg-color)", minHeight: "100vh" }}>
+    <div className="container-fluid py-3 py-md-4 px-0 px-md-4" style={{ backgroundColor: "var(--bg-color)", minHeight: "100vh" }}>
       <h3 className="fw-bold mb-1">Dashboard</h3>
       <p className="text-secondary mb-4">
         Welcome back! Here's your ticket overview.
@@ -164,7 +164,7 @@ const Dashboard = () => {
         />
       </div>
 
-      <div className="card shadow-sm border-0 rounded-4 p-4">
+      <div className="card shadow-sm border-0 rounded-4 p-2 p-md-4">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h5 className="fw-bold mb-0">
             Recent Tickets
@@ -187,8 +187,6 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-/* ================= CARD COMPONENT ================= */
-
 const StatCard = ({
   title,
   value,
@@ -199,53 +197,67 @@ const StatCard = ({
   progressColor,
 }) => {
   return (
-    <div className="col-md-6 col-lg-4 col" style={{ minWidth: "200px" }}>
+    <div className="col-12 col-md-6 col-lg-4">
       <div
-        className="card shadow-sm rounded-4 p-4 h-100 border-0 stat-card-adaptive"
+        className="card border-0 rounded-4 p-3 p-md-4 h-100 stat-card-adaptive"
         style={{
-          backgroundColor: iconBg,
-          transition: "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
+          background: "var(--card-bg)",
+          borderLeft: `4px solid ${iconColor}`,
+          boxShadow: "var(--card-shadow)",
+          transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
           cursor: "default",
-          transformOrigin: "center"
         }}
         onMouseOver={(e) => {
-          e.currentTarget.style.transform = "scale(1.05) translateY(-4px)";
-          e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1) !important";
+          e.currentTarget.style.transform = "translateY(-6px)";
+          e.currentTarget.style.boxShadow = "var(--card-shadow-hover)";
         }}
         onMouseOut={(e) => {
-          e.currentTarget.style.transform = "scale(1) translateY(0)";
-          e.currentTarget.style.boxShadow = "0 0.125rem 0.25rem rgba(0,0,0,0.075) !important";
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "var(--card-shadow)";
         }}
       >
-        <div className="d-flex align-items-center gap-3 mb-4">
+        <div className="d-flex align-items-start justify-content-between mb-3">
+          <div>
+            <p className="text-secondary fw-medium mb-1" style={{ fontSize: "0.78rem", letterSpacing: "0.5px", textTransform: "uppercase" }}>{title}</p>
+            <h3 className="fw-bold m-0" style={{ color: "var(--text-color)" }}>{value}</h3>
+          </div>
           <div
-            className="rounded-circle shadow-sm d-flex justify-content-center align-items-center flex-shrink-0"
-            style={{ backgroundColor: iconColor, color: "#fff", width: "42px", height: "42px" }}
+            className="rounded-3 d-flex justify-content-center align-items-center flex-shrink-0"
+            style={{
+              backgroundColor: iconBg,
+              color: iconColor,
+              width: "42px",
+              height: "42px",
+              boxShadow: `0 6px 12px -3px ${iconColor}35`
+            }}
           >
             {icon}
           </div>
-          <p className="text-secondary fw-medium mb-0" style={{ fontSize: "0.95rem", lineHeight: "1.2" }}>{title}</p>
         </div>
 
-        <h2 className="fw-bold m-0" style={{ color: iconColor }}>{value}</h2>
-
-        <div
-          style={{
-            height: "5px",
-            backgroundColor: "rgba(128,128,128,0.15)",
-            borderRadius: "10px",
-            marginTop: "25px",
-          }}
-        >
+        <div>
+          <div className="d-flex align-items-center justify-content-between mb-1">
+            <span className="text-secondary" style={{ fontSize: "0.75rem" }}>Progress</span>
+            <span className="fw-semibold" style={{ fontSize: "0.75rem", color: iconColor }}>{progress}</span>
+          </div>
           <div
             style={{
-              width: progress || "0%",
-              height: "100%",
-              backgroundColor: progressColor,
+              height: "5px",
+              backgroundColor: "rgba(0,0,0,0.06)",
               borderRadius: "10px",
-              transition: "width 1.2s ease-in-out"
+              overflow: "hidden"
             }}
-          ></div>
+          >
+            <div
+              style={{
+                width: progress || "0%",
+                height: "100%",
+                backgroundColor: progressColor,
+                borderRadius: "10px",
+                transition: "width 1.5s cubic-bezier(0.65, 0, 0.35, 1)",
+              }}
+            ></div>
+          </div>
         </div>
       </div>
     </div>

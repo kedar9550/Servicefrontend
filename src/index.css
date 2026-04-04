@@ -339,3 +339,22 @@ body {
         padding-right: 15px !important;
     }
 }
+
+/* ── Auth Footer (Sticky to Bottom) ── */
+.auth-footer {
+    margin-top: auto !important;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.auth-footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.auth-footer .brand {
+    color: var(--primary-color);
+    font-weight: 700;
+}

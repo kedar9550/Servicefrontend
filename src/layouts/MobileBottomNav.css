@@ -7,22 +7,37 @@
     /* Tall to allow floating icon and vertical buffer */
     background-color: transparent !important;
     /* Main container is transparent wrapper */
-    display: flex;
-    justify-content: flex-start; /* Fix left cutoff */
-    align-items: flex-end;
+    display: block;
+    /* Scrolling container */
     z-index: 2000;
-    padding: 0 10px 12px 10px;
+    padding: 0 0 10px 0;
     transition: all 0.3s ease;
     overflow-x: auto;
     overflow-y: visible;
-    /* CRITICAL */
     white-space: nowrap;
     -ms-overflow-style: none;
-    /* IE/Edge */
     scrollbar-width: none;
-    /* Firefox */
     pointer-events: none;
-    /* Allow clicks on page content behind the transparent part */
+}
+
+.mobile-nav-inner {
+    display: flex;
+    justify-content: flex-start; /* Default to start to prevent cutoff */
+    align-items: flex-end;
+    min-width: 100%;
+    width: max-content;
+    height: 100%;
+    padding: 0 10px 12px 10px;
+    pointer-events: none;
+}
+
+/* SMART CENTERING: Spacers take up available space to center items, but collapse if content overflows */
+.mobile-nav-inner::before,
+.mobile-nav-inner::after {
+    content: "";
+    flex: 1 1 0%;
+    min-width: 0;
+    pointer-events: none;
 }
 
 /* THE FIX: Solid background bar that stays fixed and doesn't scroll with items */
@@ -44,13 +59,6 @@
     pointer-events: auto;
 }
 
-/* Center items only when they don't overflow the screen width */
-.mobile-bottom-nav::after,
-.mobile-bottom-nav::before {
-    content: "";
-    margin: auto;
-}
-
 .mobile-nav-item {
     pointer-events: auto;
     display: flex;
@@ -59,7 +67,8 @@
     justify-content: flex-end;
     text-decoration: none;
     color: var(--secondary-color);
-    flex: 0 0 85px; /* Fixed width for better spacing on all screens */
+    flex: 0 0 85px;
+    /* Fixed width for better spacing on all screens */
     min-width: 80px;
     height: 100%;
     transition: all 0.3s ease;
@@ -115,7 +124,8 @@
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background-color: #ff5900; /* Orange for light theme */
+    background-color: #ff5900;
+    /* Orange for light theme */
     color: #ffffff;
     transform: translateY(-25px);
     box-shadow: 0 8px 25px rgba(255, 89, 0, 0.4);
@@ -135,7 +145,8 @@
     opacity: 1;
     font-weight: 700;
     font-size: 11px;
-    color: #ff5900; /* Orange for light theme */
+    color: #ff5900;
+    /* Orange for light theme */
     margin-top: 0px;
 }
 

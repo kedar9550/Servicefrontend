@@ -63,21 +63,23 @@ const MobileBottomNav = () => {
 
     return (
         <div className="mobile-bottom-nav">
-            {navItems.map((item) => (
-                <NavLink
-                    key={item.to}
-                    to={item.to}
-                    end={item.to === "/"}
-                    className={({ isActive }) =>
-                        `mobile-nav-item ${isActive ? "active" : ""}`
-                    }
-                >
-                    <div className="mobile-nav-icon-wrapper">
-                        <i className={`bi ${item.icon}`}></i>
-                    </div>
-                    <span className="mobile-nav-label">{item.label}</span>
-                </NavLink>
-            ))}
+            <div className="mobile-nav-inner">
+                {navItems.map((item) => (
+                    <NavLink
+                        key={item.to}
+                        to={item.to}
+                        end={item.to === "/"}
+                        className={({ isActive }) =>
+                            `mobile-nav-item ${isActive ? "active" : ""}`
+                        }
+                    >
+                        <div className="mobile-nav-icon-wrapper">
+                            <i className={`bi ${item.icon}`}></i>
+                        </div>
+                        <span className="mobile-nav-label">{item.label}</span>
+                    </NavLink>
+                ))}
+            </div>
         </div>
     );
 };

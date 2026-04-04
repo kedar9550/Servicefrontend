@@ -187,18 +187,27 @@ body {
 }
 
 /* MUI Menu & Select fix for both Dark and Light modes */
-.MuiPaper-root.MuiMenu-paper {
+.MuiPaper-root.MuiMenu-paper,
+.MuiPaper-root.MuiPopover-paper,
+.MuiDataGrid-menu .MuiPaper-root {
     background-color: var(--card-bg) !important;
     color: var(--text-color) !important;
     border: 1px solid var(--border-color) !important;
 }
 
-.MuiMenuItem-root {
+.MuiMenuItem-root,
+.MuiDataGrid-menuList,
+.MuiDataGrid-menuList .MuiMenuItem-root,
+.MuiDataGrid-menuList .MuiListItemIcon-root,
+.MuiDataGrid-menuList .MuiListItemText-primary,
+.MuiDataGrid-menuList .MuiTypography-root,
+.MuiDataGrid-columnMenuContainer .MuiMenuItem-root {
     font-family: 'Google Sans' !important;
     color: var(--text-color) !important;
 }
 
-.MuiMenuItem-root:hover {
+.MuiMenuItem-root:hover,
+.MuiDataGrid-menuList .MuiMenuItem-root:hover {
     background-color: var(--sidebar-hover) !important;
 }
 
@@ -245,13 +254,15 @@ body {
     color: var(--secondary-color) !important;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
     background-color: var(--input-bg) !important;
     color: var(--text-color) !important;
     border-color: var(--border-color) !important;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
     background-color: var(--input-bg) !important;
     color: var(--text-color) !important;
     border-color: var(--primary-color) !important;
@@ -287,4 +298,3 @@ body {
 .attachments a:hover {
     color: var(--accent-color) !important;
 }
-

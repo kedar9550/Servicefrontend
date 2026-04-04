@@ -153,9 +153,9 @@ const GenerateTicket = () => {
               borderImage: "linear-gradient(90deg, #FF8C00, #0b5299) 1"
             }}
           >
-            <div className="p-4 p-md-5">
+            <div className="px-3 px-md-3 py-4 py-md-3">
               <div className="text-center mb-5">
-                <h2 className="fw-bold mb-2" style={{color:"var(--primary-color)", fontFamily: "'Poppins', !important",fontWeight:"bold"}}>Generate Ticket</h2>
+                <h2 className="fw-bold mb-2" style={{ color: "var(--primary-color)", fontFamily: "'Poppins', !important", fontWeight: "bold" }}>Generate Ticket</h2>
                 <p className="text-muted">Raise a new support ticket by filling the details below</p>
               </div>
 

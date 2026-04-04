@@ -55,21 +55,24 @@ function ChangePassword() {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center"
-      style={{ minHeight: "90vh", paddingTop: "60px" }}
+      className="d-flex justify-content-center align-items-start align-items-md-center px-3 px-md-0"
+      style={{ minHeight: "90vh", paddingTop: "30px" }}
     >
-      <div className="card shadow p-4" style={{ width: "100%", maxWidth: "450px" }}>
-        <h4 className="text-center mb-4">Change Password</h4>
+      <div className="card shadow-sm border-0 rounded-4 p-4" style={{ width: "100%", maxWidth: "450px" }}>
+        <div className="mb-4 text-center">
+          <h4 className="fw-bold mb-1">Change Password</h4>
+          <p className="text-secondary small mb-0">Update your account password below</p>
+        </div>
 
-        {message && <div className="alert alert-success">{message}</div>}
-        {error && <div className="alert alert-danger">{error}</div>}
+        {message && <div className="alert alert-success rounded-3">{message}</div>}
+        {error && <div className="alert alert-danger rounded-3">{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label className="form-label">Old Password</label>
+            <label className="form-label fw-medium">Old Password</label>
             <input
               type={showPassword ? "text" : "password"}
-              className="form-control"
+              className="form-control rounded-3"
               name="oldPassword"
               value={formData.oldPassword}
               onChange={handleChange}
@@ -78,10 +81,10 @@ function ChangePassword() {
           </div>
 
           <div className="mb-3">
-            <label className="form-label">New Password</label>
+            <label className="form-label fw-medium">New Password</label>
             <input
               type={showPassword ? "text" : "password"}
-              className="form-control"
+              className="form-control rounded-3"
               name="newPassword"
               value={formData.newPassword}
               onChange={handleChange}
@@ -90,10 +93,10 @@ function ChangePassword() {
           </div>
 
           <div className="mb-3">
-            <label className="form-label">Confirm New Password</label>
+            <label className="form-label fw-medium">Confirm New Password</label>
             <input
               type={showPassword ? "text" : "password"}
-              className="form-control"
+              className="form-control rounded-3"
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
@@ -101,7 +104,7 @@ function ChangePassword() {
             />
           </div>
 
-          <div className="form-check mb-3">
+          <div className="form-check mb-4">
             <input
               className="form-check-input"
               type="checkbox"
@@ -115,7 +118,7 @@ function ChangePassword() {
 
           <button
             type="submit"
-            className="btn btn-primary w-100"
+            className="btn btn-primary w-100 rounded-3 py-2 fw-medium"
             disabled={loading}
           >
             {loading ? "Updating..." : "Update Password"}

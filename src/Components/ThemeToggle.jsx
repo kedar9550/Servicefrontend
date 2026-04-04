@@ -3,7 +3,6 @@ import { useTheme } from "../context/ThemeContext";
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
-
   const isLight = theme === "light";
 
   return (
@@ -11,79 +10,46 @@ const ThemeToggle = () => {
       onClick={toggleTheme}
       title={`Switch to ${isLight ? "dark" : "light"} mode`}
       style={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        width: "57px",
-        height: "26px",
-        backgroundColor: isLight ? "#ffffff" : "#2d3748",
-        border: isLight ? "1.5px solid #e2e8f0" : "1.5px solid #4a5568",
-        borderRadius: "50px",
-        boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
+        background: "none",
+        border: "none",
         cursor: "pointer",
-        marginRight: "15px",
-        outline: "none",
-        padding: "0",
-        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-        overflow: "hidden",
-        boxSizing: "border-box"
-      }}
-    >
-      {/* Icon Slots */}
-      <div style={{
-        position: "absolute",
-        left: "0",
-        right: "0",
-        top: "0",
-        bottom: "0",
+        padding: "4px 8px",
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "center",
-        padding: "0 8px",
-        pointerEvents: "none"
-      }}>
-        {/* Left Side: Sun in Light mode */}
-        <div style={{ width: "16px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-          {isLight ? (
-            <svg
-              width="18" height="18" viewBox="0 0 24 24"
-              fill="none" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-            >
-              <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-            </svg>
-          ) : null}
-        </div>
-
-        {/* Right Side: Moon in Dark mode */}
-        <div style={{ width: "16px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-          {!isLight ? (
-            <svg
-              width="16" height="16" viewBox="0 0 24 24"
-              fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-            >
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          ) : null}
-        </div>
-      </div>
-
-      {/* The Sliding Circle Highlight (Thumb) */}
-      <div
-        style={{
-          position: "absolute",
-          width: "20px",
-          height: "20px",
-          borderRadius: "50%",
-          backgroundColor: isLight ? "#fef3c7" : "transparent",
-          border: isLight ? "4px solid #fbbf24" : "3px solid #ffffff",
-          transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-          transform: isLight ? "translateX(32px)" : "translateX(5px)",
-          boxSizing: "border-box",
-          top: "2px",
-          left: "0"
-        }}
-      />
+        justifyContent: "center",
+        borderRadius: "8px",
+        transition: "background 0.2s ease",
+        marginRight: "8px",
+        outline: "none",
+      }}
+      onMouseEnter={e => e.currentTarget.style.background = "var(--sidebar-hover)"}
+      onMouseLeave={e => e.currentTarget.style.background = "none"}
+    >
+      {isLight ? (
+        /* Filled Moon — click to go dark */
+        <svg
+          width="24" height="24" viewBox="0 0 24 24"
+          fill="#6366f1" stroke="#6366f1" strokeWidth="0.5"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          <circle cx="18.5" cy="4.2" r="1.3" fill="white" stroke="none" />
+          <circle cx="21.2" cy="7.8" r="0.9" fill="white" stroke="none" />
+        </svg>
+      ) : (
+        /* Filled Sun — click to go light */
+        <svg
+          width="24" height="24" viewBox="0 0 24 24"
+          fill="#f59e0b" stroke="#f59e0b" strokeWidth="1"
+          strokeLinecap="round" strokeLinejoin="round"
+        >
+          <circle cx="12" cy="12" r="4.5" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      )}
     </button>
   );
 };

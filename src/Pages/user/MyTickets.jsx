@@ -43,7 +43,7 @@ const MyTickets = () => {
   }, []);
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid pt-4">
       <p className="mb-4 h3 fw-bold" style={{ fontFamily: "Poppins" }}>
         My Tickets
       </p>

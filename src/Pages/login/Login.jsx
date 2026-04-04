@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import Loader from "../../Components/Loader";
+import Footer from "../../Components/Footer";
 
 function Login() {
   const { login, user } = useAuth();
@@ -83,7 +84,7 @@ function Login() {
   };
 
   return (
-    <div className="bg_container" style={{ height: "100vh", overflow: "hidden" }}>
+    <div className="bg_container d-flex flex-column" style={{ minHeight: "100vh", overflow: "hidden" }}>
       <div className="container-fluid">
         <div className="row">
 
@@ -223,12 +224,7 @@ function Login() {
         </div>
       </div>
 
-      <div className="auth-footer mb-3">
-        <p>
-          Designed & Developed by{" "}
-          <span className="brand">IT Applications</span>
-        </p>
-      </div>
+      <Footer />
     </div>
   );
 }

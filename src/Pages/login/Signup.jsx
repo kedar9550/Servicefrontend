@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import API from '../../api/axios';
 import { useTheme } from "../../context/ThemeContext";
+import Footer from "../../Components/Footer";
 
 function Signup() {
     const { theme } = useTheme();
@@ -529,9 +530,7 @@ function Signup() {
                 </div>
             </div>
 
-            <div className="auth-footer mb-3" style={{ color: "var(--text-color)", fontSize: "14px", fontWeight: "500" }}>
-                Designed and Developed by <span style={{ color: "var(--primary-color)" }}>IT Applications</span>
-            </div>
+            <Footer />
         </div>
     )
 }

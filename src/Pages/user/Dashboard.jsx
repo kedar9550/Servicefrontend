@@ -197,67 +197,53 @@ const StatCard = ({
   progressColor,
 }) => {
   return (
-    <div className="col-6 col-md-4 col-lg-3 col-xl">
+    <div className="col-12 col-md-6 col-lg-4 col-xl">
       <div
-        className="card border-0 rounded-4 p-3 p-md-4 h-100 stat-card-adaptive"
+        className="card shadow-sm rounded-4 p-4 h-100 border-0"
         style={{
-          background: "var(--card-bg)",
-          borderLeft: `4px solid ${iconColor}`,
-          boxShadow: "var(--card-shadow)",
-          transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          backgroundColor: "var(--stat-card-bg)",
+          transition: "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
           cursor: "default",
+          transformOrigin: "center"
         }}
         onMouseOver={(e) => {
-          e.currentTarget.style.transform = "translateY(-6px)";
-          e.currentTarget.style.boxShadow = "var(--card-shadow-hover)";
+          e.currentTarget.style.transform = "scale(1.05) translateY(-4px)";
+          e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1) !important";
         }}
         onMouseOut={(e) => {
-          e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "var(--card-shadow)";
+          e.currentTarget.style.transform = "scale(1) translateY(0)";
+          e.currentTarget.style.boxShadow = "0 0.125rem 0.25rem rgba(0,0,0,0.075) !important";
         }}
       >
-        <div className="d-flex align-items-start justify-content-between mb-3">
-          <div>
-            <p className="text-secondary fw-medium mb-1" style={{ fontSize: "0.78rem", letterSpacing: "0.5px", textTransform: "uppercase" }}>{title}</p>
-            <h3 className="fw-bold m-0" style={{ color: "var(--text-color)" }}>{value}</h3>
-          </div>
+        <div className="d-flex align-items-center gap-3 mb-4">
           <div
-            className="rounded-3 d-flex justify-content-center align-items-center flex-shrink-0"
-            style={{
-              backgroundColor: iconBg,
-              color: iconColor,
-              width: "42px",
-              height: "42px",
-              boxShadow: `0 6px 12px -3px ${iconColor}35`
-            }}
+            className="rounded-circle shadow-sm d-flex justify-content-center align-items-center flex-shrink-0"
+            style={{ backgroundColor: iconColor, color: "#fff", width: "42px", height: "42px" }}
           >
             {icon}
           </div>
+          <p className="text-secondary fw-medium mb-0" style={{ fontSize: "0.95rem" }}>{title}</p>
         </div>
 
-        <div>
-          <div className="d-flex align-items-center justify-content-between mb-1">
-            <span className="text-secondary" style={{ fontSize: "0.75rem" }}>Progress</span>
-            <span className="fw-semibold" style={{ fontSize: "0.75rem", color: iconColor }}>{progress}</span>
-          </div>
+        <h2 className="fw-bold m-0" style={{ color: iconColor }}>{value}</h2>
+
+        <div
+          style={{
+            height: "5px",
+            backgroundColor: "rgba(128,128,128,0.15)",
+            borderRadius: "10px",
+            marginTop: "25px",
+          }}
+        >
           <div
             style={{
-              height: "5px",
-              backgroundColor: "rgba(0,0,0,0.06)",
+              width: progress || "0%",
+              height: "100%",
+              backgroundColor: progressColor,
               borderRadius: "10px",
-              overflow: "hidden"
+              transition: "width 1.2s ease-in-out"
             }}
-          >
-            <div
-              style={{
-                width: progress || "0%",
-                height: "100%",
-                backgroundColor: progressColor,
-                borderRadius: "10px",
-                transition: "width 1.5s cubic-bezier(0.65, 0, 0.35, 1)",
-              }}
-            ></div>
-          </div>
+          ></div>
         </div>
       </div>
     </div>

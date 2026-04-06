@@ -264,7 +264,7 @@ function AssignTickets() {
         .map((t, index) => ({ ...t, id: t._id }));
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid mt-3">
             <div className="row">
 
                 <div className="col-12">

@@ -722,6 +722,14 @@
     color: #ff6600;
 }
 
+.btnn {
+    height: 45px;
+    width: auto;
+    border-radius: 10px;
+    background-color: #00306e;
+
+}
+
 /* --------Common Table Data------------ */
 .MuiDataGrid-root {
     font-family: 'Google Sans' !important;

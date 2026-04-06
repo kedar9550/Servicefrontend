@@ -13,8 +13,7 @@
     /* Fix left cutoff */
     align-items: flex-end;
     z-index: 2000;
-    padding: 0 10px 6px 10px;
-    /* Reduced bottom padding from 12px to 6px */
+    padding: 0 0 6px 0; /* Removed side padding to fit 5 items perfectly */
     transition: all 0.3s ease;
     overflow-x: auto;
     overflow-y: visible;
@@ -71,9 +70,8 @@
     justify-content: flex-end;
     text-decoration: none;
     color: var(--secondary-color);
-    flex: 0 0 85px;
-    /* Fixed width for better spacing on all screens */
-    min-width: 80px;
+    flex: 0 0 20%; /* Show exactly 5 items at a time */
+    min-width: 20%;
     height: 100%;
     transition: all 0.3s ease;
     gap: 0;

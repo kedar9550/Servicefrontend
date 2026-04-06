@@ -138,7 +138,7 @@ function TeamMembers() {
         const displayedTickets = showAllTickets ? memberTickets : memberTickets.slice(0, 5);
 
         return (
-            <div className="container-fluid mt-4 pb-5">
+            <div className="px-2 py-3 px-md-4 py-md-4 pb-5" style={{ minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
                 {/* Back Button */}
                 <button 
                     className="btn btn-light mb-4 d-flex align-items-center gap-2"
@@ -290,21 +290,48 @@ function TeamMembers() {
     }
 
     return (
-        <div className="container-fluid mt-4">
+        <div className="px-2 py-3 px-md-4 py-md-4" style={{ minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
 
-            <div className="d-flex justify-content-between align-items-center">
-                <div>
-                    <h2 className="fw-bold mb-1">Service Members</h2>
-                    <p className="text-secondary mb-4">
+            <div className="d-flex justify-content-between align-items-center mb-4 gap-2">
+                <div className="flex-grow-1">
+                    <h2 className="fw-bold mb-1" style={{ fontSize: "1.75rem" }}>Service Members</h2>
+                    <p className="text-secondary mb-0" style={{ fontSize: "0.95rem" }}>
                         {serviceName ? `${serviceName} Service Team` : "Service Team"} - View member profiles and workload
                     </p>
                 </div>
 
                 <button
-                    className="btn btn-primary rounded-pill px-4"
+                    className="btn btn-primary-custom shadow-sm fw-medium d-flex align-items-center justify-content-center text-white"
+                    style={{ 
+                        transition: "0.3s",
+                        width: "48px", // Mobile: Round (width=height)
+                        height: "48px",
+                        borderRadius: "50%",
+                        backgroundColor: "#00306e",
+                        padding: "0"
+                    }}
                     onClick={() => setShowModal(true)}
+                    onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+                    onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
                 >
-                    + Add Team Member
+                    {/* Desktop Text */}
+                    <span className="d-none d-md-inline me-md-2 ps-md-4 pe-md-1">+ Add Team Member</span>
+                    {/* Icon - Using Users icon as a fallback if UserPlus is not needed or just keep it simple */}
+                    <span className="d-flex align-items-center justify-content-center pe-md-4 text-center">
+                        <Users size={20} />
+                    </span>
+
+                    {/* Desktop Style Override - Consistent with Dashboard/Tickets */}
+                    <style dangerouslySetInnerHTML={{ __html: `
+                        @media (min-width: 768px) {
+                            .btn-primary-custom { 
+                                width: auto !important; 
+                                height: auto !important; 
+                                border-radius: 50px !important; 
+                                padding: 0.6rem 1.5rem !important;
+                            }
+                        }
+                    `}} />
                 </button>
             </div>
 

@@ -3,15 +3,18 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 110px; /* Reduced from 120px */
+    height: 110px;
+    /* Reduced from 120px */
     /* Tall to allow floating icon and vertical buffer */
     background-color: transparent !important;
     /* Main container is transparent wrapper */
     display: flex;
-    justify-content: flex-start; /* Fix left cutoff */
+    justify-content: flex-start;
+    /* Fix left cutoff */
     align-items: flex-end;
     z-index: 2000;
-    padding: 0 10px 6px 10px; /* Reduced bottom padding from 12px to 6px */
+    padding: 0 10px 6px 10px;
+    /* Reduced bottom padding from 12px to 6px */
     transition: all 0.3s ease;
     overflow-x: auto;
     overflow-y: visible;
@@ -25,19 +28,28 @@
     /* Allow clicks on page content behind the transparent part */
 }
 
+/* NO SCROLL for few items (e.g., standard User role) */
+.mobile-bottom-nav.few-items {
+    justify-content: space-around;
+    overflow-x: hidden;
+    padding: 0 5px 6px 5px;
+}
+
+.mobile-bottom-nav.few-items .mobile-nav-item {
+    flex: 1;
+    min-width: 60px;
+}
+
 /* THE FIX: Solid background bar that stays fixed and doesn't scroll with items */
 /* We use a sibling or a pseudo-element that is NOT part of the scroll content width */
 .mobile-bottom-nav::before {
     content: "";
     position: fixed;
-    /* FIXED relative to viewport, so it stays full width */
     bottom: 0;
     left: 0;
     width: 100%;
     height: 70px;
-    /* Visual bar height */
     background-color: var(--card-bg);
-    /* THEME AWARE BACKGROUND */
     border-top: 1px solid var(--border-color);
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
     z-index: -1;
@@ -59,7 +71,8 @@
     justify-content: flex-end;
     text-decoration: none;
     color: var(--secondary-color);
-    flex: 0 0 85px; /* Fixed width for better spacing on all screens */
+    flex: 0 0 85px;
+    /* Fixed width for better spacing on all screens */
     min-width: 80px;
     height: 100%;
     transition: all 0.3s ease;
@@ -78,14 +91,16 @@
 
 .mobile-nav-icon-wrapper {
     width: 42px;
-    height: 44px; /* Reduced from 52px */
+    height: 44px;
+    /* Reduced from 52px */
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 12px;
     transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
-    margin-bottom: -2px; /* Pull it slightly closer to the label */
+    margin-bottom: -2px;
+    /* Pull it slightly closer to the label */
 }
 
 .mobile-nav-item i {
@@ -116,9 +131,11 @@
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background-color: #ff5900; /* Orange for light theme */
+    background-color: #ff5900;
+    /* Orange for light theme */
     color: #ffffff;
-    transform: translateY(-18px); /* Lowered from -25px */
+    transform: translateY(-18px);
+    /* Lowered from -25px */
     box-shadow: 0 8px 18px rgba(255, 89, 0, 0.4);
     display: flex;
     align-items: center;
@@ -136,7 +153,8 @@
     opacity: 1;
     font-weight: 700;
     font-size: 11px;
-    color: #ff5900; /* Orange for light theme */
+    color: #ff5900;
+    /* Orange for light theme */
     margin-top: 0px;
 }
 

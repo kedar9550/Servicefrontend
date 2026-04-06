@@ -62,7 +62,7 @@ const MobileBottomNav = () => {
     };
 
     return (
-        <div className="mobile-bottom-nav">
+        <div className={`mobile-bottom-nav ${navItems.length <= 5 ? "few-items" : ""}`}>
             {navItems.map((item) => (
                 <NavLink
                     key={item.to}

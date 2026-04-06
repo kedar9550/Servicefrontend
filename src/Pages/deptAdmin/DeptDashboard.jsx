@@ -169,7 +169,7 @@ const DeptDashboard = () => {
       </div>
 
       {/* ================= MAIN CARDS ================= */}
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 mb-5">
+      <div className="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 mb-5">
         <StatCard
           title="Total Tickets"
           value={totalTickets}
@@ -265,7 +265,7 @@ const StatCard = ({
   progressColor,
 }) => {
   return (
-    <div className="col-md-6 col-lg-3">
+    <div className="col">
       <div
         className="card shadow-sm rounded-4 p-4 h-100 border-0"
         style={{

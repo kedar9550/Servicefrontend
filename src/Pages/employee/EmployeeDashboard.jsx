@@ -100,47 +100,47 @@ const EmployeeDashboard = () => {
   }));
 
   return (
-    <div className="container-fluid py-4" style={{ backgroundColor: "var(--bg-color)", minHeight: "100vh" }}>
-      <h2 className="fw-bold">Employee Dashboard</h2>
-      <p className="text-secondary mb-4">Welcome back! Here's your ticket overview</p>
+    <div className="px-2 py-3 px-md-4 py-md-4" style={{ backgroundColor: "var(--bg-color)", minHeight: "100vh" }}>
+      <h2 className="fw-bold mb-1" style={{ fontSize: "1.75rem" }}>Employee Dashboard</h2>
+      <p className="text-secondary mb-4" style={{ fontSize: "0.95rem" }}>Welcome back! Here's your ticket overview</p>
 
       {/* STAT CARDS */}
-      <div className="row g-4 mt-1 mb-5">
-        <div className="col-6 col-lg-3">
+      <div className="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 mt-1 mb-5">
+        <div className="col">
           <StatCard
             title="Total Assigned"
             value={stats.total}
             icon={<List size={24} />}
-            colorHex="var(--primary-color)"
+            colorHex="#4361ee"
             bgColorHex="var(--stat-card-bg)"
           />
         </div>
-        <div className="col-6 col-lg-3">
+        <div className="col">
           <StatCard
             title="Open"
             value={stats.open}
             icon={<Clock size={24} />}
-            colorHex="var(--danger-color)"
+            colorHex="#e76f51"
             bgColorHex="var(--stat-card-bg)"
             baseValue={stats.total}
           />
         </div>
-        <div className="col-6 col-lg-3">
+        <div className="col">
           <StatCard
             title="In Progress"
             value={stats.progress}
             icon={<TrendingUp size={24} />}
-            colorHex="var(--warning-color)"
+            colorHex="#f4a261"
             bgColorHex="var(--stat-card-bg)"
             baseValue={stats.total}
           />
         </div>
-        <div className="col-6 col-lg-3">
+        <div className="col">
           <StatCard
             title="Closed"
             value={stats.closed}
             icon={<CheckCircle size={24} />}
-            colorHex="var(--success-color)"
+            colorHex="#2a9d8f"
             bgColorHex="var(--stat-card-bg)"
             baseValue={stats.total}
           />
@@ -149,13 +149,40 @@ const EmployeeDashboard = () => {
 
       {/* RECENT TICKETS */}
       <div className="card border-0 shadow-sm rounded-4 p-4">
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h5 className="fw-bold mb-0">Recent Tickets</h5>
+        <div className="d-flex justify-content-between align-items-center mb-4 gap-2">
+          <h5 className="fw-bold mb-0 flex-grow-1">Recent Tickets</h5>
           <button
-            className="btn btn-primary px-4 shadow-sm text-white"
+            className="btn btn-primary-custom shadow-sm fw-medium d-flex align-items-center justify-content-center text-white"
+            style={{ 
+              transition: "0.3s",
+              width: "48px", 
+              height: "48px",
+              borderRadius: "50%",
+              backgroundColor: "#00306e",
+              padding: "0"
+            }}
             onClick={() => navigate("/dev/assigned")}
+            onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
           >
-            View All
+            {/* Desktop Text */}
+            <span className="d-none d-md-inline me-md-2 ps-md-4 pe-md-1">View All</span>
+            {/* Icon */}
+            <span className="d-flex align-items-center justify-content-center pe-md-4">
+              <List size={20} />
+            </span>
+
+            {/* Desktop Style Override */}
+            <style dangerouslySetInnerHTML={{ __html: `
+              @media (min-width: 768px) {
+                .btn-primary-custom { 
+                  width: auto !important; 
+                  height: auto !important; 
+                  border-radius: 50px !important; 
+                  padding: 0.6rem 1.5rem !important;
+                }
+              }
+            `}} />
           </button>
         </div>
 

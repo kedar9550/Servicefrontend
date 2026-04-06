@@ -370,8 +370,8 @@ function Reports() {
             </div>
 
             {/* KPIs */}
-            <div className="row g-4 mb-4">
-                <div className="col-12 col-md-4">
+            <div className="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+                <div className="col">
                     <div className="card shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--stat-card-bg)", border: "1px solid var(--border-color)" }}>
                         <div className="d-flex gap-3 mb-2 align-items-center">
                             <div className="rounded d-flex justify-content-center align-items-center" style={{ width: "42px", height: "42px", backgroundColor: "rgba(245, 166, 35, 0.15)", color: "#f5a623" }}>
@@ -388,7 +388,7 @@ function Reports() {
                     </div>
                 </div>
 
-                <div className="col-12 col-md-4">
+                <div className="col">
                     <div className="card shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--stat-card-bg)", border: "1px solid var(--border-color)" }}>
                         <div className="d-flex gap-3 mb-2 align-items-center">
                             <div className="rounded d-flex justify-content-center align-items-center" style={{ width: "42px", height: "42px", backgroundColor: "rgba(24, 144, 255, 0.15)", color: "#1890ff" }}>
@@ -405,7 +405,7 @@ function Reports() {
                     </div>
                 </div>
 
-                <div className="col-12 col-md-4">
+                <div className="col">
                     <div className="card shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--stat-card-bg)", border: "1px solid var(--border-color)" }}>
                         <div className="d-flex gap-3 mb-2 align-items-center">
                             <div className="rounded d-flex justify-content-center align-items-center" style={{ width: "42px", height: "42px", backgroundColor: "rgba(245, 34, 45, 0.15)", color: "#f5222d" }}>

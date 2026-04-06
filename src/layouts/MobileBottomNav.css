@@ -1,65 +1,16 @@
-.mobile-bottom-nav {
+.mobile-bottom-nav-wrapper {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 110px;
-    /* Reduced from 120px */
-    /* Tall to allow floating icon and vertical buffer */
-    background-color: transparent !important;
-    /* Main container is transparent wrapper */
-    display: flex;
-    justify-content: flex-start;
-    /* Fix left cutoff */
-    align-items: flex-end;
     z-index: 2000;
-    padding: 0 0 6px 0; /* Removed side padding to fit 5 items perfectly */
-    transition: all 0.3s ease;
-    overflow-x: auto;
-    overflow-y: visible;
-    white-space: nowrap;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    pointer-events: none;
-}
-
-.mobile-nav-inner {
-    display: flex;
-    justify-content: flex-start; /* Default to start to prevent cutoff */
-    align-items: flex-end;
-    min-width: 100%;
-    width: max-content;
-    height: 100%;
-    padding: 0 10px 12px 10px;
-    pointer-events: none;
-}
-
-/* SMART CENTERING: Spacers take up available space to center items, but collapse if content overflows */
-.mobile-nav-inner::before,
-.mobile-nav-inner::after {
-    content: "";
-    flex: 1 1 0%;
-    min-width: 0;
-    pointer-events: none;
-}
-
-/* NO SCROLL for few items (e.g., standard User role) */
-.mobile-bottom-nav.few-items {
-    justify-content: space-around;
-    overflow-x: hidden;
-    padding: 0 5px 6px 5px;
-}
-
-.mobile-bottom-nav.few-items .mobile-nav-item {
-    flex: 1;
-    min-width: 60px;
+    pointer-events: none; /* Ignore clicks on the invisible top area */
 }
 
 /* THE FIX: Solid background bar that stays fixed and doesn't scroll with items */
-/* We use a sibling or a pseudo-element that is NOT part of the scroll content width */
-.mobile-bottom-nav::before {
-    content: "";
-    position: fixed;
+.mobile-bottom-nav-bg {
+    position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -67,10 +18,37 @@
     background-color: var(--card-bg);
     border-top: 1px solid var(--border-color);
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
-    z-index: -1;
-    pointer-events: auto;
+    pointer-events: auto; /* Catch clicks on the white bar */
+    z-index: 1;
 }
 
+.mobile-bottom-nav-scroll {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; /* Tall enough for floating icon, short enough to not block content above */
+    display: flex;
+    justify-content: flex-start; /* Safely align left for scrollable items */
+    align-items: flex-end;
+    overflow-x: auto;
+    overflow-y: visible;
+    white-space: nowrap;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    pointer-events: auto; /* Allow dragging/scrolling on this specific area */
+    z-index: 2;
+}
+
+.mobile-bottom-nav-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera Hide scrollbar */
+}
+
+/* FLEXIBLE SIZING: 
+   - min-width 75px ensures exactly 5 fit on 375px display
+   - flex-grow 1 evenly distributes extra space on wider screens
+   - flex-shrink 0 maintains minimum width for scrolling when items exceed screen
+*/
 .mobile-nav-item {
     pointer-events: auto;
     display: flex;
@@ -79,8 +57,8 @@
     justify-content: flex-end;
     text-decoration: none;
     color: var(--secondary-color);
-    flex: 0 0 20%; /* Show exactly 5 items at a time */
-    min-width: 20%;
+    flex: 1 0 75px;
+    min-width: 75px;
     height: 100%;
     transition: all 0.3s ease;
     gap: 0;

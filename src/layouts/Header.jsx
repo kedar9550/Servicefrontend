@@ -150,10 +150,10 @@ function Header({ sidebarOpen, isMobile }) {
                 <i className="bi bi-bell" style={{ fontSize: "1rem" }}></i>
                 Notifications
               </button>
-              
+
               {/* Theme Toggle - Mobile Menu */}
-              <div 
-                onClick={(e) => { e.stopPropagation(); toggleTheme(); }} 
+              <div
+                onClick={(e) => { e.stopPropagation(); toggleTheme(); }}
                 style={{
                   display: "flex", alignItems: "center", gap: "10px",
                   width: "100%", padding: "6px 16px",

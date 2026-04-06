@@ -21,6 +21,16 @@ const Layout = () => {
   const isSmallMobile = windowWidth <= 992; // Tablet landscape cutoff
   const useMobileNav = isSmallMobile;
 
+  // Lock body scroll so fixed sidebar/header never jitter during page scroll
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, []);
+
   return (
     <>
       <Header
@@ -37,17 +47,22 @@ const Layout = () => {
 
       <div
         style={{
-          marginLeft: useMobileNav ? "0" : (sidebarOpen ? "250px" : "80px"),
-          maxWidth: useMobileNav ? "100%" : `calc(100% - ${sidebarOpen ? "250px" : "80px"})`,
-          minHeight: "calc(100vh - 60px)",
-          marginTop: "60px",
-          paddingBottom: useMobileNav ? "80px" : "0px",
-          transition: "margin-left 0.3s, max-width 0.3s",
+          position: "fixed",
+          top: "60px",
+          left: useMobileNav ? "0" : (sidebarOpen ? "250px" : "80px"),
+          right: 0,
+          bottom: 0,
+          overflowY: "auto",
           overflowX: "hidden",
+          transition: "left 0.3s",
+          paddingBottom: useMobileNav ? "80px" : "0px",
+          backgroundColor: "var(--bg-color)",
         }}
       >
-        <Outlet />
-        <Footer />
+        <div style={{ maxWidth: "1600px", margin: "0 auto", width: "100%", minHeight: "100%" }}>
+          <Outlet />
+          <Footer />
+        </div>
       </div>
 
       {useMobileNav && <MobileBottomNav />}

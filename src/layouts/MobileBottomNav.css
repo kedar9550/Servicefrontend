@@ -18,14 +18,30 @@
     transition: all 0.3s ease;
     overflow-x: auto;
     overflow-y: visible;
-    /* CRITICAL */
     white-space: nowrap;
     -ms-overflow-style: none;
-    /* IE/Edge */
     scrollbar-width: none;
-    /* Firefox */
     pointer-events: none;
-    /* Allow clicks on page content behind the transparent part */
+}
+
+.mobile-nav-inner {
+    display: flex;
+    justify-content: flex-start; /* Default to start to prevent cutoff */
+    align-items: flex-end;
+    min-width: 100%;
+    width: max-content;
+    height: 100%;
+    padding: 0 10px 12px 10px;
+    pointer-events: none;
+}
+
+/* SMART CENTERING: Spacers take up available space to center items, but collapse if content overflows */
+.mobile-nav-inner::before,
+.mobile-nav-inner::after {
+    content: "";
+    flex: 1 1 0%;
+    min-width: 0;
+    pointer-events: none;
 }
 
 /* NO SCROLL for few items (e.g., standard User role) */
@@ -54,13 +70,6 @@
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
     z-index: -1;
     pointer-events: auto;
-}
-
-/* Center items only when they don't overflow the screen width */
-.mobile-bottom-nav::after,
-.mobile-bottom-nav::before {
-    content: "";
-    margin: auto;
 }
 
 .mobile-nav-item {

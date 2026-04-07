@@ -9,7 +9,7 @@
     --border-color: #e2e8f0;
     --primary-color: #0b5299;
     --secondary-color: #64748b;
-    --accent-color: #ff5900;
+    --accent-color: #d06c38;
     --stat-card-bg: aliceblue;
     --input-bg: #ffffff;
     --info-color: #0dcaf0;
@@ -301,7 +301,8 @@ body {
 
 /* ── MUI DataGrid Tablet/Mobile Responsiveness Overrides (Up to 992px) ── */
 .MuiDataGrid-root {
-    font-size: 0.82rem !important; /* Slightly smaller base font for mobile/tablet */
+    font-size: 0.82rem !important;
+    /* Slightly smaller base font for mobile/tablet */
 }
 
 /* Allow headers to wrap to prevent clipping */
@@ -322,17 +323,18 @@ body {
         padding-left: 6px !important;
         padding-right: 6px !important;
     }
+
     .MuiDataGrid-columnHeader {
         padding-left: 6px !important;
         padding-right: 6px !important;
     }
-    
+
     /* Ensure the dashboard container has less padding on tablet */
     .container-fluid {
         padding-left: 10px !important;
         padding-right: 10px !important;
     }
-    
+
     /* Header optimization for tablet font sizes */
     .navbar {
         padding-left: 15px !important;

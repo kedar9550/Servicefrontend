@@ -1,12 +1,16 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/AUS_LOGO.png";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import "./Sidebar.css";
 
 const Slider = ({ open, toggleSidebar }) => {
-
+  const { theme } = useTheme();
   const { logout, user, hasRole, isSuperAdmin } = useAuth();
-  //console.log('slider user data ',user.role)
+  
+  const isDark = theme === "dark";
+  const openLogo = isDark ? "/Gold_logo.png" : logo;
+  const closedLogo = isDark ? "/AUS_Gold.png" : "/AUS.svg";
 
   return (
     <div
@@ -28,18 +32,12 @@ const Slider = ({ open, toggleSidebar }) => {
       {/* Logo + Toggle */}
       <div
         className="d-flex align-items-center mb-4"
-      // style={{ position: "relative", height: "50px" }}
       >
         {open && (
           <div className="d-flex align-items-center justify-content-between px-0 mb-3"
-          // style={{
-          //   position: "absolute",
-          //   left: "40%",
-          //   transform: "translateX(-50%)",
-          // }}
           >
             <img
-              src={logo}
+              src={openLogo}
               alt="Logo"
               style={{ marginTop: "10px", width: "200px" }}
             />
@@ -53,7 +51,7 @@ const Slider = ({ open, toggleSidebar }) => {
             </button>
           ) : (
             <img
-              src="/AUS.svg"
+              src={closedLogo}
               alt="Logo"
               style={{ width: "55px", cursor: "pointer" }}
               onClick={toggleSidebar}

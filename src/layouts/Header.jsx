@@ -153,7 +153,7 @@ function Header({ sidebarOpen, isMobile }) {
 
               {/* Theme Toggle - Mobile Menu */}
               <div
-                onClick={(e) => { e.stopPropagation(); toggleTheme(); }}
+                onClick={(e) => { e.stopPropagation(); toggleTheme(e); }}
                 style={{
                   display: "flex", alignItems: "center", gap: "10px",
                   width: "100%", padding: "6px 16px",

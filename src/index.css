@@ -62,7 +62,15 @@ body {
     font-family: 'Google Sans' !important;
     background-color: var(--bg-color) !important;
     color: var(--text-color) !important;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Remove the CSS translation of background-color since we use View Transition API now */
+    transition: color 0.3s ease;
+}
+
+/* Custom View Transitions for Theme Toggle */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
 }
 
 .card {

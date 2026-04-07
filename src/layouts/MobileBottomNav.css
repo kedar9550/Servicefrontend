@@ -5,7 +5,8 @@
     width: 100%;
     height: 110px;
     z-index: 2000;
-    pointer-events: none; /* Ignore clicks on the invisible top area */
+    pointer-events: none;
+    /* Ignore clicks on the invisible top area */
 }
 
 /* THE FIX: Solid background bar that stays fixed and doesn't scroll with items */
@@ -18,7 +19,8 @@
     background-color: var(--card-bg);
     border-top: 1px solid var(--border-color);
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
-    pointer-events: auto; /* Catch clicks on the white bar */
+    pointer-events: auto;
+    /* Catch clicks on the white bar */
     z-index: 1;
 }
 
@@ -27,21 +29,27 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 100px; /* Tall enough for floating icon, short enough to not block content above */
+    height: 100px;
+    /* Tall enough for floating icon, short enough to not block content above */
     display: flex;
-    justify-content: flex-start; /* Safely align left for scrollable items */
+    justify-content: flex-start;
+    /* Safely align left for scrollable items */
     align-items: flex-end;
     overflow-x: auto;
     overflow-y: visible;
     white-space: nowrap;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-    pointer-events: auto; /* Allow dragging/scrolling on this specific area */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    pointer-events: auto;
+    /* Allow dragging/scrolling on this specific area */
     z-index: 2;
 }
 
 .mobile-bottom-nav-scroll::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera Hide scrollbar */
+    display: none;
+    /* Chrome, Safari and Opera Hide scrollbar */
 }
 
 /* FLEXIBLE SIZING: 
@@ -54,16 +62,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
+    /* Centered vertically */
     text-decoration: none;
     color: var(--secondary-color);
     flex: 1 0 75px;
     min-width: 75px;
-    height: 100%;
+    height: 70px;
+    /* Match the background bar height */
     transition: all 0.3s ease;
     gap: 0;
     background-color: transparent !important;
-    /* Force transparent */
     background: transparent !important;
     border: none;
     padding: 0;
@@ -75,13 +84,14 @@
 }
 
 .mobile-nav-icon-wrapper {
-    width: 42px;
-    height: 44px;
-    /* Reduced from 52px */
+    width: 45px;
+    /* Reduced from 45px to bring label closer */
+    height: 45px;
+    /* Reduced from 45px to bring label closer */
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
+    border-radius: 100px;
     transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     margin-bottom: -2px;
@@ -89,18 +99,21 @@
 }
 
 .mobile-nav-item i {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     transition: all 0.3s ease;
 }
 
 .mobile-nav-label {
-    font-size: 9px;
+    font-size: 10px;
+    /* Slightly increased for better readability */
     font-weight: 500;
     text-align: center;
     white-space: nowrap;
     opacity: 0.8;
     color: var(--secondary-color);
     transition: all 0.3s ease;
+    margin-top: -2px;
+    /* Reduce gap further */
 }
 
 /* ── Active State ── */
@@ -113,15 +126,14 @@
 /* Icon floats above the nav bar */
 /* Icon floats up as a rounded square with gold background */
 .mobile-nav-item.active .mobile-nav-icon-wrapper {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+    width: 45px;
+    height: 45px;
+    border-radius: 100px;
     background-color: #ff5900;
     /* Orange for light theme */
     color: #ffffff;
-    transform: translateY(-18px);
-    /* Lowered from -25px */
-    box-shadow: 0 8px 18px rgba(255, 89, 0, 0.4);
+    transform: translateY(-25px);
+    /* box-shadow: 0 8px 18px rgba(255, 89, 0, 0.4); */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -140,7 +152,7 @@
     font-size: 11px;
     color: #ff5900;
     /* Orange for light theme */
-    margin-top: 0px;
+    margin-top: -2px;
 }
 
 /* ── Logout button ── */

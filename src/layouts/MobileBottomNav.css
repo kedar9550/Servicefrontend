@@ -84,9 +84,9 @@
 }
 
 .mobile-nav-icon-wrapper {
-    width: 45px;
+    width: 55px;
     /* Reduced from 45px to bring label closer */
-    height: 45px;
+    height: 55px;
     /* Reduced from 45px to bring label closer */
     display: flex;
     align-items: center;
@@ -126,10 +126,10 @@
 /* Icon floats above the nav bar */
 /* Icon floats up as a rounded square with gold background */
 .mobile-nav-item.active .mobile-nav-icon-wrapper {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     border-radius: 100px;
-    background-color: #ff5900;
+    background-color: #d06c38;
     /* Orange for light theme */
     color: #ffffff;
     transform: translateY(-25px);

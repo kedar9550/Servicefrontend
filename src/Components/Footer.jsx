@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <div className="auth-footer mt-4 mb-3">
+        <div className="container-fluid auth-footer py-3 mt-auto" style={{ backgroundColor: 'var(--stat-card-bg)' }}>
             <p>
                 Designed & Developed by{" "}
                 <span className="brand">IT Applications</span>

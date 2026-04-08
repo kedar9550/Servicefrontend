@@ -55,7 +55,7 @@ const Layout = () => {
           overflowY: "auto",
           overflowX: "hidden",
           transition: "left 0.3s",
-          paddingBottom: useMobileNav ? "80px" : "0px",
+          paddingBottom: useMobileNav ? "70px" : "0px",
           backgroundColor: "var(--bg-color)",
         }}
       >

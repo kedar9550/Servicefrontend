@@ -356,6 +356,9 @@ body {
     text-align: center;
     padding: 20px 0;
     width: 100%;
+    /* Ensure footer background spans full width on mobile by overriding global container-fluid padding */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 .auth-footer p {

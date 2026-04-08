@@ -11,8 +11,8 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024
       },
       manifest: {
-        name: 'Service App',
-        short_name: 'Service',
+        name: 'Ticket Generation',
+        short_name: 'TicketGen',
         display: 'standalone',
         start_url: '/',
         icons: [

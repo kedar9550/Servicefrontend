@@ -57,7 +57,7 @@ const DeptTickets = () => {
             width: "48px", // Mobile: Round (width=height)
             height: "48px",
             borderRadius: "50%",
-            backgroundColor: "#00306e",
+            backgroundColor: "var(--primary-color)",
             padding: "0"
           }}
           onClick={() => navigate('/dept/assign')}

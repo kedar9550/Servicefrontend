@@ -99,7 +99,7 @@ const MyTickets = () => {
               renderCell: (params) => (
                 <button
                   className="btn btn-sm"
-                  style={{ backgroundColor: "#0b5299", color: "#fff" }}
+                  style={{ backgroundColor: "var(--primary-color)", color: "#fff" }}
                   onClick={() => navigate(`/ticketdetails/${params.row._id}`)}
                 >
                   View

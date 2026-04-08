@@ -154,7 +154,7 @@ function TeamMembers() {
                             <div style={{ position: "relative", width: "90px", height: "90px" }}>
                                 <div
                                     className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold fs-3"
-                                    style={{ width: "100%", height: "100%", backgroundColor: "#2563eb", position: "absolute", top: 0, left: 0, zIndex: 1 }}
+                                    style={{ width: "100%", height: "100%", backgroundColor: "var(--primary-color)", position: "absolute", top: 0, left: 0, zIndex: 1 }}
                                 >
                                     {initials}
                                 </div>
@@ -307,7 +307,7 @@ function TeamMembers() {
                         width: "48px", // Mobile: Round (width=height)
                         height: "48px",
                         borderRadius: "50%",
-                        backgroundColor: "#00306e",
+                        backgroundColor: "var(--primary-color)",
                         padding: "0"
                     }}
                     onClick={() => setShowModal(true)}
@@ -435,7 +435,7 @@ function TeamMembers() {
                                         <div style={{ position: "relative", width: "55px", height: "55px" }}>
                                             <div
                                                 className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold"
-                                                style={{ width: "100%", height: "100%", backgroundColor: "#2563eb", position: "absolute", top: 0, left: 0, zIndex: 1 }}
+                                                style={{ width: "100%", height: "100%", backgroundColor: "var(--primary-color)", position: "absolute", top: 0, left: 0, zIndex: 1 }}
                                             >
                                                 {initials}
                                             </div>

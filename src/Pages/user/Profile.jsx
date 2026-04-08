@@ -315,7 +315,7 @@ function Profile() {
                 <button
                   type="submit"
                   className="btn px-4"
-                  style={{ backgroundColor: "#00306e", color: "#fff" }}
+                  style={{ backgroundColor: "var(--primary-color)", color: "#fff" }}
                   disabled={submitting}
                 >
                   {submitting ? "Saving..." : "Save Changes"}

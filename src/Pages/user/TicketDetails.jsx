@@ -106,7 +106,7 @@ const TicketDetails = () => {
   };
 
   const getDotColor = (action) => {
-    if (action === "TICKET_CREATED") return "#0b5299";
+    if (action === "TICKET_CREATED") return "var(--primary-color)";
     if (action === "STATUS_CHANGED") return "#f39c12";
     if (action === "ASSIGNED") return "#27ae60";
     return "#6c757d";
@@ -156,7 +156,7 @@ const TicketDetails = () => {
     <div className="container-fluid p-4">
 
       <p
-        style={{ cursor: "pointer", color: "#0b5299" }}
+        style={{ cursor: "pointer", color: "var(--primary-color)" }}
         onClick={() => navigate(-1)}
       >
         ← Back to Tickets
@@ -329,7 +329,7 @@ const TicketDetails = () => {
                           ticket.status === "REJECTED" && (stage.key === "ASSIGNED" || stage.key === "IN_PROGRESS") ? (
                             <div style={{ width: 12, height: 12, backgroundColor: "#adb5bd", borderRadius: "50%" }} />
                           ) : (
-                            <FaCheckCircle color="#0b5299" size={16} />
+                            <FaCheckCircle color="var(--primary-color)" size={16} />
                           )
                         )
                       ) : (

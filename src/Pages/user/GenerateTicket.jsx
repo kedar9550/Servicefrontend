@@ -150,7 +150,7 @@ const GenerateTicket = () => {
             className="card border-0 shadow-sm rounded-4 overflow-hidden"
             style={{
               borderTop: "4px solid",
-              borderImage: "linear-gradient(90deg, #FF8C00, #0b5299) 1"
+              borderImage: "linear-gradient(90deg, #FF8C00, var(--primary-color)) 1"
             }}
           >
             <div className="px-3 px-md-3 py-4 py-md-3">
@@ -334,7 +334,7 @@ const GenerateTicket = () => {
 
                 <div className="text-center">
                   <button type="submit" className="btn px-4 py-2 fw-bold rounded-3 shadow-sm mb-3 text-white"
-                    style={{ backgroundColor: "#0b5299", border: "none" }}
+                    style={{ backgroundColor: "var(--primary-color)", border: "none" }}
                     disabled={loading}>
                     {loading ? <span className="spinner-border spinner-border-sm me-2"></span> : <i className="bi bi-send-fill me-2"></i>}
                     Submit Ticket
@@ -367,7 +367,7 @@ const GenerateTicket = () => {
           from { transform: translateY(20px); opacity: 0; }
           to { transform: translateY(0); opacity: 1; }
         }
-        .hover-primary:hover { border-color: #0b5299 !important; background-color: #f0f7ff !important; }
+        .hover-primary:hover { border-color: var(--primary-color) !important; background-color: var(--sidebar-hover) !important; }
       `}</style>
     </div>
   );

@@ -212,7 +212,7 @@ function Reports() {
                     <button 
                         className="btn btn-primary-custom d-flex align-items-center justify-content-center dropdown-toggle text-white border-0" 
                         style={{ 
-                            backgroundColor: "#00306e", 
+                            backgroundColor: "var(--primary-color)", 
                             width: "48px", 
                             height: "48px", 
                             borderRadius: "50%",

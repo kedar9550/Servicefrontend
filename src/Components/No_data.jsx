@@ -40,8 +40,8 @@ function No_data({ Data = "Data" }) {
                 width: '100%'
             }}>
                 <div className="nodata-text" style={{ textAlign: 'left', minWidth: '200px' }}>
-                    <p className='fw-bold mb-0' style={{ textAlign: 'center', color: "#ff9100", fontSize: "3.5rem", lineHeight: 1.2 }}>
-                        No {Data} <span style={{ color: "var(--primary-color)" }}>Found</span>
+                    <p className='fw-bold mb-0' style={{ textAlign: 'center', color: "var(--primary-color)", fontSize: "3.5rem", lineHeight: 1.2 }}>
+                        No {Data} Found
                     </p>
                     <p className='h6 text-secondary text-center mt-2 mb-0'>We couldn't find any data to show</p>
                 </div>

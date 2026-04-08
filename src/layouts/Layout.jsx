@@ -59,7 +59,7 @@ const Layout = () => {
           backgroundColor: "var(--bg-color)",
         }}
       >
-        <div style={{ maxWidth: "1600px", margin: "0 auto", width: "100%", minHeight: "100%" }}>
+       <div style={{ maxWidth: "1600px", margin: "0 auto", width: "100%", minHeight: "100%", display: "flex", flexDirection: "column" }}>
           <Outlet />
           <Footer />
         </div>

@@ -26,10 +26,6 @@ const TicketDetails = () => {
       setComments(data.comments);
       setActivities(data.activities);
 
-      console.log('tickts', ticket)
-      console.log('Comments', comments)
-      console.log('activities', activities)
-
     } catch (error) {
       console.error(error);
     } finally {

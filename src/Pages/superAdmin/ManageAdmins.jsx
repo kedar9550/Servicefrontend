@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import API from "../../api/axios";
 import Loader from "../../Components/Loader";
-import { Pencil, Trash2, ArrowLeft, Ticket } from "lucide-react";
+import { Pencil, Trash2, ArrowLeft, Ticket, Eye } from "lucide-react";
 import CommonTable from "../../Components/CommonTable";
 import No_data from "../../Components/No_data";
 import { getPriorityColor, getStatusColor } from "../../Components/StatusColors";
@@ -11,7 +11,7 @@ function ManageAdmins() {
 
   const navigate = useNavigate();
   const { serviceId } = useParams();
-  //console.log(serviceId)
+
 
   const [loading, setLoading] = useState(false);
 
@@ -162,7 +162,7 @@ function ManageAdmins() {
       setLoading(false);
     }
   };
-  //console.log(searchedUsers)
+
   return (
     <div className="container py-4">
 
@@ -356,10 +356,12 @@ function ManageAdmins() {
               sortable: false,
               renderCell: (params) => (
                 <button
-                  className="btn btn-primary btn-sm rounded-pill px-3"
+                  className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center"
+                  style={{ width: '32px', height: '32px' }}
                   onClick={() => navigate(`/ticketdetails/${params.row._id}`)}
+                  title="View"
                 >
-                  View
+                  <Eye size={16} style={{ color: "var(--primary-color)" }} />
                 </button>
               )
             }

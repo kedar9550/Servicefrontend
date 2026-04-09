@@ -131,7 +131,7 @@ const MyAssignedTickets = () => {
           onClick={() => navigate(`/ticketdetails/${params.row._id}`)}
           title="View Details"
         >
-          <Eye size={16} className="text-primary" />
+          <Eye size={16} style={{ color: "var(--primary-color)" }} />
         </button>
       )
     }

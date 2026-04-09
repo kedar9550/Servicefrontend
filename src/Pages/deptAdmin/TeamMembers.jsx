@@ -1,5 +1,5 @@
 import React from "react";
-import { Users, CheckCircle, AlertCircle, Clock, Mail, Phone, Trash2, ChevronLeft, History, FileText } from "lucide-react";
+import { Users, CheckCircle, AlertCircle, Clock, Mail, Phone, Trash2, ChevronLeft, History, FileText, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import API from '../../api/axios'
 import { useState, useEffect } from "react";
@@ -31,13 +31,13 @@ function TeamMembers() {
         try {
             setLoading(true);
             const { data } = await API.get("/api/team/dashboard");
-            //console.log("Dashboard Data:", data);
+
             setSummary(data.summary);
             setDeveloperData(data.members);
             if (data.serviceName) setServiceName(data.serviceName);
 
         } catch (err) {
-            console.error(err);
+      
         } finally {
             setLoading(false);
         }
@@ -65,7 +65,7 @@ function TeamMembers() {
                 `/api/auth/search?query=${searchText}`
             );
 
-            console.log("Search Response:", data);
+
 
             const users = Array.isArray(data)
                 ? data
@@ -237,6 +237,7 @@ function TeamMembers() {
                                     <th className="fw-medium py-3">Status</th>
                                     <th className="fw-medium py-3">Created</th>
                                     <th className="fw-medium py-3">Completed</th>
+                                    <th className="fw-medium py-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -265,6 +266,11 @@ function TeamMembers() {
                                                 </td>
                                                 <td className="text-muted">{formatDate(ticket.createdAt)}</td>
                                                 <td className="text-muted text-nowrap">{status === 'RESOLVED' && myAssignment?.updatedAt ? formatDate(myAssignment.updatedAt) : '-'}</td>
+                                                <td>
+                                                    <button className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center" style={{ width: '32px', height: '32px' }} onClick={() => navigate(`/ticketdetails/${ticket._id}`)} title="View">
+                                                        <Eye size={16} style={{ color: "var(--primary-color)" }} />
+                                                    </button>
+                                                </td>
                                             </tr>
                                         )
                                     })
@@ -308,7 +314,8 @@ function TeamMembers() {
                         height: "48px",
                         borderRadius: "50%",
                         backgroundColor: "var(--primary-color)",
-                        padding: "0"
+                        padding: "0",
+                        flexShrink: 0
                     }}
                     onClick={() => setShowModal(true)}
                     onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
@@ -329,6 +336,7 @@ function TeamMembers() {
                                 height: auto !important; 
                                 border-radius: 50px !important; 
                                 padding: 0.6rem 1.5rem !important;
+                                flex-shrink: 0 !important;
                             }
                         }
                     `}} />

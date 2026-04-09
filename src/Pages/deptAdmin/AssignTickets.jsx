@@ -42,7 +42,7 @@ function AssignTickets() {
         try {
             setLoading(true);
             const { data } = await API.get("/api/team/dashboard");
-            //console.log("Dashboard Data:", data);
+
             setDeveloperData(data.members);
 
         } catch (err) {
@@ -192,9 +192,23 @@ function AssignTickets() {
             sortable: false,
             renderCell: (params) => (
                 <div className="d-flex gap-2">
-                    <button className="btn btn-sm btn-primary rounded-pill px-3 shadow-sm fw-medium" onClick={() => setActiveTicket(params.row)}>Assign</button>
+                    <button 
+                        className="btn btn-sm btn-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm d-md-none" 
+                        style={{ width: '32px', height: '32px' }}
+                        onClick={() => setActiveTicket(params.row)}
+                        title="Assign"
+                    >
+                        <UserPlus size={16} />
+                    </button>
+                    <button 
+                        className="btn btn-sm btn-primary rounded-pill px-3 shadow-sm fw-medium d-none d-md-inline-block" 
+                        onClick={() => setActiveTicket(params.row)}
+                        title="Assign"
+                    >
+                        Assign
+                    </button>
                     <button className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center" style={{ width: '32px', height: '32px' }} onClick={() => navigate(`/ticketdetails/${params.row._id}`)} title="View">
-                        <Eye size={16} className="text-secondary" />
+                        <Eye size={16} style={{ color: "var(--primary-color)" }} />
                     </button>
                 </div>
             )
@@ -251,7 +265,7 @@ function AssignTickets() {
                         onClick={() => navigate(`/ticketdetails/${params.row._id}`)}
                         title="View"
                     >
-                        <Eye size={16} className="text-primary" />
+                        <Eye size={16} style={{ color: "var(--primary-color)" }} />
                     </button>
                 </div>
             )
@@ -264,7 +278,7 @@ function AssignTickets() {
         .map((t, index) => ({ ...t, id: t._id }));
 
     return (
-        <div className="container-fluid mt-3">
+        <div className="container-fluid mt-3 mb-5">
             <div className="row">
 
                 <div className="col-12">
@@ -278,7 +292,7 @@ function AssignTickets() {
                         <CommonTable columns={pendingColumns} rows={pendingRows} Data="New Tickets" />
                     </div>
 
-                    <div className="mt-5">
+                    <div className="mt-5 mb-5">
                         <h4 className="fw-bold mb-3">Recently Assigned Tickets</h4>
                         <CommonTable columns={completedColumns} rows={completedRows} Data="Recent Tickets" />
                     </div>
@@ -383,7 +397,35 @@ function AssignTickets() {
                                             slotProps={{
                                                 textField: {
                                                     className: "w-100",
-                                                    size: "small"
+                                                    size: "small",
+                                                    sx: {
+                                                        "& .MuiInputBase-input": {
+                                                            color: "var(--text-color) !important",
+                                                            WebkitTextFillColor: "var(--text-color) !important",
+                                                        },
+                                                        "& .MuiInputBase-input::selection": {
+                                                            backgroundColor: "var(--primary-color) !important",
+                                                            color: "#ffffff !important",
+                                                        },
+                                                        "& .MuiOutlinedInput-root": {
+                                                            backgroundColor: "var(--input-bg) !important",
+                                                            "& fieldset": {
+                                                                borderColor: "var(--border-color) !important",
+                                                            },
+                                                            "&:hover fieldset": {
+                                                                borderColor: "var(--secondary-color) !important",
+                                                            },
+                                                            "&.Mui-focused fieldset": {
+                                                                borderColor: "var(--primary-color) !important",
+                                                            },
+                                                        },
+                                                        "& .MuiInputLabel-root": {
+                                                            color: "var(--secondary-color) !important",
+                                                        },
+                                                        "& .MuiSvgIcon-root": {
+                                                            color: "var(--text-color) !important",
+                                                        }
+                                                    }
                                                 }
                                             }}
                                         />

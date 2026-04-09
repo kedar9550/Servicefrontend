@@ -247,6 +247,148 @@ body {
     background-color: var(--sidebar-hover) !important;
 }
 
+/* 🚨 AGGRESSIVE FIX FOR DARK THEME INPUT TEXT 🚨 */
+[data-theme="dark"] .MuiInputBase-root input {
+    color: var(--text-color) !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .MuiInputBase-root input::placeholder {
+    color: var(--secondary-color) !important;
+    -webkit-text-fill-color: var(--secondary-color) !important;
+    opacity: 1 !important;
+}
+
+/* Global MUI TextField & DatePicker Theme Overrides */
+.MuiTextField-root .MuiInputBase-root {
+    background-color: var(--input-bg) !important;
+    color: var(--text-color) !important;
+    border-radius: 8px;
+}
+
+.MuiTextField-root .MuiInputBase-input {
+    color: var(--text-color) !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+}
+
+/* Global Input Text Fix for MUI */
+.MuiInputBase-input,
+.MuiOutlinedInput-input,
+.MuiInput-input {
+    color: var(--text-color) !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+}
+
+.MuiTextField-root .MuiInputBase-input::selection {
+    background-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-notchedOutline {
+    border-color: var(--border-color) !important;
+}
+
+.MuiTextField-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: var(--secondary-color) !important;
+}
+
+.MuiTextField-root .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--primary-color) !important;
+}
+
+.MuiTextField-root .MuiInputLabel-root {
+    color: var(--secondary-color) !important;
+}
+
+.MuiTextField-root .MuiSvgIcon-root {
+    color: var(--text-color) !important;
+}
+
+.MuiTextField-root .MuiInputBase-input::placeholder {
+    color: var(--secondary-color) !important;
+    opacity: 1 !important;
+}
+
+/* DatePicker Popover/Calendar Theme Overrides */
+.MuiPickersPopper-root .MuiPaper-root,
+.MuiPickersPopper-paper,
+.MuiDateCalendar-root,
+.MuiPickersLayout-root,
+.MuiPickersLayout-contentWrapper,
+.MuiDialog-paper.MuiPickersModalDialog-paper,
+.MuiPickersToolbar-root {
+    background-color: var(--card-bg) !important;
+    background-image: none !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Toolbar (Mobile View Header) Fixes */
+.MuiPickersToolbar-root *,
+.MuiPickersToolbarText-root,
+.MuiDateTimePickerToolbar-title,
+.MuiDatePickerToolbar-title {
+    color: var(--text-color) !important;
+}
+
+.MuiPickersToolbarText-overline,
+.MuiTypography-overline {
+    color: var(--secondary-color) !important;
+    opacity: 0.8;
+}
+
+.MuiPickersDay-root,
+.MuiDayCalendar-weekDayLabel,
+.MuiPickersCalendarHeader-label,
+.MuiPickersCalendarHeader-root,
+.MuiPickersArrowSwitcher-root .MuiIconButton-root,
+.MuiYearPicker-root .MuiPickersYear-yearButton,
+.MuiPickersYear-yearButton,
+.MuiPickersMonth-monthButton {
+    color: var(--text-color) !important;
+    font-family: 'Google Sans' !important;
+}
+
+.MuiPickersDay-root:hover,
+.MuiPickersYear-yearButton:hover,
+.MuiPickersMonth-monthButton:hover {
+    background-color: var(--sidebar-hover) !important;
+}
+
+.MuiPickersDay-root.Mui-selected,
+.MuiPickersYear-yearButton.Mui-selected,
+.MuiPickersMonth-monthButton.Mui-selected {
+    background-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+
+.MuiPickersDay-today,
+.MuiPickersDay-root.MuiPickersDay-today {
+    border: 1px solid var(--primary-color) !important;
+}
+
+/* Fix for the month/year selection view */
+.MuiYearPicker-root, .MuiMonthPicker-root {
+    background-color: var(--card-bg) !important;
+}
+
+/* Bootstrap Modal Dark Theme Overrides */
+[data-theme="dark"] .modal-content {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-footer {
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
 /* Notification Dropdown Customizations */
 .notification-scrollbar::-webkit-scrollbar {
     width: 6px;

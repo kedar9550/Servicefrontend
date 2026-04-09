@@ -26,7 +26,8 @@ function StatCard({ title, value, icon, colorHex, bgColorHex, baseValue }) {
                         width: "50px",
                         height: "50px",
                         backgroundColor: colorHex,
-                        color: "#fff"
+                        color: "#fff",
+                        flexShrink: 0
                     }}
                 >
                     {icon}

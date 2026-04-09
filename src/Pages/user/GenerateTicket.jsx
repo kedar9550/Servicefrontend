@@ -40,9 +40,8 @@ const GenerateTicket = () => {
     try {
       const { data } = await API.get("/api/service/");
       setSerVact(data);
-    } catch (err) {
-      console.log("Service fetch error:", err);
-    }
+      } catch (err) {
+      }
   };
 
   useEffect(() => {

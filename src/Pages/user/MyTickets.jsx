@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import API from "../../api/axios";
@@ -98,11 +99,12 @@ const MyTickets = () => {
               sortable: false,
               renderCell: (params) => (
                 <button
-                  className="btn btn-sm"
-                  style={{ backgroundColor: "var(--primary-color)", color: "#fff" }}
+                  className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center"
+                  style={{ width: '32px', height: '32px' }}
                   onClick={() => navigate(`/ticketdetails/${params.row._id}`)}
+                  title="View"
                 >
-                  View
+                  <Eye size={16} style={{ color: "var(--primary-color)" }} />
                 </button>
               )
             }

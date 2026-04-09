@@ -67,7 +67,7 @@ const ManageServices = () => {
       if (isEdit) {
         await API.put(`api/service/${currentId}`, formData);
       } else {
-        console.log('service add triggerd', formData)
+
         await API.post("api/service/add", formData);
       }
 
@@ -117,7 +117,6 @@ const ManageServices = () => {
 
       {/* Cards */}
       <div className="row g-4">
-        {console.log('service', services)}
         {services.map(service => (
           <div key={service._id} className="col-md-6 col-lg-4">
             <div

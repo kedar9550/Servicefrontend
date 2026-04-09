@@ -17,6 +17,9 @@ function Reports() {
     const [stats, setStats] = React.useState(null);
     const [loading, setLoading] = React.useState(true);
     const [departments, setDepartments] = React.useState([]);
+    const [isMounted, setIsMounted] = React.useState(false);
+    const [containerReady, setContainerReady] = React.useState(false);
+    const containerRef = React.useRef(null);
 
     const [filters, setFilters] = React.useState({
         dateRange: 'last30days',
@@ -27,10 +30,20 @@ function Reports() {
     });
 
     React.useEffect(() => {
+        setIsMounted(true);
         fetchStats();
         if (isSuperAdmin()) {
             fetchDepartments();
         }
+
+        // Wait for layout to stabilize (header transitions, sidebar shifts)
+        const timer = setTimeout(() => {
+            setContainerReady(true);
+            // Force a small window resize event to trigger Recharts measurement if it already attempted it
+            window.dispatchEvent(new Event('resize'));
+        }, 500);
+
+        return () => clearTimeout(timer);
     }, []);
 
     // ... (rest of fetch logic remains same)
@@ -73,7 +86,7 @@ function Reports() {
     };
 
     const exportToExcel = () => {
-        console.log("Exporting to Excel...", stats?.recentTickets?.length);
+
         if (!stats?.recentTickets?.length) {
             toast.info("No data available to export.");
             return;
@@ -101,7 +114,7 @@ function Reports() {
     };
 
     const exportToPDF = () => {
-        console.log("Exporting to PDF...", stats?.recentTickets?.length);
+
         if (!stats?.recentTickets?.length) {
             toast.info("No data available to export.");
             return;
@@ -217,7 +230,8 @@ function Reports() {
                             height: "48px", 
                             borderRadius: "50%",
                             padding: "0",
-                            transition: "0.3s"
+                            transition: "0.3s",
+                            flexShrink: 0
                         }}
                         type="button" 
                         data-bs-toggle="dropdown" 
@@ -243,6 +257,7 @@ function Reports() {
                                     height: auto !important; 
                                     border-radius: 50px !important; 
                                     padding: 0.6rem 1.5rem !important;
+                                    flex-shrink: 0 !important;
                                 }
                                 .btn-primary-custom::after {
                                     display: inline-block !important; /* Restore chevron on desktop if needed */
@@ -428,8 +443,17 @@ function Reports() {
                 <div className="col-12 col-lg-8">
                     <div className="card border-0 shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--card-bg)" }}>
                         <h5 className="fw-bold mb-4">Tickets Trend (Last 30 Days)</h5>
-                        <div style={{ height: "250px", width: "100%" }}>
-                            <ResponsiveContainer width="100%" height="100%">
+                        <div style={{ height: "250px", width: "100%", position: "relative", minHeight: "250px", minWidth: "1px" }}>
+                            {containerReady ? (
+                                <ResponsiveContainer 
+                                    key="trend-container"
+                                    id="trend-chart" 
+                                    width="100%" 
+                                    height={250} 
+                                    minWidth={1} 
+                                    minHeight={1}
+                                    debounce={50}
+                                >
                                 <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                                     <defs>
                                         <linearGradient id="colorCreated" x1="0" y1="0" x2="0" y2="1">
@@ -448,6 +472,11 @@ function Reports() {
                                     <Area type="monotone" dataKey="closed" stroke="#f97316" strokeWidth={3} fillOpacity={1} fill="url(#colorClosed)" />
                                 </AreaChart>
                             </ResponsiveContainer>
+                            ) : (
+                                <div className="d-flex align-items-center justify-content-center h-100">
+                                    <div className="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -455,8 +484,17 @@ function Reports() {
                 <div className="col-12 col-lg-4">
                     <div className="card border-0 shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--card-bg)" }}>
                         <h5 className="fw-bold mb-4">Tickets by Status</h5>
-                        <div style={{ height: "250px", width: "100%" }} className="d-flex justify-content-start align-items-center">
-                            <ResponsiveContainer width="100%" height="100%">
+                        <div style={{ height: "250px", width: "100%", position: "relative", minHeight: "250px", minWidth: "1px" }}>
+                            {containerReady ? (
+                                <ResponsiveContainer 
+                                    key="status-container"
+                                    id="status-chart" 
+                                    width="100%" 
+                                    height={250} 
+                                    minWidth={1} 
+                                    minHeight={1}
+                                    debounce={50}
+                                >
                                 <PieChart>
                                     <Pie
                                         data={statusData}
@@ -474,6 +512,11 @@ function Reports() {
                                     <Legend verticalAlign="middle" align="right" layout="vertical" iconType="circle" wrapperStyle={{ fontSize: "12px", right: "-10px" }} />
                                 </PieChart>
                             </ResponsiveContainer>
+                            ) : (
+                                <div className="d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div className="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

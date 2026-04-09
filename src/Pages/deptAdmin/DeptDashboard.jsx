@@ -115,7 +115,7 @@ const DeptDashboard = () => {
           onClick={() => navigate(`/ticketdetails/${params.row.id}`)}
           title="View"
         >
-          <Eye size={16} className="text-primary" />
+          <Eye size={16} style={{ color: "var(--primary-color)" }} />
         </button>
       )
     }
@@ -140,7 +140,8 @@ const DeptDashboard = () => {
             height: "48px",
             borderRadius: "50%",
             backgroundColor: "var(--primary-color)",
-            padding: "0"
+            padding: "0",
+            flexShrink: 0
           }}
           onClick={assignClicked}
           onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
@@ -162,6 +163,7 @@ const DeptDashboard = () => {
                 height: auto !important; 
                 border-radius: 50px !important; 
                 padding: 0.6rem 1.5rem !important;
+                flex-shrink: 0 !important;
               }
             }
           `}} />

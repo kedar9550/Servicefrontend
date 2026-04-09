@@ -82,7 +82,7 @@ const EmployeeDashboard = () => {
           style={{ width: "32px", height: "32px" }}
           onClick={() => navigate(`/ticketdetails/${params.row.id}`)}
         >
-          <Eye size={16} className="text-primary" />
+          <Eye size={16} style={{ color: "var(--primary-color)" }} />
         </button>
       )
     }
@@ -159,7 +159,8 @@ const EmployeeDashboard = () => {
               height: "48px",
               borderRadius: "50%",
               backgroundColor: "var(--primary-color)",
-              padding: "0"
+              padding: "0",
+              flexShrink: 0
             }}
             onClick={() => navigate("/dev/assigned")}
             onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
@@ -180,6 +181,7 @@ const EmployeeDashboard = () => {
                   height: auto !important; 
                   border-radius: 50px !important; 
                   padding: 0.6rem 1.5rem !important;
+                  flex-shrink: 0 !important;
                 }
               }
             `}} />

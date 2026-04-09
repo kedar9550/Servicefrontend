@@ -58,7 +58,8 @@ const DeptTickets = () => {
             height: "48px",
             borderRadius: "50%",
             backgroundColor: "var(--primary-color)",
-            padding: "0"
+            padding: "0",
+            flexShrink: 0
           }}
           onClick={() => navigate('/dept/assign')}
           onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
@@ -79,6 +80,7 @@ const DeptTickets = () => {
                 height: auto !important; 
                 border-radius: 10px !important; 
                 padding: 0.6rem 1.5rem !important;
+                flex-shrink: 0 !important;
               }
             }
           `}} />
@@ -132,7 +134,7 @@ const DeptTickets = () => {
                 <button className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center"
                   style={{ width: '32px', height: '32px' }}
                   onClick={() => navigate(`/ticketdetails/${params.row._id}`)}>
-                  <Eye size={16} className="text-primary" />
+                  <Eye size={16} style={{ color: "var(--primary-color)" }} />
                 </button>
               )
             }

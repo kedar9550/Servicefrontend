@@ -41,7 +41,7 @@
 [data-bs-theme="dark"] {
     --bs-body-bg: var(--bg-color);
     --bs-body-color: var(--text-color);
-    --bs-primary: #38bdf8;
+    --bs-primary: var(--primary-color);
     --bs-secondary: #94a3b8;
     --bs-success: #4ade80;
     --bs-info: #38bdf8;
@@ -137,6 +137,17 @@ body {
 
 .bg-white {
     background-color: var(--card-bg) !important;
+}
+
+/* 🔗 Link & Primary Text Theme Overrides */
+.btn-link, .text-primary {
+    color: var(--primary-color) !important;
+    text-decoration-color: var(--primary-color) !important;
+}
+
+.btn-link:hover {
+    color: var(--primary-color) !important;
+    filter: brightness(1.2);
 }
 
 .text-dark {

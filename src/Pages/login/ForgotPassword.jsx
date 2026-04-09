@@ -3,6 +3,11 @@ import API from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import Footer from "../../Components/Footer";
+import goldLogo from "../../assets/Gold_logo.png";
+import orangeLogo from "../../assets/Orange_logo.png";
+import forgetIllustration from "../../assets/forget_illustration1.png";
+import circleGold from "../../assets/Circle_Gold.png";
+import circleOrange from "../../assets/Circle_Orange.png";
 
 const ForgotPassword = () => {
   const { theme } = useTheme();
@@ -115,7 +120,7 @@ const ForgotPassword = () => {
           <div className="col-12 d-flex flex-column flex-md-row align-items-center position-relative header-section">
             <img
               className="logo mb-3 mb-md-0"
-              src={theme === "dark" ? "/Gold_logo.png" : "/Orange_logo.png"}
+              src={theme === "dark" ? goldLogo : orangeLogo}
               style={{ height: "97px" }}
               alt="logo"
             />
@@ -228,11 +233,11 @@ const ForgotPassword = () => {
             </div>
             {/* RIGHT SIDE IMAGES */}
             <div className="col-12 col-lg-7 d-flex justify-content-center align-items-center d-none d-lg-flex">
-              <img src="/forget_illustration1.png" className="forget_img" style={{ maxWidth: "55%" }} alt="illustration" />
+              <img src={forgetIllustration} className="forget_img" style={{ maxWidth: "55%" }} alt="illustration" />
             </div>
 
             <div className="col-lg-1 d-none d-lg-block">
-              <img src={theme === "dark" ? "/Circle_Gold.png" : "/Circle_Orange.png"} className="sidelogo" alt="side logo" />
+              <img src={theme === "dark" ? circleGold : circleOrange} className="sidelogo" alt="side logo" />
             </div>
           </div>
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import nodata from '../assets/nodata.png'
 
 function No_data({ Data = "Data" }) {
     return (
@@ -46,7 +47,7 @@ function No_data({ Data = "Data" }) {
                     <p className='h6 text-secondary text-center mt-2 mb-0'>We couldn't find any data to show</p>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <img src='/nodata.png' alt={`No ${Data} Found`} className='img-fluid nodata-img' style={{ maxHeight: '180px', objectFit: 'contain' }} />
+                    <img src={nodata} alt={`No ${Data} Found`} className='img-fluid nodata-img' style={{ maxHeight: '180px', objectFit: 'contain' }} />
                 </div>
             </div>
         </div>

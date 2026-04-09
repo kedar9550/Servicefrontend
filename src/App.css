@@ -704,7 +704,7 @@
 
 /* ----------404 - Bad Gate Way------------ */
 .bg_404 {
-    background-image: url('404_bg.png');
+    background-image: url('./assets/404_bg.png');
     background-size: cover;
     height: 80vh;
     background-position: center;

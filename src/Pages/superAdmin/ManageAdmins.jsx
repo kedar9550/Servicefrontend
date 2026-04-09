@@ -283,7 +283,7 @@ function ManageAdmins() {
 
                   <div className="d-flex gap-2">
                     <button
-                      className="btn btn-outline-danger btn-sm rounded-pill px-4 d-flex align-items-center gap-2 shadow-sm"
+                      className="btn btn-outline-danger btn-sm rounded-pill px-4 d-flex justify-content-end align-items-center gap-2 shadow-sm"
                       onClick={(e) => {
                         e.stopPropagation();
                         setAdminToRemove(admin.userId._id);

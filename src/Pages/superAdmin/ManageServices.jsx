@@ -3,9 +3,10 @@ import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import API from "../../api/axios";
-import serviceIllustration from "../../assets/service_card_illustration.png";
 import { Settings, UserPlus, Pencil, Trash2 } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
+import serviceCardBg from "../../assets/Service_card_bg.png";
+import serviceCardBgDark from "../../assets/Service_card_bg_dark.png";
 
 const ManageServices = () => {
 
@@ -124,7 +125,7 @@ const ManageServices = () => {
               style={{
                 cursor: "pointer",
                 transition: "transform 0.2s",
-                backgroundImage: theme === 'dark' ? "url('/Service_card_bg_dark.png')" : "url('/Service_card_bg.png')",
+                backgroundImage: theme === 'dark' ? `url(${serviceCardBgDark})` : `url(${serviceCardBg})`,
                 backgroundSize: "90% auto",
                 backgroundPosition: "top center",
                 backgroundRepeat: "no-repeat"

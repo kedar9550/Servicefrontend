@@ -1,5 +1,8 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/AUS_LOGO.png";
+import goldLogo from "../assets/Gold_logo.png";
+import ausGoldLogo from "../assets/AUS_Gold.png";
+import ausSvgLogo from "../assets/AUS.svg";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import "./Sidebar.css";
@@ -7,10 +10,10 @@ import "./Sidebar.css";
 const Slider = ({ open, toggleSidebar }) => {
   const { theme } = useTheme();
   const { logout, user, hasRole, isSuperAdmin } = useAuth();
-  
+
   const isDark = theme === "dark";
-  const openLogo = isDark ? "/Gold_logo.png" : logo;
-  const closedLogo = isDark ? "/AUS_Gold.png" : "/AUS.svg";
+  const openLogo = isDark ? goldLogo : logo;
+  const closedLogo = isDark ? ausGoldLogo : ausSvgLogo;
 
   return (
     <div

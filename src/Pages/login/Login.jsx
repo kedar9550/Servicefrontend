@@ -4,6 +4,12 @@ import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import Loader from "../../Components/Loader";
 import Footer from "../../Components/Footer";
+import goldLogo from "../../assets/Gold_logo.png";
+import orangeLogo from "../../assets/Orange_logo.png";
+import allServDark from "../../assets/allserv-dark2.png";
+import allServ from "../../assets/allserv.png";
+import circleGold from "../../assets/Circle_Gold.png";
+import circleOrange from "../../assets/Circle_Orange.png";
 
 function Login() {
   const { login, user } = useAuth();
@@ -92,7 +98,7 @@ function Login() {
           <div className="col-12 d-flex flex-column flex-md-row align-items-center position-relative header-section">
             <img
               className="logo mb-3 mb-md-0"
-              src={theme === "dark" ? "/Gold_logo.png" : "/Orange_logo.png"}
+              src={theme === "dark" ? goldLogo : orangeLogo}
               style={{ height: "97px" }}
               alt="logo"
             />
@@ -213,11 +219,11 @@ function Login() {
 
             {/* RIGHT SIDE IMAGES */}
             <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center d-none d-lg-flex">
-              <img src={theme === "dark" ? "/allserv-dark2.png" : "/allserv.png"} className="img-fluid" style={{ maxWidth: "80%" }} alt="illustration" />
+              <img src={theme === "dark" ? allServDark : allServ} className="img-fluid" style={{ maxWidth: "80%" }} alt="illustration" />
             </div>
 
             <div className="col-lg-2 d-none d-lg-block">
-              <img src={theme === "dark" ? "/Circle_Gold.png" : "/Circle_Orange.png"} className="sidelogo" alt="side logo" />
+              <img src={theme === "dark" ? circleGold : circleOrange} className="sidelogo" alt="side logo" />
             </div>
           </div>
 

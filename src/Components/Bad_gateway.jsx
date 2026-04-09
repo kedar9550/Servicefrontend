@@ -1,4 +1,5 @@
 import React from 'react'
+import error403Image from '../assets/403-image.png'
 
 function Bad_gateway() {
     return (
@@ -12,7 +13,7 @@ function Bad_gateway() {
                         </div>
                     </div>
                     <div className='col-12 col-md-6 col-lg-5'>
-                        <img src='403-image.png' className='img-fluid' alt='404-image' />
+                        <img src={error403Image} className='img-fluid' alt='404-image' />
                     </div>
                 </div>
             </div>

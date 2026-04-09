@@ -7,6 +7,10 @@ import "react-toastify/dist/ReactToastify.css";
 import API from '../../api/axios';
 import { useTheme } from "../../context/ThemeContext";
 import Footer from "../../Components/Footer";
+import goldLogo from "../../assets/Gold_logo.png";
+import orangeLogo from "../../assets/Orange_logo.png";
+import circleGold from "../../assets/Circle_Gold.png";
+import circleOrange from "../../assets/Circle_Orange.png";
 
 function Signup() {
     const { theme } = useTheme();
@@ -251,7 +255,7 @@ function Signup() {
                     <div className="col-12 d-flex flex-column flex-md-row align-items-center position-relative header-section ">
                         <img
                             className="logo mb-3 mb-md-0"
-                            src={theme === "dark" ? "/Gold_logo.png" : "/Orange_logo.png"}
+                            src={theme === "dark" ? goldLogo : orangeLogo}
                             style={{ height: "97px" }}
                         />
 
@@ -525,7 +529,7 @@ function Signup() {
                         </div>
                     </div>
                     <div className="signup_page col-lg-4 d-none d-lg-block">
-                        <img src={theme === "dark" ? "/Circle_Gold.png" : "/Circle_Orange.png"} className="sidelogo" alt="side logo" />
+                        <img src={theme === "dark" ? circleGold : circleOrange} className="sidelogo" alt="side logo" />
                     </div>
                 </div>
             </div>

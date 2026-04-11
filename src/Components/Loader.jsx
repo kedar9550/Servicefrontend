@@ -40,7 +40,7 @@ function Loader() {
                         width: "16px",
                         height: "16px",
                         position: "absolute",
-                        top: "49.8%",
+                        top: "49.4%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
                         objectFit: 'contain'

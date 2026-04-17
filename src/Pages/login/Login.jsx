@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
+import { toast } from "react-toastify";
 import Loader from "../../Components/Loader";
 import Footer from "../../Components/Footer";
 import goldLogo from "../../assets/Gold_logo.png";
@@ -79,11 +80,9 @@ function Login() {
       await login(loginFormdata);
       //navigate("/");
     } catch (err) {
-      if (err.response?.data?.message) {
-        setErrors({ apiError: err.response.data.message });
-      } else {
-        setErrors({ apiError: "Invalid credentials. Please try again." });
-      }
+      console.error("Login Component Caught Error:", err);
+      toast.error("Incorrect username or password");
+      setErrors({ apiError: "Incorrect username or password" });
     } finally {
       setSubmitting(false);
     }

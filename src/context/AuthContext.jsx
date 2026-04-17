@@ -52,6 +52,9 @@ export const AuthProvider = ({ children }) => {
       );
 
       setUser(data.user);
+    } catch (error) {
+      console.error("Login Context Error:", error);
+      throw error;
     } finally {
       setLoading(false);
     }
@@ -71,6 +74,9 @@ export const AuthProvider = ({ children }) => {
       );
 
       setUser(data.user);
+    } catch (error) {
+      console.error("Signup Context Error:", error);
+      throw error;
     } finally {
       setLoading(false);
     }

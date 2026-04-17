@@ -31,6 +31,7 @@ function Signup() {
 
     const [submitting, setSubmitting] = useState(false);
     const [errors, setErrors] = useState({});
+    const [idStatus, setIdStatus] = useState("");
     const [isAutoFilled, setIsAutoFilled] = useState(false);
     const [verifiedFields, setVerifiedFields] = useState({}); // Track which fields were auto-filled
     const [showPassword, setShowPassword] = useState(false);
@@ -115,6 +116,11 @@ function Signup() {
             value = value.replace(/\s+/g, "");
         }
 
+        if (name === "id") {
+            setIdStatus("");
+            setErrors((prev) => ({ ...prev, id: null }));
+        }
+
         setSignupFormdata((prev) => ({
             ...prev,
             [name]: value,
@@ -181,8 +187,11 @@ function Signup() {
         if (!signupFormdata.id) {
             setIsAutoFilled(false);
             setVerifiedFields({});
+            setIdStatus("");
             return;
         }
+
+        setIdStatus("checking");
 
         try {
             const res = await API.post("/api/auth/get-ecap-data", {
@@ -195,6 +204,8 @@ function Signup() {
             if (!data || data.error) {
                 setIsAutoFilled(false); // allow manual entry
                 setVerifiedFields({});
+                setIdStatus("invalid");
+                setErrors((prev) => ({ ...prev, id: "Invalid ID" }));
                 return;
             }
 
@@ -240,11 +251,15 @@ function Signup() {
             }
 
             setIsAutoFilled(true); // 
+            setIdStatus("valid");
+            setErrors((prev) => ({ ...prev, id: null }));
 
         } catch (err) {
             console.error(err);
             setIsAutoFilled(false); // allow manual entry
             setVerifiedFields({});
+            setIdStatus("invalid");
+            setErrors((prev) => ({ ...prev, id: "Invalid ID" }));
         }
     };
 
@@ -324,15 +339,21 @@ function Signup() {
                                                 value={signupFormdata.id}
                                                 name="id"
                                                 type="text"
-                                                className="form-control"
+                                                className={`form-control ${idStatus === "valid" ? "is-valid" : idStatus === "invalid" ? "is-invalid" : ""}`}
                                                 required
                                                 onBlur={handleBlur}
                                                 placeholder={
                                                     signupFormdata.role === "Student" ? "Roll No" : "Emp_ID"
                                                 }
                                             />
+                                            {idStatus === "checking" && (
+                                                <span className="input-group-text bg-transparent border-start-0">
+                                                    <span className="spinner-border spinner-border-sm text-primary" role="status" aria-hidden="true"></span>
+                                                </span>
+                                            )}
                                         </div>
-                                        {errors.id && <small className="text-danger">{errors.id}</small>}
+                                        {errors.id && <small className="text-danger mt-1 d-block">{errors.id}</small>}
+                                        {idStatus === "valid" && !errors.id && <small className="text-success mt-1 d-block">Valid ID</small>}
                                     </div>
 
                                     {/* Fullname */}

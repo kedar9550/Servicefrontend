@@ -153,7 +153,7 @@ function Signup() {
         try {
             await signup(payload);
 
-            toast.success("Signup successful. Please login");
+            toast.success("Signup successful! Logging you in...");
 
             setSignupFormdata({
                 role: "Employee",
@@ -168,7 +168,7 @@ function Signup() {
             });
 
             setTimeout(() => {
-                navigate("/login");
+                navigate("/");
             }, 1500);
 
         } catch (err) {

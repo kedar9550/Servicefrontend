@@ -739,3 +739,68 @@
 .MuiTablePagination-root {
     font-family: "Poppins", sans-serif !important;
 }
+
+/* 💠 Custom Premium Scrollbar (Outlined with Dots) 💠 */
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #e2e8f0;
+    border-left: 6px solid #ffffff;
+    border-right: 6px solid #ffffff;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background-color: #334155;
+    border-left: 6px solid #1e293b;
+    border-right: 6px solid #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border: 1.5px solid #3b82f6;
+    border-radius: 100px;
+    /* 5 Blue dots vertically aligned */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='30' viewBox='0 0 10 30'><circle cx='5' cy='5' r='1' fill='%233b82f6'/><circle cx='5' cy='10' r='1' fill='%233b82f6'/><circle cx='5' cy='15' r='1' fill='%233b82f6'/><circle cx='5' cy='20' r='1' fill='%233b82f6'/><circle cx='5' cy='25' r='1' fill='%233b82f6'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 6px 20px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background-color: #1e293b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f8fafc;
+}
+
+/* Scrollbar Buttons (Arrows) */
+::-webkit-scrollbar-button:single-button {
+    background-color: transparent;
+    display: block;
+    background-size: 7px;
+    background-repeat: no-repeat;
+}
+
+/* Up Arrow */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+    height: 14px;
+    background-position: center bottom;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='rgb(71, 85, 105)'><polygon points='50,25 25,75 75,75'/></svg>");
+}
+
+/* Down Arrow */
+::-webkit-scrollbar-button:single-button:vertical:increment {
+    height: 14px;
+    background-position: center top;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='rgb(71, 85, 105)'><polygon points='25,25 75,25 50,75'/></svg>");
+}
+
+/* For Firefox (Partial Support) */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #a6c5f8 transparent;
+}

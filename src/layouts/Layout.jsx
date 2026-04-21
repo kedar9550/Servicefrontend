@@ -19,7 +19,7 @@ const Layout = () => {
 
   useEffect(() => {
     const fetchPendingFeedback = async () => {
-      if (!user || role !== 'USER') return;
+      if (!user) return;
       
       // 1. Check if there's a specific ticket ID in the URL (?feedback=ID)
       const feedbackId = searchParams.get('feedback');
@@ -27,8 +27,12 @@ const Layout = () => {
         try {
           const { data } = await API.get(`/api/complaints/${feedbackId}`, { withCredentials: true });
           if (data.success && data.data.ticket.status === 'RESOLVED') {
-            setPendingFeedback(data.data.ticket);
-            return;
+            // Only show if the current user is the creator
+            const creatorId = data.data.ticket.createdBy?._id || data.data.ticket.createdBy;
+            if (creatorId?.toString() === user._id?.toString()) {
+              setPendingFeedback(data.data.ticket);
+              return;
+            }
           }
         } catch (err) {
           console.error("Fetch specific ticket for feedback error:", err);
@@ -118,7 +122,7 @@ const Layout = () => {
 
       {useMobileNav && <MobileBottomNav />}
       
-      {pendingFeedback && role === 'USER' && (
+      {pendingFeedback && (
         <Feedback 
           ticket={pendingFeedback} 
           onClose={() => {

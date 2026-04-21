@@ -92,7 +92,7 @@ const Dashboard = () => {
           >
             <Eye size={16} style={{ color: "var(--primary-color)" }} />
           </button>
-          
+
           {params.row.status === 'RESOLVED' && (
             <button
               className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center"

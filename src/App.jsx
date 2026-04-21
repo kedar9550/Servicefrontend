@@ -28,6 +28,7 @@ import ForgotPassword from "./Pages/login/ForgotPassword";
 import Bad_gateway from "./Components/Bad_gateway";
 import No_data from "./Components/No_data";
 import RejectedTickets from "./Pages/deptAdmin/RejectedTickets";
+import FeedbackOverview from "./Pages/FeedbackOverview";
 import { ToastContainer } from "react-toastify";
 
 
@@ -86,6 +87,7 @@ function App() {
           <Route path="dept/team" element={<TeamMembers />} />
           <Route path="dept/developer/:id" element={<DeveloperProfile />} />
           <Route path="dept/reports" element={<Reports />} />
+          <Route path="dept/feedback-overview" element={<FeedbackOverview />} />
           <Route path='rejected' element={<RejectedTickets />} />
 
           {/* EMPLOYEE ROUTES */}

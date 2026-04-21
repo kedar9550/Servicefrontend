@@ -108,6 +108,7 @@ const Slider = ({ open, toggleSidebar }) => {
 
               <MenuItem to="/super/add-user" icon="bi-person-plus" label="Add User" open={open} />
               <MenuItem to="/dept/reports" icon="bi bi-file-earmark-bar-graph" label="Reports" open={open} />
+              <MenuItem to="/dept/feedback-overview" icon="bi bi-chat-left-text" label="Feedback" open={open} />
             </>
 
 

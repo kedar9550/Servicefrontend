@@ -595,9 +595,28 @@ const FeedbackOverview = () => {
                                                     <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'var(--text-color)', lineHeight: 1.2 }}>
                                                         {feedback.user?.name}
                                                     </Typography>
-                                                    <Typography variant="body2" sx={{ color: 'var(--primary-color)', fontWeight: 700, mt: 0.5, letterSpacing: 0.5 }}>
-                                                        #{feedback.ticket?.ticketNumber}
-                                                    </Typography>
+                                                    <Link 
+                                                        to={`/ticketdetails/${feedback.ticket?._id}`}
+                                                        style={{ textDecoration: 'none' }}
+                                                    >
+                                                        <Typography 
+                                                            variant="body2" 
+                                                            sx={{ 
+                                                                color: 'var(--primary-color)', 
+                                                                fontWeight: 700, 
+                                                                mt: 0.5, 
+                                                                letterSpacing: 0.5,
+                                                                '&:hover': {
+                                                                    textDecoration: 'underline',
+                                                                    opacity: 0.8
+                                                                },
+                                                                transition: 'all 0.2s ease',
+                                                                cursor: 'pointer'
+                                                            }}
+                                                        >
+                                                            #{feedback.ticket?.ticketNumber}
+                                                        </Typography>
+                                                    </Link>
                                                     <Typography variant="caption" sx={{ color: 'var(--secondary-color)', display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.5, fontWeight: 500 }}>
                                                         <TrendingUp size={12} style={{ opacity: 0.7 }} />
                                                         {new Date(feedback.createdAt).toLocaleString('en-IN', {

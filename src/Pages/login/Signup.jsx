@@ -153,7 +153,7 @@ function Signup() {
         try {
             await signup(payload);
 
-            toast.success("Signup successful! Logging you in...");
+            toast.success("signup successfully you can login now");
 
             setSignupFormdata({
                 role: "Employee",
@@ -168,7 +168,7 @@ function Signup() {
             });
 
             setTimeout(() => {
-                navigate("/");
+                navigate("/login");
             }, 1500);
 
         } catch (err) {
@@ -264,8 +264,8 @@ function Signup() {
     };
 
     return (
-        <div className='bg_container d-flex flex-column' style={{ height: "100vh", overflowY: "auto" }}>
-            <div className="container-fluid flex-grow-1">
+        <div className='bg_container d-flex flex-column' style={{ height: "100vh", overflowY: "auto", overflowX: "hidden" }}>
+            <div className="container-fluid flex-grow-1 p-0">
                 <div className="row">
                     <div className="col-12 d-flex flex-column flex-md-row align-items-center position-relative header-section ">
                         <img

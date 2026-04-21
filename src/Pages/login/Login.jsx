@@ -89,9 +89,9 @@ function Login() {
   };
 
   return (
-    <div className="bg_container d-flex flex-column" style={{ minHeight: "100vh", overflow: "hidden" }}>
-      <div className="container-fluid">
-        <div className="row">
+    <div className="bg_container d-flex flex-column" style={{ minHeight: "100vh", overflowY: "auto", overflowX: "hidden" }}>
+      <div className="container-fluid flex-grow-1 p-0">
+        <div className="row m-0">
 
           {/* HEADER */}
           <div className="col-12 d-flex flex-column flex-md-row align-items-center position-relative header-section">

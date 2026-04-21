@@ -73,7 +73,6 @@ export const AuthProvider = ({ children }) => {
         { withCredentials: true }
       );
 
-      setUser(data.user);
     } catch (error) {
       console.error("Signup Context Error:", error);
       throw error;

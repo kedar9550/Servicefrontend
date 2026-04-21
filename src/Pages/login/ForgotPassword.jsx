@@ -113,8 +113,8 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="bg_container d-flex flex-column" style={{ height: "100vh", overflow: "hidden" }}>
-      <div className="container-fluid">
+    <div className="bg_container d-flex flex-column" style={{ height: "100vh", overflowY: "auto", overflowX: "hidden" }}>
+      <div className="container-fluid flex-grow-1 p-0">
         <div className="row">
           {/* HEADER */}
           <div className="col-12 d-flex flex-column flex-md-row align-items-center position-relative header-section">

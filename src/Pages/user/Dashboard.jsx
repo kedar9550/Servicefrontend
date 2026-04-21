@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import API from '../../api/axios'
 import { useNavigate } from "react-router-dom";
 import { getPriorityColor, getStatusColor } from "../../Components/StatusColors";
-import { List, Clock, TrendingUp, CheckCircle, XCircle, Eye } from "lucide-react";
+import { List, Clock, TrendingUp, CheckCircle, XCircle, Eye, MessageSquare } from "lucide-react";
 import Loader from "../../Components/Loader";
 
 import CommonTable from "../../Components/CommonTable";
@@ -83,14 +83,30 @@ const Dashboard = () => {
       minWidth: 120,
       sortable: false,
       renderCell: (params) => (
-        <button
-          className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center"
-          style={{ width: '32px', height: '32px' }}
-          onClick={() => navigate(`/ticketdetails/${params.row.id}`)}
-          title="View"
-        >
-          <Eye size={16} style={{ color: "var(--primary-color)" }} />
-        </button>
+        <div className="d-flex gap-2">
+          <button
+            className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center"
+            style={{ width: '32px', height: '32px' }}
+            onClick={() => navigate(`/ticketdetails/${params.row.id}`)}
+            title="View"
+          >
+            <Eye size={16} style={{ color: "var(--primary-color)" }} />
+          </button>
+          
+          {params.row.status === 'RESOLVED' && (
+            <button
+              className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center"
+              style={{ width: '32px', height: '32px' }}
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`?feedback=${params.row.id}`);
+              }}
+              title="Give Feedback"
+            >
+              <MessageSquare size={16} className="text-success" />
+            </button>
+          )}
+        </div>
       )
     }
   ];

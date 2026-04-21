@@ -177,7 +177,8 @@
         height: 450px;
         width: 450px;
         position: fixed;
-        right: -220px;
+        right: -255px;
+        /* Half of 450px to make 50% visible */
         top: 60%;
         transform: translateY(-50%);
         animation: rotateLogo 120s linear infinite;
@@ -251,7 +252,8 @@
         height: 500px;
         width: 500px;
         position: fixed;
-        right: -220px;
+        right: -255px;
+        /* Half of 500px to make 50% visible */
         top: 50%;
         transform: translateY(-50%);
         animation: rotateLogo 120s linear infinite;
@@ -580,34 +582,6 @@
     max-width: 270px;
 }
 
-.auth-footer {
-    width: 100%;
-    text-align: center;
-    padding: 15px 0 0 0;
-    margin-top: auto;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-color);
-    position: relative;
-    bottom: 0;
-}
-
-.auth-footer .brand {
-    color: var(--primary-color);
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-.auth-footer p {
-    margin: 0;
-}
-
-@media (min-width: 992px) and (min-height: 800px) {
-    .auth-footer {
-        position: absolute;
-        bottom: 0;
-    }
-}
 
 /* Time line */
 .timeline {

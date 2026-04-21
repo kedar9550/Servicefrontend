@@ -533,13 +533,11 @@ body {
 
 /* ── Auth Footer (Sticky to Bottom) ── */
 .auth-footer {
-    margin-top: auto !important;
+    width: 100% !important;
     text-align: center;
-    padding: 20px 0;
-    width: 100%;
-    /* Ensure footer background spans full width on mobile by overriding global container-fluid padding */
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 12px 0;
+    margin-top: auto;
+    background-color: var(--stat-card-bg);
 }
 
 .auth-footer p {
@@ -552,3 +550,100 @@ body {
     color: var(--primary-color);
     font-weight: 700;
 }
+
+/* ---------- Feedback Modal ---------- */
+.feedback-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.feedback-modal {
+    background: var(--card-bg);
+    color: var(--text-color);
+    width: 600px;
+    max-width: 90%;
+    max-height: 90vh; /* Limit height to 90% of viewport */
+    overflow-y: auto; /* Enable vertical scroll */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 576px) {
+    .feedback-modal {
+        padding: 20px;
+        width: 95%;
+    }
+}
+
+.star-rating {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.star {
+    font-size: 32px;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.2s;
+}
+
+.star.active {
+    color: #ffc107;
+}
+
+.star:hover {
+    transform: scale(1.1);
+}
+
+.satisfaction-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.satisfaction-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: 0.3s;
+}
+
+.satisfaction-option:hover {
+    background: var(--sidebar-hover);
+}
+
+.satisfaction-option input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.feedback-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--input-bg);
+    color: var(--text-color);
+    margin: 10px 0;
+    resize: none;
+}
+
+.feedback-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}

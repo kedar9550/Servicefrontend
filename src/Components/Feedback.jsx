@@ -60,7 +60,7 @@ const Feedback = ({ ticket, onClose, onSuccess }) => {
                 <div className="mb-4 pb-3 border-bottom">
                     <h5 className="fw-bold mb-1" style={{ color: 'var(--primary-color)' }}>Share Your Feedback</h5>
                     <p className="text-secondary small mb-0">
-                        Ticket: <span className="fw-bold text-dark">{ticket.ticketNumber}</span> - {ticket.title}
+                        Ticket: <span className="fw-bold">{ticket.ticketNumber}</span> - {ticket.title}
                     </p>
                 </div>
 

@@ -69,12 +69,13 @@ function Profile() {
 
       // VERY IMPORTANT
       updateUser({ profileImage: res.data.image });
-
+      alert("Profile photo updated successfully!");
       setSelectedFile(null);
 
     } catch (err) {
-      console.error("Upload error:", err.response?.data || err.message);
-      alert("Image upload failed: " + (err.response?.data?.message || err.message || "Unknown error"));
+      console.error("Upload error detail:", err.response?.data || err.message);
+      const errorMsg = err.response?.data?.message || err.message || "Unknown error";
+      alert("Image upload failed: " + errorMsg);
     }
   };
 

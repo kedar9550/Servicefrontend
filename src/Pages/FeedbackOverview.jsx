@@ -11,24 +11,24 @@ import NoData from '../Components/No_data';
 import { useAuth } from '../context/AuthContext';
 
 const StatCard = ({ title, value, icon: Icon, trend, subtitle, color, progress, bgIcon: BgIcon }) => (
-    <div className="card shadow-sm border-0 rounded-4 p-4 h-100 position-relative overflow-hidden" 
+    <div className="card shadow-sm border-0 rounded-4 p-3 p-md-4 h-100 position-relative overflow-hidden" 
          style={{ backgroundColor: "var(--card-bg)" }}>
-        <div className="position-absolute" style={{ right: '-15px', bottom: '-15px', opacity: 0.05, color: color }}>
-            {BgIcon && <BgIcon size={120} strokeWidth={1} />}
+        <div className="position-absolute" style={{ right: '-10px', bottom: '-10px', opacity: 0.05, color: color }}>
+            {BgIcon && <BgIcon size={100} strokeWidth={1} />}
         </div>
-        <div className="d-flex justify-content-between align-items-start mb-3">
+        <div className="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <Typography variant="caption" sx={{ color: 'var(--secondary-color)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                <Typography variant="caption" sx={{ color: 'var(--secondary-color)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5, fontSize: '10px' }}>
                     {title}
                 </Typography>
                 <div className="d-flex align-items-center gap-2 mt-1">
-                    <h2 className="fw-bold mb-0" style={{ color: 'var(--text-color)' }}>{value}</h2>
-                    {title === "Average Rating" && <Star size={24} fill="#f5a623" color="#f5a623" />}
+                    <h2 className="fw-bold mb-0" style={{ color: 'var(--text-color)', fontSize: { xs: '1.5rem', md: '2rem' } }}>{value}</h2>
+                    {title === "Average Rating" && <Star size={20} fill="#f5a623" color="#f5a623" />}
                 </div>
             </div>
             <div className="rounded-circle d-flex justify-content-center align-items-center" 
-                 style={{ width: "48px", height: "48px", backgroundColor: `${color}15`, color: color }}>
-                <Icon size={24} strokeWidth={2.5} />
+                 style={{ width: "40px", height: "40px", backgroundColor: `${color}20`, color: color }}>
+                <Icon size={20} strokeWidth={2.5} />
             </div>
         </div>
 
@@ -68,7 +68,7 @@ const StatCard = ({ title, value, icon: Icon, trend, subtitle, color, progress, 
 );
 
 const DetailBox = ({ title, content, icon: Icon }) => (
-    <Box sx={{ flex: 1, minWidth: '300px' }}>
+    <Box sx={{ flex: 1, minWidth: { xs: '100%', md: '300px' } }}>
         <Box display="flex" alignItems="center" gap={1} mb={1.5}>
             <Icon size={18} color="var(--secondary-color)" />
             <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'var(--text-color)' }}>
@@ -115,8 +115,10 @@ const MetaItem = ({ label, value, icon: Icon, badge }) => (
     </Box>
 );
 
+const stripHtml = (text) => text?.replace(/<[^>]*>?/gm, '');
+
 const FeedbackOverview = () => {
-    const { user, isSuperAdmin: checkSuperAdmin } = useAuth();
+    const { user, isSuperAdmin: checkSuperAdmin, isMobile } = useAuth();
     const isSA = checkSuperAdmin();
 
     const [feedbackData, setFeedbackData] = useState([]);
@@ -223,10 +225,10 @@ const FeedbackOverview = () => {
 
     const responseQuality = useMemo(() => {
         const avg = Number(summary?.averageRating || 0);
-        if (avg >= 4.5) return { label: "Excellent", color: "#22c55e" };
-        if (avg >= 4) return { label: "Good", color: "#34d399" };
-        if (avg >= 3) return { label: "Average", color: "#fbbf24" };
-        return { label: "Poor", color: "#ef4444" };
+        if (avg >= 4.5) return { label: "Excellent", color: "#22c55e", msg: "Exceptional service standards!" };
+        if (avg >= 4) return { label: "Good", color: "#34d399", msg: "Maintain the good work!" };
+        if (avg >= 3) return { label: "Average", color: "#fbbf24", msg: "There is room for improvement." };
+        return { label: "Poor", color: "#ef4444", msg: "Needs immediate attention!" };
     }, [summary]);
 
     const satisfactionColors = {
@@ -364,8 +366,8 @@ const FeedbackOverview = () => {
     if (loading) return <Loader />;
 
     return (
-        <div className="container-fluid p-4" style={{ backgroundColor: "var(--bg-color)", minHeight: "100vh" }}>
-            <Box mb={4}>
+        <div className="container-fluid p-3 p-md-4" style={{ backgroundColor: "var(--bg-color)", minHeight: "100vh" }}>
+            <Box mb={3} mt={1}>
                 <Typography variant="h5" sx={{ fontWeight: 700, color: 'var(--text-color)', mb: 1 }}>
                     Feedback Overview
                 </Typography>
@@ -413,7 +415,7 @@ const FeedbackOverview = () => {
                         title="Response Quality" 
                         value={responseQuality.label} 
                         icon={ShieldCheck} 
-                        subtitle="Maintain the good work!" 
+                        subtitle={responseQuality.msg} 
                         color={responseQuality.color}
                         bgIcon={ShieldCheck}
                     />
@@ -423,9 +425,9 @@ const FeedbackOverview = () => {
             {/* Visual Insights Section (Moved between KPIs and Filters) */}
             <div className="row g-4 mb-4">
                 <div className="col-12 col-xl-4">
-                    <div className="card border-0 shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--card-bg)" }}>
-                        <h6 className="fw-bold mb-4">Rating Distribution</h6>
-                        <div className="d-flex flex-column gap-3 justify-content-center" style={{ minHeight: "250px" }}>
+                    <div className="card border-0 shadow-sm rounded-4 p-3 p-md-4 h-100" style={{ backgroundColor: "var(--card-bg)" }}>
+                        <h6 className="fw-bold mb-4" style={{ fontSize: '1rem' }}>Rating Distribution</h6>
+                        <div className="d-flex flex-column gap-3 justify-content-center" style={{ minHeight: "200px" }}>
                             {[5, 4, 3, 2, 1].map(rating => {
                                 const count = summary?.ratingDistribution?.[rating] || 0;
                                 const percentage = summary?.totalFeedback > 0 ? ((count / summary.totalFeedback) * 100).toFixed(1) : 0;
@@ -443,10 +445,10 @@ const FeedbackOverview = () => {
                     </div>
                 </div>
                 <div className="col-12 col-md-6 col-xl-4">
-                    <div className="card border-0 shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--card-bg)" }}>
-                        <h6 className="fw-bold mb-4">Satisfaction Level</h6>
-                        <div style={{ height: "250px", width: "100%", position: "relative" }}>
-                            <ResponsiveContainer width="100%" height={250}>
+                    <div className="card border-0 shadow-sm rounded-4 p-3 p-md-4 h-100" style={{ backgroundColor: "var(--card-bg)" }}>
+                        <h6 className="fw-bold mb-4" style={{ fontSize: '1rem' }}>Satisfaction Level</h6>
+                        <div style={{ height: "200px", width: "100%", position: "relative" }}>
+                            <ResponsiveContainer width="100%" height={200}>
                                 <PieChart>
                                     <Pie data={satisfactionData} innerRadius={60} outerRadius={85} paddingAngle={4} dataKey="value" stroke="none">
                                         {satisfactionData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
@@ -459,11 +461,11 @@ const FeedbackOverview = () => {
                     </div>
                 </div>
                 <div className="col-12 col-md-6 col-xl-4">
-                    <div className="card border-0 shadow-sm rounded-4 p-4 h-100" style={{ backgroundColor: "var(--card-bg)" }}>
-                        <h6 className="fw-bold mb-4">Feedback Trend (Local)</h6>
-                        <div style={{ height: "250px", width: "100%", position: "relative" }}>
-                            <ResponsiveContainer width="100%" height={250}>
-                                <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
+                    <div className="card border-0 shadow-sm rounded-4 p-3 p-md-4 h-100" style={{ backgroundColor: "var(--card-bg)" }}>
+                        <h6 className="fw-bold mb-4" style={{ fontSize: '1rem' }}>Feedback Trend</h6>
+                        <div style={{ height: "200px", width: "100%", position: "relative" }}>
+                            <ResponsiveContainer width="100%" height={200}>
+                                <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -30, bottom: 0 }}>
                                     <defs>
                                         <linearGradient id="colorFeedbackOverview" x1="0" y1="0" x2="0" y2="1">
                                             <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
@@ -578,21 +580,21 @@ const FeedbackOverview = () => {
                 {filteredRows.length > 0 ? (
                     <div className="d-flex flex-column gap-3">
                         {filteredRows.slice((page * rowsPerPage), (page + 1) * rowsPerPage).map((feedback) => (
-                            <div key={feedback._id} className="card border-0 shadow-sm rounded-4 overflow-hidden" 
+                            <div key={feedback._id} className="card border-0 shadow-sm rounded-4 overflow-hidden mx-1 mx-md-0" 
                                  style={{ backgroundColor: "var(--card-bg)", transition: 'all 0.3s ease' }}>
-                                <div className="p-4">
-                                    <div className="row align-items-center g-4">
+                                <div className="p-3 p-md-4">
+                                    <div className="row align-items-center g-3 g-md-4">
                                         {/* User Info */}
-                                        <div className="col-12 col-lg-3">
+                                        <div className="col-10 col-lg-3">
                                             <Box display="flex" alignItems="center" gap={2}>
                                                 <Avatar 
                                                     src={feedback.user?.profileImage ? `${import.meta.env.VITE_BACKEND_URL}/uploads/profile/${feedback.user.profileImage}` : ""}
-                                                    sx={{ width: 52, height: 52, bgcolor: 'var(--primary-color)', fontSize: '20px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}
+                                                    sx={{ width: { xs: 40, md: 52 }, height: { xs: 40, md: 52 }, bgcolor: 'var(--primary-color)', fontSize: { xs: '16px', md: '20px' }, boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}
                                                 >
                                                     {feedback.user?.name?.[0]}
                                                 </Avatar>
                                                 <Box>
-                                                    <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'var(--text-color)', lineHeight: 1.2 }}>
+                                                    <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'var(--text-color)', lineHeight: 1.2, fontSize: { xs: '0.9rem', md: '1rem' } }}>
                                                         {feedback.user?.name}
                                                     </Typography>
                                                     <Link 
@@ -600,76 +602,82 @@ const FeedbackOverview = () => {
                                                         style={{ textDecoration: 'none' }}
                                                     >
                                                         <Typography 
-                                                            variant="body2" 
+                                                            variant="caption" 
                                                             sx={{ 
                                                                 color: 'var(--primary-color)', 
                                                                 fontWeight: 700, 
-                                                                mt: 0.5, 
+                                                                mt: 0.3, 
+                                                                display: 'inline-block',
                                                                 letterSpacing: 0.5,
                                                                 '&:hover': {
                                                                     textDecoration: 'underline',
                                                                     opacity: 0.8
-                                                                },
-                                                                transition: 'all 0.2s ease',
-                                                                cursor: 'pointer'
+                                                                }
                                                             }}
                                                         >
                                                             #{feedback.ticket?.ticketNumber}
                                                         </Typography>
                                                     </Link>
-                                                    <Typography variant="caption" sx={{ color: 'var(--secondary-color)', display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.5, fontWeight: 500 }}>
-                                                        <TrendingUp size={12} style={{ opacity: 0.7 }} />
-                                                        {new Date(feedback.createdAt).toLocaleString('en-IN', {
-                                                            day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true
-                                                        })}
+                                                    <Typography variant="caption" sx={{ color: 'var(--secondary-color)', display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.2, fontWeight: 500, fontSize: '10px' }}>
+                                                        {new Date(feedback.createdAt).toLocaleDateString('en-IN')}
                                                     </Typography>
                                                 </Box>
                                             </Box>
                                         </div>
 
+                                        {/* Expand Action for Mobile (Hidden on Desktop) */}
+                                        <div className="col-2 d-lg-none text-end">
+                                            <IconButton 
+                                                size="small" 
+                                                onClick={() => setExpandedId(expandedId === feedback._id ? null : feedback._id)}
+                                                sx={{ 
+                                                    color: 'var(--text-color)', 
+                                                    transform: expandedId === feedback._id ? 'rotate(180deg)' : 'none',
+                                                    transition: 'transform 0.3s ease'
+                                                }}
+                                            >
+                                                <ChevronDown size={20} />
+                                            </IconButton>
+                                        </div>
+
                                         {/* Content (Summary) */}
                                         <div className="col-12 col-lg-5">
                                             <Box>
-                                                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'var(--text-color)', mb: 1, fontSize: '1rem' }}>
+                                                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'var(--text-color)', mb: 0.5, fontSize: { xs: '0.85rem', md: '1rem' } }}>
                                                     {feedback.ticket?.service?.name} - {feedback.ticket?.title}
                                                 </Typography>
-                                                <Typography variant="body2" sx={{ color: 'var(--text-color)', opacity: 0.8, fontStyle: 'italic', mb: 2, display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                                                    "{feedback.comments || "No comments provided."}"
+                                                <Typography variant="body2" sx={{ color: 'var(--text-color)', opacity: 0.8, fontStyle: 'italic', mb: 1, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
+                                                    "{stripHtml(feedback.ticket?.description) || "No description provided."}"
                                                 </Typography>
-                                                <span className="badge" style={{ backgroundColor: 'var(--bg-color)', color: 'var(--primary-color)', border: '1px solid var(--border-color)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 700, padding: '4px 10px' }}>
-                                                    {feedback.ticket?.service?.name}
-                                                </span>
                                             </Box>
                                         </div>
 
                                         {/* Rating & Status */}
                                         <div className="col-12 col-lg-3">
-                                            <Box display="flex" flexDirection="column" gap={1.5}>
-                                                <Box display="flex" alignItems="center" gap={2}>
-                                                    <Typography sx={{ fontWeight: 800, color: 'var(--text-color)', fontSize: '1.25rem' }}>
-                                                        {Number(feedback.rating).toFixed(1)} <small style={{ fontWeight: 500, opacity: 0.5, fontSize: '0.85rem' }}>/ 5</small>
+                                            <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
+                                                <Box display="flex" alignItems="center" gap={1.5}>
+                                                    <Typography sx={{ fontWeight: 800, color: 'var(--text-color)', fontSize: { xs: '1rem', md: '1.25rem' } }}>
+                                                        {Number(feedback.rating).toFixed(1)}
                                                     </Typography>
-                                                    <div className="d-flex gap-1">
+                                                    <div className="d-flex gap-0.5">
                                                         {[1, 2, 3, 4, 5].map((star) => (
                                                             <Star 
                                                                 key={star} 
-                                                                size={16} 
+                                                                size={14} 
                                                                 fill={star <= feedback.rating ? "#f5a623" : "transparent"} 
                                                                 color={star <= feedback.rating ? "#f5a623" : "var(--border-color)"} 
                                                             />
                                                         ))}
                                                     </div>
                                                 </Box>
-                                                <div>
-                                                    <span className={`badge rounded-pill ${getSatisfactionColor(feedback.satisfaction)}`} style={{ fontSize: '11px', padding: '8px 18px', fontWeight: 600 }}>
-                                                        {feedback.satisfaction}
-                                                    </span>
-                                                </div>
+                                                <span className={`badge rounded-pill ${getSatisfactionColor(feedback.satisfaction)}`} style={{ fontSize: '10px', padding: '6px 14px', fontWeight: 600 }}>
+                                                    {feedback.satisfaction}
+                                                </span>
                                             </Box>
                                         </div>
 
-                                        {/* Action */}
-                                        <div className="col-12 col-lg-1 text-end">
+                                        {/* Action Desktop */}
+                                        <div className="col-lg-1 d-none d-lg-block text-end">
                                             <IconButton 
                                                 size="small" 
                                                 onClick={() => setExpandedId(expandedId === feedback._id ? null : feedback._id)}
@@ -690,8 +698,8 @@ const FeedbackOverview = () => {
                                 {/* Expandable Details Section */}
                                 <Collapse in={expandedId === feedback._id} timeout="auto" unmountOnExit>
                                     <Divider sx={{ borderColor: 'var(--border-color)', opacity: 0.5 }} />
-                                    <Box sx={{ p: 4, bgcolor: 'rgba(0,0,0,0.02)' }}>
-                                        <div className="row g-5">
+                                    <Box sx={{ p: { xs: 2.5, md: 4 }, bgcolor: 'rgba(0,0,0,0.02)' }}>
+                                        <div className="row g-4">
                                             <div className="col-12">
                                                 <DetailBox 
                                                     title="User Comments" 
@@ -702,17 +710,17 @@ const FeedbackOverview = () => {
                                         </div>
 
                                         <Box 
-                                            mt={5} 
-                                            pt={4} 
+                                            mt={3} 
+                                            pt={3} 
                                             sx={{ 
                                                 borderTop: '1px dashed var(--border-color)',
                                                 display: 'grid',
-                                                gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(5, 1fr)' },
-                                                gap: 3
+                                                gridTemplateColumns: { xs: '1fr', md: 'repeat(5, 1fr)' },
+                                                gap: { xs: 2, md: 3 }
                                             }}
                                         >
                                             <MetaItem label="Category" value={feedback.ticket?.service?.name} badge />
-                                            <MetaItem label="Sub Category" value={feedback.ticket?.title} />
+                                            <MetaItem label="Description" value={stripHtml(feedback.ticket?.description)} />
                                             <MetaItem 
                                                 label="Technician" 
                                                 value={feedback.ticket?.assignedTo?.find(a => a.status === "RESOLVED")?.user?.name || "Unassigned"} 
@@ -739,8 +747,8 @@ const FeedbackOverview = () => {
                 )}
 
                 {/* Custom Pagination */}
-                <Box mt={4} display="flex" justifyContent="flex-end" alignItems="center" gap={3}>
-                    <Box display="flex" alignItems="center" gap={1.5}>
+                <Box mt={3} pb={isMobile ? 8 : 4} display="flex" flexWrap="wrap" justifyContent="center" alignItems="center" gap={2}>
+                    <Box display="flex" alignItems="center" gap={1}>
                         <Typography variant="caption" sx={{ color: 'var(--secondary-color)', fontWeight: 500 }}>
                             Rows per page:
                         </Typography>

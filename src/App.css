@@ -674,6 +674,25 @@
     color: var(--primary-color);
 }
 
+/* Global override for simple Bootstrap-style modals rendered in-page
+   Ensures the modal is fixed, centered below the header, and above
+   other UI elements. Adds a subtle backdrop. */
+.modal.d-block {
+    position: fixed;
+    inset: 0;
+    z-index: 2100; /* above sidebar (1001) and other elements */
+    background: rgba(0,0,0,0.18);
+}
+
+/* Position dialog centered horizontally and offset below header */
+.modal.d-block .modal-dialog {
+    position: absolute;
+    left: 50%;
+    top: 110px; /* adjust to match header height */
+    transform: translateX(-50%);
+    margin: 0;
+}
+
 
 
 /* ----------404 - Bad Gate Way------------ */

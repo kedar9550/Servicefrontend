@@ -1,13 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./Pages/login/Login";
-import Signup from "./Pages/login/Signup";
+import AuthenticationModule from "./Pages/login/AuthenticationModule";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
 import Layout from "./layouts/Layout";
 import "./App.css";
-
 import Dashboard from "./Pages/common/Dashborad";
-
 import Profile from "./Pages/user/Profile";
 import MyTickets from "./Pages/user/MyTickets";
 import ChangePassword from "./Pages/user/ChangePassword";
@@ -24,7 +21,6 @@ import ManageAdmins from './Pages/superAdmin/ManageAdmins'
 import AddUser from "./Pages/superAdmin/AddUser";
 import GenerateTicket from "./Pages/user/GenerateTicket";
 import Reports from "./Components/Reports";
-import ForgotPassword from "./Pages/login/ForgotPassword";
 import Bad_gateway from "./Components/Bad_gateway";
 import No_data from "./Components/No_data";
 import RejectedTickets from "./Pages/deptAdmin/RejectedTickets";
@@ -42,7 +38,7 @@ function App() {
           path="/login"
           element={
             <PublicRoute>
-              <Login />
+              <AuthenticationModule />
             </PublicRoute>
           }
         />
@@ -51,7 +47,7 @@ function App() {
           path="/signup"
           element={
             <PublicRoute>
-              <Signup />
+              <AuthenticationModule />
             </PublicRoute>
           }
         />
@@ -59,7 +55,7 @@ function App() {
           path="/forgot-password"
           element={
             <PublicRoute>
-              <ForgotPassword />
+              <AuthenticationModule />
             </PublicRoute>
           }
         />

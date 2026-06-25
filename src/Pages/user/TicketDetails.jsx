@@ -132,7 +132,7 @@ const TicketDetails = () => {
   }
 
   const getCurrentStage = () => {
-    if (ticket.status === "RESOLVED" || ticket.status === "REJECTED") return 3;
+    if (ticket.status === "RESOLVED" || ticket.status === "REJECTED" || ticket.status === "CLOSED") return 3;
     if (ticket.status === "IN_PROGRESS") return 2;
     if (ticket.assignedTo?.length) return 1;
     return 0;

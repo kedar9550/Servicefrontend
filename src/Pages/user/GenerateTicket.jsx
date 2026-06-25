@@ -114,9 +114,6 @@ const GenerateTicket = () => {
       if (!form.description || form.description.trim() === "") errors.description = "Description required";
     }
 
-    if (files.length === 0) {
-      errors.files = "At least one file is mandatory";
-    }
 
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
@@ -268,7 +265,7 @@ const GenerateTicket = () => {
                     <div className={`bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3`} style={{ width: "50px", height: "50px" }}>
                       <i className="bi bi-cloud-arrow-up-fill text-primary fs-4"></i>
                     </div>
-                    <h6 className="fw-bold mb-1">Attach Files <span className="text-danger fw-bold">(Mandatory)</span></h6>
+                    <h6 className="fw-bold mb-1">Attach Files <span className="text-muted fw-normal">(Optional)</span></h6>
                     <p className="small text-muted mb-3">Attach files or take a photo • Max 5 files • Images, PDF, Video up to 10MB each</p>
 
                     <button type="button" className="btn btn-outline-primary btn-sm px-4 rounded-pill" onClick={(e) => { e.stopPropagation(); setShowUploadModal(true); }}>

@@ -45,6 +45,17 @@ const GenerateTicket = () => {
   };
 
   useEffect(() => {
+    if (user) {
+      setForm((prev) => ({
+        ...prev,
+        name: user.name || "",
+        email: user.email || "",
+        phone: user.phone || ""
+      }));
+    }
+  }, [user]);
+
+  useEffect(() => {
     fetchServices();
   }, []);
 

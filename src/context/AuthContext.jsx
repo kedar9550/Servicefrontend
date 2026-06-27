@@ -11,6 +11,40 @@ export const AuthProvider = ({ children }) => {
 
   // CHECK AUTH ON APP LOAD
 
+  const setupNotifications = async () => {
+    try {
+      const { requestForToken, onMessageListener } = await import("../firebase");
+      const token = await requestForToken();
+      if (token) {
+        await API.post("/api/auth/save-fcm-token", { fcmToken: token }, { withCredentials: true });
+      }
+
+      const unsubscribe = onMessageListener((payload) => {
+        console.log("Foreground notification received:", payload);
+        // Optional: Display toast notification here if needed
+        import("react-toastify").then(({ toast }) => {
+           toast.info(`${payload.notification.title}: ${payload.notification.body}`);
+        });
+      });
+      
+      return () => {
+        if (unsubscribe) unsubscribe();
+      };
+    } catch (err) {
+      console.error("Failed to setup push notifications:", err);
+    }
+  };
+
+  useEffect(() => {
+    let cleanup = null;
+    if (user) {
+      setupNotifications().then(unsub => cleanup = unsub);
+    }
+    return () => {
+       if (cleanup) cleanup();
+    };
+  }, [user]);
+
   useEffect(() => {
     const checkAuth = async () => {
       try {

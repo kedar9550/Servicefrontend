@@ -16,8 +16,14 @@ const messaging = getMessaging(app);
 
 export const requestForToken = async () => {
   try {
+    let registration = null;
+    if ('serviceWorker' in navigator) {
+      registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+    }
+
     const currentToken = await getToken(messaging, { 
-      vapidKey: 'BPEFVVbYgrkGA3wZDKFRQRciKLMAKV3QPC4KILnkrgivYxFY4cJwJk4uG6mZX0BW5p2NjvI3c6QwpUnscMEhLPg' 
+      vapidKey: 'BPEFVVbYgrkGA3wZDKFRQRciKLMAKV3QPC4KILnkrgivYxFY4cJwJk4uG6mZX0BW5p2NjvI3c6QwpUnscMEhLPg',
+      serviceWorkerRegistration: registration 
     });
     if (currentToken) {
       console.log('current token for client: ', currentToken);

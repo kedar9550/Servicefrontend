@@ -126,16 +126,6 @@ const Slider = ({ open, toggleSidebar }) => {
         </ul>
       </div>
 
-      <div className="p-3 px-3 mb-2 border-top">
-        <button
-          onClick={logout}
-          className="signout d-flex align-items-center text-danger border-0 bg-transparent fw-bold"
-          type="button"
-        >
-          <i className="bi bi-box-arrow-right fs-5 me-2"></i>
-          {open && "Log out"}
-        </button>
-      </div>
     </div>
   );
 };

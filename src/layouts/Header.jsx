@@ -101,12 +101,12 @@ function Header({ sidebarOpen, isMobile }) {
 
         {/* Profile Avatar + Dropdown */}
         <div ref={profileRef} style={{ position: "relative" }}>
-          <div onClick={() => isMobile && setShowProfileMenu(prev => !prev)}>
+          <div onClick={() => setShowProfileMenu(prev => !prev)}>
             {profileAvatar}
           </div>
 
-          {/* Profile Dropdown — mobile only */}
-          {isMobile && showProfileMenu && (
+          {/* Profile Dropdown */}
+          {showProfileMenu && (
             <div
               style={{
                 position: "fixed",
@@ -132,43 +132,47 @@ function Header({ sidebarOpen, isMobile }) {
                 </p>
               </div>
 
-              {/* Notifications */}
-              <button
-                onClick={() => {
-                  setShowProfileMenu(false);
-                  setNotifOpen(true);
-                }}
-                style={{
-                  display: "flex", alignItems: "center", gap: "10px",
-                  width: "100%", padding: "10px 16px",
-                  background: "none", border: "none", cursor: "pointer",
-                  color: "var(--text-color)", fontSize: "0.88rem",
-                  textAlign: "left",
-                }}
-                onMouseEnter={e => e.currentTarget.style.background = "var(--sidebar-hover)"}
-                onMouseLeave={e => e.currentTarget.style.background = "none"}
-              >
-                <i className="bi bi-bell" style={{ fontSize: "1rem" }}></i>
-                Notifications
-              </button>
+              {/* Notifications - Mobile only */}
+              {isMobile && (
+                <button
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    setNotifOpen(true);
+                  }}
+                  style={{
+                    display: "flex", alignItems: "center", gap: "10px",
+                    width: "100%", padding: "10px 16px",
+                    background: "none", border: "none", cursor: "pointer",
+                    color: "var(--text-color)", fontSize: "0.88rem",
+                    textAlign: "left",
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = "var(--sidebar-hover)"}
+                  onMouseLeave={e => e.currentTarget.style.background = "none"}
+                >
+                  <i className="bi bi-bell" style={{ fontSize: "1rem" }}></i>
+                  Notifications
+                </button>
+              )}
 
               {/* Theme Toggle - Mobile Menu */}
-              <div
-                onClick={(e) => { e.stopPropagation(); toggleTheme(e); }}
-                style={{
-                  display: "flex", alignItems: "center", gap: "10px",
-                  width: "100%", padding: "6px 16px",
-                  color: "var(--text-color)", fontSize: "0.88rem",
-                  cursor: "pointer"
-                }}
-                onMouseEnter={e => e.currentTarget.style.background = "var(--sidebar-hover)"}
-                onMouseLeave={e => e.currentTarget.style.background = "none"}
-              >
-                <div style={{ marginLeft: "-8px", pointerEvents: "none" }}>
-                  <ThemeToggle />
+              {isMobile && (
+                <div
+                  onClick={(e) => { e.stopPropagation(); toggleTheme(e); }}
+                  style={{
+                    display: "flex", alignItems: "center", gap: "10px",
+                    width: "100%", padding: "6px 16px",
+                    color: "var(--text-color)", fontSize: "0.88rem",
+                    cursor: "pointer"
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = "var(--sidebar-hover)"}
+                  onMouseLeave={e => e.currentTarget.style.background = "none"}
+                >
+                  <div style={{ marginLeft: "-8px", pointerEvents: "none" }}>
+                    <ThemeToggle />
+                  </div>
+                  <span>{theme === "light" ? "Dark Mode" : "Light Mode"}</span>
                 </div>
-                <span>{theme === "light" ? "Dark Mode" : "Light Mode"}</span>
-              </div>
+              )}
 
               {/* Divider + Logout */}
               <div style={{ borderTop: "1px solid var(--border-color)", marginTop: "4px", paddingTop: "4px" }}>

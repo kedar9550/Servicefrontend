@@ -17,7 +17,7 @@
 
 /* Hover effect (for BOTH NavLink and button) */
 .nav-link:hover {
-    background-color: #ff5e00 !important;
+    background-color: #d06c38 !important;
     transform: translateY(4px);
     color: #fff !important;
 }

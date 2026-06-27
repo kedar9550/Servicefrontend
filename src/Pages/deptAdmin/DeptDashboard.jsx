@@ -115,7 +115,7 @@ const DeptDashboard = () => {
           onClick={() => navigate(`/ticketdetails/${params.row.id}`)}
           title="View"
         >
-          <Eye size={16} className="text-primary" />
+          <Eye size={16} style={{ color: "var(--primary-color)" }} />
         </button>
       )
     }
@@ -124,27 +124,54 @@ const DeptDashboard = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="p-4" style={{ backgroundColor: "var(--bg-color)", minHeight: "100vh" }}>
+    <div className="px-2 py-3 px-md-4 py-md-4" style={{ backgroundColor: "var(--bg-color)", minHeight: "100vh" }}>
 
       {/* Header */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3 className="fw-bold mb-0 text-wrap">
+      <div className="d-flex justify-content-between align-items-center mb-4 gap-2">
+        <h3 className="fw-bold mb-0 text-wrap flex-grow-1" style={{ fontSize: "1.5rem" }}>
           {reports?.departmentName && reports.departmentName !== "Department" ? `${reports.departmentName} Service Dashboard` : "Department Dashboard"}
         </h3>
 
         <button
-          className="btn btn-primary px-4 rounded-pill shadow-sm fw-medium d-flex align-items-center gap-2 text-white"
-          style={{ transition: "0.2s" }}
+          className="btn btn-primary shadow-sm fw-medium d-flex align-items-center justify-content-center text-white"
+          style={{
+            transition: "0.3s",
+            width: "48px", // Mobile: Round (width=height)
+            height: "48px",
+            borderRadius: "50%",
+            backgroundColor: "var(--primary-color)",
+            padding: "0",
+            flexShrink: 0
+          }}
           onClick={assignClicked}
-          onMouseOver={(e) => e.target.style.transform = "translateY(-2px)"}
-          onMouseOut={(e) => e.target.style.transform = "translateY(0)"}
+          onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+          onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
         >
-          Assign Tickets <UserPlus size={18} />
+          {/* Desktop Text */}
+          <span className="d-none d-md-inline me-md-2 ps-md-4 pe-md-1">Assign Tickets</span>
+          {/* Icon */}
+          <span className="d-flex align-items-center justify-content-center pe-md-4">
+            <UserPlus size={20} />
+          </span>
+
+          {/* Desktop Style Override - We'll use a style tag or just more inline logic */}
+          <style dangerouslySetInnerHTML={{
+            __html: `
+            @media (min-width: 768px) {
+              .btn-primary { 
+                width: auto !important; 
+                height: auto !important; 
+                border-radius: 50px !important; 
+                padding: 0.6rem 1.5rem !important;
+                flex-shrink: 0 !important;
+              }
+            }
+          `}} />
         </button>
       </div>
 
       {/* ================= MAIN CARDS ================= */}
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 mb-5">
+      <div className="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 mb-5">
         <StatCard
           title="Total Tickets"
           value={totalTickets}
@@ -240,7 +267,7 @@ const StatCard = ({
   progressColor,
 }) => {
   return (
-    <div className="col-md-6 col-lg-3">
+    <div className="col">
       <div
         className="card shadow-sm rounded-4 p-4 h-100 border-0"
         style={{

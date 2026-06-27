@@ -4,7 +4,7 @@ import CommonTable from "../../Components/CommonTable";
 import API from "../../api/axios";
 import { getPriorityColor, getStatusColor } from "../../Components/StatusColors";
 import { useNavigate } from "react-router-dom";
-import { Eye } from "lucide-react";
+import { Eye, UserPlus } from "lucide-react";
 
 const DeptTickets = () => {
 
@@ -39,23 +39,51 @@ const DeptTickets = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="px-2 py-3 px-md-4 py-md-4" style={{ minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
 
       {/* Header */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h2 className="fw-bold">Service Requests</h2>
-          <p className="text-muted mb-0">
-            Manage and track serice related tickets
+      <div className="d-flex justify-content-between align-items-center mb-4 gap-2">
+        <div className="flex-grow-1">
+          <h2 className="fw-bold mb-1" style={{ fontSize: "1.75rem" }}>Service Requests</h2>
+          <p className="text-secondary mb-0" style={{ fontSize: "0.95rem" }}>
+            Manage and track service related tickets
           </p>
         </div>
 
         <button
-          className="btn px-4"
-          style={{ backgroundColor: "#00306e", color: "#fff" }}
+          className="btn btn-primary-custom shadow-sm fw-medium d-flex align-items-center justify-content-center text-white"
+          style={{ 
+            transition: "0.3s",
+            width: "48px", // Mobile: Round (width=height)
+            height: "48px",
+            borderRadius: "50%",
+            backgroundColor: "var(--primary-color)",
+            padding: "0",
+            flexShrink: 0
+          }}
           onClick={() => navigate('/dept/assign')}
+          onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+          onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
         >
-          Assign Ticket
+          {/* Desktop Text */}
+          <span className="d-none d-md-inline me-md-2 ps-md-4 pe-md-1">Assign Ticket</span>
+          {/* Icon */}
+          <span className="d-flex align-items-center justify-content-center pe-md-4">
+            <UserPlus size={20} />
+          </span>
+
+          {/* Desktop Style Override - Same logic as Dashboard */}
+          <style dangerouslySetInnerHTML={{ __html: `
+            @media (min-width: 768px) {
+              .btn-primary-custom { 
+                width: auto !important; 
+                height: auto !important; 
+                border-radius: 10px !important; 
+                padding: 0.6rem 1.5rem !important;
+                flex-shrink: 0 !important;
+              }
+            }
+          `}} />
         </button>
       </div>
 
@@ -106,7 +134,7 @@ const DeptTickets = () => {
                 <button className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center"
                   style={{ width: '32px', height: '32px' }}
                   onClick={() => navigate(`/ticketdetails/${params.row._id}`)}>
-                  <Eye size={16} className="text-primary" />
+                  <Eye size={16} style={{ color: "var(--primary-color)" }} />
                 </button>
               )
             }

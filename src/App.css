@@ -91,7 +91,7 @@
 
 
 .role-option {
-    color: #0b5299;
+    color: var(--primary-color);
     font-weight: 500;
     cursor: pointer;
     transition: 0.3s ease;
@@ -177,7 +177,8 @@
         height: 450px;
         width: 450px;
         position: fixed;
-        right: -220px;
+        right: -255px;
+        /* Half of 450px to make 50% visible */
         top: 60%;
         transform: translateY(-50%);
         animation: rotateLogo 120s linear infinite;
@@ -251,7 +252,8 @@
         height: 500px;
         width: 500px;
         position: fixed;
-        right: -220px;
+        right: -255px;
+        /* Half of 500px to make 50% visible */
         top: 50%;
         transform: translateY(-50%);
         animation: rotateLogo 120s linear infinite;
@@ -385,7 +387,7 @@
 }
 
 .repair-header h1 {
-    color: #0144af;
+    color: var(--primary-color);
     margin-bottom: 5px;
 }
 
@@ -458,12 +460,12 @@
 
 .upload-box {
     display: block;
-    border: 2px dotted #00307e;
+    border: 2px dotted var(--primary-color);
     padding: 15px;
     text-align: center;
     border-radius: 10px;
     cursor: pointer;
-    color: #00358a;
+    color: var(--primary-color);
     margin-bottom: 20px;
 }
 
@@ -477,7 +479,7 @@
 .submit-btn {
     width: 100%;
     padding: 14px;
-    background: #00307e;
+    background: var(--primary-color);
     color: white;
     border: none;
     border-radius: 10px;
@@ -486,7 +488,8 @@
 }
 
 .submit-btn:hover {
-    background: #073b00;
+    background: var(--primary-color);
+    filter: brightness(0.9);
 }
 
 .repair-footer {
@@ -579,34 +582,6 @@
     max-width: 270px;
 }
 
-.auth-footer {
-    width: 100%;
-    text-align: center;
-    padding: 15px 0 0 0;
-    margin-top: auto;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-color);
-    position: relative;
-    bottom: 0;
-}
-
-.auth-footer .brand {
-    color: var(--primary-color);
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-.auth-footer p {
-    margin: 0;
-}
-
-@media (min-width: 992px) and (min-height: 800px) {
-    .auth-footer {
-        position: absolute;
-        bottom: 0;
-    }
-}
 
 /* Time line */
 .timeline {
@@ -661,7 +636,7 @@
 }
 
 .timeline-item.completed::before {
-    background: #0b5299;
+    background: var(--primary-color);
     /* blue for completed */
 }
 
@@ -676,7 +651,7 @@
 }
 
 .attachments a:hover {
-    color: #0b5299;
+    color: var(--primary-color);
 }
 
 /* popup in add emp */
@@ -699,11 +674,30 @@
     color: var(--primary-color);
 }
 
+/* Global override for simple Bootstrap-style modals rendered in-page
+   Ensures the modal is fixed, centered below the header, and above
+   other UI elements. Adds a subtle backdrop. */
+.modal.d-block {
+    position: fixed;
+    inset: 0;
+    z-index: 2100; /* above sidebar (1001) and other elements */
+    background: rgba(0,0,0,0.18);
+}
+
+/* Position dialog centered horizontally and offset below header */
+.modal.d-block .modal-dialog {
+    position: absolute;
+    left: 50%;
+    top: 110px; /* adjust to match header height */
+    transform: translateX(-50%);
+    margin: 0;
+}
+
 
 
 /* ----------404 - Bad Gate Way------------ */
 .bg_404 {
-    background-image: url('404_bg.png');
+    background-image: url('./assets/404_bg.png');
     background-size: cover;
     height: 80vh;
     background-position: center;
@@ -720,6 +714,14 @@
     font-weight: bolder;
     font-family: "Poppins" !important;
     color: #ff6600;
+}
+
+.btnn {
+    height: 45px;
+    width: auto;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+
 }
 
 /* --------Common Table Data------------ */
@@ -755,4 +757,69 @@
 /* Footer pagination */
 .MuiTablePagination-root {
     font-family: "Poppins", sans-serif !important;
+}
+
+/* 💠 Custom Premium Scrollbar (Outlined with Dots) 💠 */
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #e2e8f0;
+    border-left: 6px solid #ffffff;
+    border-right: 6px solid #ffffff;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background-color: #334155;
+    border-left: 6px solid #1e293b;
+    border-right: 6px solid #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border: 1.5px solid #3b82f6;
+    border-radius: 100px;
+    /* 5 Blue dots vertically aligned */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='30' viewBox='0 0 10 30'><circle cx='5' cy='5' r='1' fill='%233b82f6'/><circle cx='5' cy='10' r='1' fill='%233b82f6'/><circle cx='5' cy='15' r='1' fill='%233b82f6'/><circle cx='5' cy='20' r='1' fill='%233b82f6'/><circle cx='5' cy='25' r='1' fill='%233b82f6'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 6px 20px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background-color: #1e293b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f8fafc;
+}
+
+/* Scrollbar Buttons (Arrows) */
+::-webkit-scrollbar-button:single-button {
+    background-color: transparent;
+    display: block;
+    background-size: 7px;
+    background-repeat: no-repeat;
+}
+
+/* Up Arrow */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+    height: 14px;
+    background-position: center bottom;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='rgb(71, 85, 105)'><polygon points='50,25 25,75 75,75'/></svg>");
+}
+
+/* Down Arrow */
+::-webkit-scrollbar-button:single-button:vertical:increment {
+    height: 14px;
+    background-position: center top;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='rgb(71, 85, 105)'><polygon points='25,25 75,25 50,75'/></svg>");
+}
+
+/* For Firefox (Partial Support) */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #a6c5f8 transparent;
 }

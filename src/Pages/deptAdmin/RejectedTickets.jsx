@@ -176,7 +176,7 @@ const RejectedTickets = () => {
                         onClick={() => navigate(`/ticketdetails/${params.row._id}`)}
                         title="View"
                     >
-                        <Eye size={16} className="text-primary" />
+                        <Eye size={16} style={{ color: "var(--primary-color)" }} />
                     </button>
                     <button
                         className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center"
@@ -266,7 +266,7 @@ const RejectedTickets = () => {
                                         onClick={() => navigate(`/ticketdetails/${params.row._id}`)}
                                         title="View"
                                     >
-                                        <Eye size={16} className="text-primary" />
+                                        <Eye size={16} style={{ color: "var(--primary-color)" }} />
                                     </button>
                                 )
                             }
@@ -370,7 +370,35 @@ const RejectedTickets = () => {
                                                 slotProps={{
                                                     textField: {
                                                         className: "w-100",
-                                                        size: "small"
+                                                        size: "small",
+                                                        sx: {
+                                                            "& .MuiInputBase-input": {
+                                                                color: "var(--text-color) !important",
+                                                                WebkitTextFillColor: "var(--text-color) !important",
+                                                            },
+                                                            "& .MuiInputBase-input::selection": {
+                                                                backgroundColor: "var(--primary-color) !important",
+                                                                color: "#ffffff !important",
+                                                            },
+                                                            "& .MuiOutlinedInput-root": {
+                                                                backgroundColor: "var(--input-bg) !important",
+                                                                "& fieldset": {
+                                                                    borderColor: "var(--border-color) !important",
+                                                                },
+                                                                "&:hover fieldset": {
+                                                                    borderColor: "var(--secondary-color) !important",
+                                                                },
+                                                                "&.Mui-focused fieldset": {
+                                                                    borderColor: "var(--primary-color) !important",
+                                                                },
+                                                            },
+                                                            "& .MuiInputLabel-root": {
+                                                                color: "var(--secondary-color) !important",
+                                                            },
+                                                            "& .MuiSvgIcon-root": {
+                                                                color: "var(--text-color) !important",
+                                                            }
+                                                        }
                                                     }
                                                 }}
                                             />

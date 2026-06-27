@@ -112,7 +112,7 @@ const Completed = () => {
           style={{ width: "32px", height: "32px" }}
           onClick={() => navigate(`/ticketdetails/${params.row.id}`)}
         >
-          <Eye size={16} className="text-primary" />
+          <Eye size={16} style={{ color: "var(--primary-color)" }} />
         </button>
       )
     }

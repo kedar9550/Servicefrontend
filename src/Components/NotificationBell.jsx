@@ -93,6 +93,11 @@ const NotificationBell = ({ externalOpen = false, onExternalClose, hideBell = fa
         console.error('Failed to mark read', err);
       }
     }
+    if (notif.type === 'FEEDBACK_REQUEST') {
+      navigate(`?feedback=${notif.ticketId}`);
+      return;
+    }
+
     if (notif.type === 'TICKET_CREATED') {
       navigate('/dept/assign');
     } else if (notif.type === 'TICKET_ASSIGNED') {

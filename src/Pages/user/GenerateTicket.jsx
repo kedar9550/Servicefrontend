@@ -40,10 +40,20 @@ const GenerateTicket = () => {
     try {
       const { data } = await API.get("/api/service/");
       setSerVact(data);
-    } catch (err) {
-      console.log("Service fetch error:", err);
-    }
+      } catch (err) {
+      }
   };
+
+  useEffect(() => {
+    if (user) {
+      setForm((prev) => ({
+        ...prev,
+        name: user.name || "",
+        email: user.email || "",
+        phone: user.phone || ""
+      }));
+    }
+  }, [user]);
 
   useEffect(() => {
     fetchServices();
@@ -115,9 +125,6 @@ const GenerateTicket = () => {
       if (!form.description || form.description.trim() === "") errors.description = "Description required";
     }
 
-    if (files.length === 0) {
-      errors.files = "At least one file is mandatory";
-    }
 
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
@@ -150,7 +157,7 @@ const GenerateTicket = () => {
             className="card border-0 shadow-sm rounded-4 overflow-hidden"
             style={{
               borderTop: "4px solid",
-              borderImage: "linear-gradient(90deg, #FF8C00, #0b5299) 1"
+              borderImage: "linear-gradient(90deg, #FF8C00, var(--primary-color)) 1"
             }}
           >
             <div className="px-3 px-md-3 py-4 py-md-3">
@@ -269,7 +276,7 @@ const GenerateTicket = () => {
                     <div className={`bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3`} style={{ width: "50px", height: "50px" }}>
                       <i className="bi bi-cloud-arrow-up-fill text-primary fs-4"></i>
                     </div>
-                    <h6 className="fw-bold mb-1">Attach Files <span className="text-danger fw-bold">(Mandatory)</span></h6>
+                    <h6 className="fw-bold mb-1">Attach Files <span className="text-muted fw-normal">(Optional)</span></h6>
                     <p className="small text-muted mb-3">Attach files or take a photo • Max 5 files • Images, PDF, Video up to 10MB each</p>
 
                     <button type="button" className="btn btn-outline-primary btn-sm px-4 rounded-pill" onClick={(e) => { e.stopPropagation(); setShowUploadModal(true); }}>
@@ -334,7 +341,7 @@ const GenerateTicket = () => {
 
                 <div className="text-center">
                   <button type="submit" className="btn px-4 py-2 fw-bold rounded-3 shadow-sm mb-3 text-white"
-                    style={{ backgroundColor: "#0b5299", border: "none" }}
+                    style={{ backgroundColor: "var(--primary-color)", border: "none" }}
                     disabled={loading}>
                     {loading ? <span className="spinner-border spinner-border-sm me-2"></span> : <i className="bi bi-send-fill me-2"></i>}
                     Submit Ticket
@@ -367,7 +374,7 @@ const GenerateTicket = () => {
           from { transform: translateY(20px); opacity: 0; }
           to { transform: translateY(0); opacity: 1; }
         }
-        .hover-primary:hover { border-color: #0b5299 !important; background-color: #f0f7ff !important; }
+        .hover-primary:hover { border-color: var(--primary-color) !important; background-color: var(--sidebar-hover) !important; }
       `}</style>
     </div>
   );

@@ -11,6 +11,7 @@ const CommonTable = ({ rows, columns, initialPageSize = 5, Data = "Data" }) => {
     const centeredColumns = useMemo(() => {
         let finalCols = columns.map(col => ({
             flex: 1,
+            minWidth: 150, // Ensures columns don't squish on mobile
             headerAlign: 'center',
             align: 'center',
             ...col,
@@ -18,7 +19,7 @@ const CommonTable = ({ rows, columns, initialPageSize = 5, Data = "Data" }) => {
 
         if (!finalCols.find(c => c.field === "sno" || c.headerName === "S.No")) {
             finalCols = [
-                { field: "sno", headerName: "S.No", width: 70, headerAlign: 'center', align: 'center' },
+                { field: "sno", headerName: "S.No", width: 80, minWidth: 80, headerAlign: 'center', align: 'center' },
                 ...finalCols
             ];
         }

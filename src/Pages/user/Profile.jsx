@@ -49,6 +49,12 @@ function Profile() {
     const file = e.target.files[0];
     if (!file) return;
 
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Image size should be less than 2MB");
+      e.target.value = null;
+      return;
+    }
+
     setSelectedFile(file);
     setImagePreview(URL.createObjectURL(file));
   };
@@ -69,12 +75,13 @@ function Profile() {
 
       // VERY IMPORTANT
       updateUser({ profileImage: res.data.image });
-
+      alert("Profile photo updated successfully!");
       setSelectedFile(null);
 
     } catch (err) {
-      console.error("Upload error:", err.response?.data || err.message);
-      alert("Image upload failed: " + (err.response?.data?.message || err.message || "Unknown error"));
+      console.error("Upload error detail:", err.response?.data || err.message);
+      const errorMsg = err.response?.data?.message || err.message || "Unknown error";
+      alert("Image upload failed: " + errorMsg);
     }
   };
 
@@ -95,6 +102,10 @@ function Profile() {
 
     if (!/^[6-9]\d{9}$/.test(formData.phone))
       newErrors.phone = "Enter valid Indian mobile number";
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim() || !emailPattern.test(formData.email))
+      newErrors.email = "Enter valid email address";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -120,14 +131,16 @@ function Profile() {
     setSubmitting(true);
 
     try {
-      await API.put("/api/auth/update-profile", {
+      const response = await API.put("/api/auth/update-profile", {
         name: formData.fullname,
         institutionId: formData.id,
         department: formData.department,
         designation: formData.designation,
-        phone: formData.phone
+        phone: formData.phone,
+        email: formData.email
       });
 
+      updateUser(response.data.user);
       alert("Profile Updated Successfully");
 
     } catch (err) {
@@ -297,6 +310,7 @@ function Profile() {
                     onChange={handleChange}
                     className="form-control"
                   />
+                  {errors.email && <small className="text-danger">{errors.email}</small>}
                 </div>
 
                 <div className="col-md-6 mb-3">
@@ -315,7 +329,7 @@ function Profile() {
                 <button
                   type="submit"
                   className="btn px-4"
-                  style={{ backgroundColor: "#00306e", color: "#fff" }}
+                  style={{ backgroundColor: "var(--primary-color)", color: "#fff" }}
                   disabled={submitting}
                 >
                   {submitting ? "Saving..." : "Save Changes"}

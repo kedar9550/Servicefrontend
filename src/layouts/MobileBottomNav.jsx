@@ -41,7 +41,8 @@ const MobileBottomNav = () => {
     if (isSuperAdmin() || hasRole("ADMIN")) {
         navItems.push(
             { to: "/super/add-user", icon: "bi-person-plus", label: "Add User" },
-            { to: "/dept/reports", icon: "bi-file-earmark-bar-graph", label: "Reports" }
+            { to: "/dept/reports", icon: "bi-file-earmark-bar-graph", label: "Reports" },
+            { to: "/dept/feedback-overview", icon: "bi-chat-left-text", label: "Feedback" }
         );
     }
 
@@ -62,8 +63,12 @@ const MobileBottomNav = () => {
     };
 
     return (
-        <div className="mobile-bottom-nav">
-            <div className="mobile-nav-inner">
+        <div className="mobile-bottom-nav-wrapper">
+            {/* The white background bar stays static */}
+            <div className="mobile-bottom-nav-bg"></div>
+            
+            {/* The scrollable area */}
+            <div className="mobile-bottom-nav-scroll">
                 {navItems.map((item) => (
                     <NavLink
                         key={item.to}

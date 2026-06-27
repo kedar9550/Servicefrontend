@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  //console.log('authuser',user)
+
   // CHECK AUTH ON APP LOAD
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
         const { data } = await API.get("/api/auth/me", {
           withCredentials: true
         });
-        //console.log("Auth Check Response:", data);
+
 
         setUser(data.user);
 
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
 
 
-  //console.log("Authenticated User:", user);
+
   //  LOGIN
 
   const login = async (formData) => {
@@ -52,6 +52,9 @@ export const AuthProvider = ({ children }) => {
       );
 
       setUser(data.user);
+    } catch (error) {
+      console.error("Login Context Error:", error);
+      throw error;
     } finally {
       setLoading(false);
     }
@@ -70,7 +73,9 @@ export const AuthProvider = ({ children }) => {
         { withCredentials: true }
       );
 
-      setUser(data.user);
+    } catch (error) {
+      console.error("Signup Context Error:", error);
+      throw error;
     } finally {
       setLoading(false);
     }

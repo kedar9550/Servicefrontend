@@ -2,7 +2,8 @@ import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { useState, useEffect, useRef } from "react";
 import { BsList } from "react-icons/bs";
-import logo from "../assets/logoHome.png";
+import goldLogo from "../assets/Gold_logo.png";
+import orangeLogo from "../assets/Orange_logo.png";
 import NotificationBell from "../Components/NotificationBell";
 import ThemeToggle from "../Components/ThemeToggle";
 import { useNavigate } from "react-router-dom";
@@ -80,7 +81,7 @@ function Header({ sidebarOpen, isMobile }) {
       {isMobile && (
         <div className="d-flex align-items-center" style={{ marginLeft: "-16px" }}>
           <img
-            src={isDark ? "/Gold_logo.png" : "/Orange_logo.png"}
+            src={isDark ? goldLogo : orangeLogo}
             alt="Logo"
             style={{ width: "150px", cursor: "pointer" }}
           />
@@ -150,10 +151,10 @@ function Header({ sidebarOpen, isMobile }) {
                 <i className="bi bi-bell" style={{ fontSize: "1rem" }}></i>
                 Notifications
               </button>
-              
+
               {/* Theme Toggle - Mobile Menu */}
-              <div 
-                onClick={(e) => { e.stopPropagation(); toggleTheme(); }} 
+              <div
+                onClick={(e) => { e.stopPropagation(); toggleTheme(e); }}
                 style={{
                   display: "flex", alignItems: "center", gap: "10px",
                   width: "100%", padding: "6px 16px",

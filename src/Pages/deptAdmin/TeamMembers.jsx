@@ -1,5 +1,5 @@
 import React from "react";
-import { Users, CheckCircle, AlertCircle, Clock, Mail, Phone, Trash2, ChevronLeft, History, FileText } from "lucide-react";
+import { Users, CheckCircle, AlertCircle, Clock, Mail, Phone, Trash2, ChevronLeft, History, FileText, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import API from '../../api/axios'
 import { useState, useEffect } from "react";
@@ -31,13 +31,13 @@ function TeamMembers() {
         try {
             setLoading(true);
             const { data } = await API.get("/api/team/dashboard");
-            //console.log("Dashboard Data:", data);
+
             setSummary(data.summary);
             setDeveloperData(data.members);
             if (data.serviceName) setServiceName(data.serviceName);
 
         } catch (err) {
-            console.error(err);
+      
         } finally {
             setLoading(false);
         }
@@ -65,7 +65,7 @@ function TeamMembers() {
                 `/api/auth/search?query=${searchText}`
             );
 
-            console.log("Search Response:", data);
+
 
             const users = Array.isArray(data)
                 ? data
@@ -138,7 +138,7 @@ function TeamMembers() {
         const displayedTickets = showAllTickets ? memberTickets : memberTickets.slice(0, 5);
 
         return (
-            <div className="container-fluid mt-4 pb-5">
+            <div className="px-2 py-3 px-md-4 py-md-4 pb-5" style={{ minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
                 {/* Back Button */}
                 <button 
                     className="btn btn-light mb-4 d-flex align-items-center gap-2"
@@ -154,7 +154,7 @@ function TeamMembers() {
                             <div style={{ position: "relative", width: "90px", height: "90px" }}>
                                 <div
                                     className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold fs-3"
-                                    style={{ width: "100%", height: "100%", backgroundColor: "#2563eb", position: "absolute", top: 0, left: 0, zIndex: 1 }}
+                                    style={{ width: "100%", height: "100%", backgroundColor: "var(--primary-color)", position: "absolute", top: 0, left: 0, zIndex: 1 }}
                                 >
                                     {initials}
                                 </div>
@@ -237,6 +237,7 @@ function TeamMembers() {
                                     <th className="fw-medium py-3">Status</th>
                                     <th className="fw-medium py-3">Created</th>
                                     <th className="fw-medium py-3">Completed</th>
+                                    <th className="fw-medium py-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -265,6 +266,11 @@ function TeamMembers() {
                                                 </td>
                                                 <td className="text-muted">{formatDate(ticket.createdAt)}</td>
                                                 <td className="text-muted text-nowrap">{status === 'RESOLVED' && myAssignment?.updatedAt ? formatDate(myAssignment.updatedAt) : '-'}</td>
+                                                <td>
+                                                    <button className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center" style={{ width: '32px', height: '32px' }} onClick={() => navigate(`/ticketdetails/${ticket._id}`)} title="View">
+                                                        <Eye size={16} style={{ color: "var(--primary-color)" }} />
+                                                    </button>
+                                                </td>
                                             </tr>
                                         )
                                     })
@@ -290,21 +296,50 @@ function TeamMembers() {
     }
 
     return (
-        <div className="container-fluid mt-4">
+        <div className="px-2 py-3 px-md-4 py-md-4" style={{ minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
 
-            <div className="d-flex justify-content-between align-items-center">
-                <div>
-                    <h2 className="fw-bold mb-1">Service Members</h2>
-                    <p className="text-secondary mb-4">
+            <div className="d-flex justify-content-between align-items-center mb-4 gap-2">
+                <div className="flex-grow-1">
+                    <h2 className="fw-bold mb-1" style={{ fontSize: "1.75rem" }}>Service Members</h2>
+                    <p className="text-secondary mb-0" style={{ fontSize: "0.95rem" }}>
                         {serviceName ? `${serviceName} Service Team` : "Service Team"} - View member profiles and workload
                     </p>
                 </div>
 
                 <button
-                    className="btn btn-primary rounded-pill px-4"
+                    className="btn btn-primary-custom shadow-sm fw-medium d-flex align-items-center justify-content-center text-white"
+                    style={{ 
+                        transition: "0.3s",
+                        width: "48px", // Mobile: Round (width=height)
+                        height: "48px",
+                        borderRadius: "50%",
+                        backgroundColor: "var(--primary-color)",
+                        padding: "0",
+                        flexShrink: 0
+                    }}
                     onClick={() => setShowModal(true)}
+                    onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+                    onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
                 >
-                    + Add Team Member
+                    {/* Desktop Text */}
+                    <span className="d-none d-md-inline me-md-2 ps-md-4 pe-md-1">+ Add Team Member</span>
+                    {/* Icon - Using Users icon as a fallback if UserPlus is not needed or just keep it simple */}
+                    <span className="d-flex align-items-center justify-content-center pe-md-4 text-center">
+                        <Users size={20} />
+                    </span>
+
+                    {/* Desktop Style Override - Consistent with Dashboard/Tickets */}
+                    <style dangerouslySetInnerHTML={{ __html: `
+                        @media (min-width: 768px) {
+                            .btn-primary-custom { 
+                                width: auto !important; 
+                                height: auto !important; 
+                                border-radius: 50px !important; 
+                                padding: 0.6rem 1.5rem !important;
+                                flex-shrink: 0 !important;
+                            }
+                        }
+                    `}} />
                 </button>
             </div>
 
@@ -408,7 +443,7 @@ function TeamMembers() {
                                         <div style={{ position: "relative", width: "55px", height: "55px" }}>
                                             <div
                                                 className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold"
-                                                style={{ width: "100%", height: "100%", backgroundColor: "#2563eb", position: "absolute", top: 0, left: 0, zIndex: 1 }}
+                                                style={{ width: "100%", height: "100%", backgroundColor: "var(--primary-color)", position: "absolute", top: 0, left: 0, zIndex: 1 }}
                                             >
                                                 {initials}
                                             </div>

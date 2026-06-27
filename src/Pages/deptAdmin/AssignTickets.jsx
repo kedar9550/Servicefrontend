@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { UserPlus, Edit2, Eye } from "lucide-react";
+import { createPortal } from "react-dom";
+import { UserPlus, Edit2, Eye, XCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import API from "../../api/axios"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -25,6 +26,9 @@ function AssignTickets() {
     const [selectedDevelopers, setSelectedDevelopers] = useState({});
     const [dueDates, setDueDates] = useState({});
     const [activeTicket, setActiveTicket] = useState(null);
+    const [rejectTicket, setRejectTicket] = useState(null);
+    const [rejectComment, setRejectComment] = useState("");
+    const [rejecting, setRejecting] = useState(false);
 
 
 
@@ -171,6 +175,30 @@ function AssignTickets() {
         }
     };
 
+    const handleReject = async (ticketId) => {
+        if (!rejectComment.trim()) {
+            toast.error("Please provide a rejection reason.");
+            return;
+        }
+
+        setRejecting(true);
+        try {
+            await API.put(`/api/complaints/${ticketId}/admin-reject`, {
+                comment: rejectComment
+            });
+            toast.success("Ticket rejected successfully.");
+            setRejectTicket(null);
+            setRejectComment("");
+            fetchUnassignedTickets();
+            fetchAssignedTickets();
+        } catch (err) {
+            console.error(err);
+            toast.error(err.response?.data?.message || "Failed to reject ticket.");
+        } finally {
+            setRejecting(false);
+        }
+    };
+
     const pendingColumns = [
         { field: "ticketNumber", headerName: "Ticket ID", minWidth: 120 },
         { field: "title", minWidth: 150, headerName: "Ticket Title", flex: 1.5, headerAlign: "left", renderCell: (params) => <span className="fw-bold text-wrap" style={{ display: 'block', width: '100%', wordBreak: 'break-word', whiteSpace: 'normal', lineHeight: '1.2', textAlign: 'left' }}>{params.row.title}</span> },
@@ -209,6 +237,14 @@ function AssignTickets() {
                     </button>
                     <button className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center" style={{ width: '32px', height: '32px' }} onClick={() => navigate(`/ticketdetails/${params.row._id}`)} title="View">
                         <Eye size={16} style={{ color: "var(--primary-color)" }} />
+                    </button>
+                    <button 
+                        className="btn btn-sm btn-light border shadow-sm rounded-circle d-flex justify-content-center align-items-center text-danger" 
+                        style={{ width: '32px', height: '32px' }} 
+                        onClick={() => { setRejectTicket(params.row); setRejectComment(""); }} 
+                        title="Reject"
+                    >
+                        <XCircle size={16} />
                     </button>
                 </div>
             )
@@ -301,14 +337,14 @@ function AssignTickets() {
             </div>
 
             {/* MODAL SECTION */}
-            {activeTicket && (
+            {activeTicket && createPortal(
                 <div
-                    className="modal fade show d-block"
+                    className="modal fade show d-flex justify-content-center align-items-center"
                     tabIndex="-1"
-                    style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                    style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", zIndex: 1050 }}
                 >
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
+                    <div className="modal-dialog m-0" style={{ maxWidth: "500px", width: "95%" }}>
+                        <div className="modal-content shadow-lg border-0 rounded-4">
                             <div className="modal-header">
                                 <h5 className="modal-title fw-bold">Assign Ticket</h5>
                                 <button
@@ -426,16 +462,21 @@ function AssignTickets() {
                                                             color: "var(--text-color) !important",
                                                         }
                                                     }
+                                                },
+                                                popper: {
+                                                    sx: {
+                                                        zIndex: 2000
+                                                    }
                                                 }
                                             }}
                                         />
                                     </LocalizationProvider>
                                 </div>
                             </div>
-                            <div className="modal-footer">
+                            <div className="modal-footer border-0">
                                 <button
                                     type="button"
-                                    className="btn btn-secondary"
+                                    className="btn btn-secondary rounded-pill px-4"
                                     onClick={() => setActiveTicket(null)}
                                 >
                                     Cancel
@@ -446,7 +487,7 @@ function AssignTickets() {
                                         !(selectedDevelopers[activeTicket._id]?.length > 0) ||
                                         !dueDates[activeTicket._id]
                                     }
-                                    className={`btn px-4 ${!(selectedDevelopers[activeTicket._id]?.length > 0) || !dueDates[activeTicket._id]
+                                    className={`btn rounded-pill px-4 fw-medium shadow-sm ${!(selectedDevelopers[activeTicket._id]?.length > 0) || !dueDates[activeTicket._id]
                                         ? "btn-secondary"
                                         : "btn-primary"
                                         }`}
@@ -457,7 +498,62 @@ function AssignTickets() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
+            )}
+
+            {/* REJECT MODAL */}
+            {rejectTicket && createPortal(
+                <div
+                    className="modal fade show d-flex justify-content-center align-items-center"
+                    tabIndex="-1"
+                    style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", zIndex: 1050 }}
+                >
+                    <div className="modal-dialog m-0" style={{ maxWidth: "500px", width: "95%" }}>
+                        <div className="modal-content shadow-lg border-0 rounded-4">
+                            <div className="modal-header">
+                                <h5 className="modal-title fw-bold text-danger">Reject Ticket</h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => setRejectTicket(null)}
+                                ></button>
+                            </div>
+                            <div className="modal-body">
+                                <p className="mb-4"><strong>Ticket:</strong> {rejectTicket.title}</p>
+
+                                <div className="mb-3">
+                                    <label className="form-label fw-semibold">Rejection Reason</label>
+                                    <textarea
+                                        className="form-control"
+                                        rows="3"
+                                        placeholder="Enter reason for rejection..."
+                                        value={rejectComment}
+                                        onChange={(e) => setRejectComment(e.target.value)}
+                                        style={{ resize: "none" }}
+                                    ></textarea>
+                                </div>
+                            </div>
+                            <div className="modal-footer border-0">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary rounded-pill px-4"
+                                    onClick={() => setRejectTicket(null)}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    disabled={rejecting || !rejectComment.trim()}
+                                    className="btn btn-danger rounded-pill px-4 fw-medium shadow-sm"
+                                    onClick={() => handleReject(rejectTicket._id)}
+                                >
+                                    {rejecting ? "Rejecting..." : "Reject Ticket"}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>,
+                document.body
             )}
         </div>
     );

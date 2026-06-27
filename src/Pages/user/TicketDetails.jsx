@@ -136,7 +136,7 @@ const TicketDetails = () => {
   }
 
   const getCurrentStage = () => {
-    if (ticket.status === "RESOLVED" || ticket.status === "REJECTED") return 3;
+    if (ticket.status === "RESOLVED" || ticket.status === "REJECTED" || ticket.status === "CLOSED") return 3;
     if (ticket.status === "IN_PROGRESS") return 2;
     if (ticket.assignedTo?.length) return 1;
     return 0;
@@ -265,7 +265,7 @@ const TicketDetails = () => {
               </div>
             ))}
 
-            {ticket.status !== "RESOLVED" && ticket.status !== "REJECTED" && (
+            {ticket.status !== "RESOLVED" && ticket.status !== "REJECTED" && ticket.status !== "CLOSED" && (
               <div className="d-flex align-items-end mt-3 gap-2">
                 <textarea
                   className="form-control"
@@ -362,7 +362,7 @@ const TicketDetails = () => {
                         </div>
                       )}
 
-                      {stage.key === "RESOLVED" && ticket.status === "RESOLVED" && (
+                      {stage.key === "RESOLVED" && (ticket.status === "RESOLVED" || ticket.status === "CLOSED") && (
                         <div className="text-muted small">
                           Ticket completed successfully
                         </div>

@@ -33,8 +33,8 @@ export const requestForToken = async () => {
       return null;
     }
   } catch (err) {
-    console.log('An error occurred while retrieving token. ', err);
-    return null;
+    console.error('An error occurred while retrieving token. ', err);
+    throw err;
   }
 };
 

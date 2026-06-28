@@ -15,16 +15,18 @@ export const AuthProvider = ({ children }) => {
     try {
       const { requestForToken, onMessageListener } = await import("../firebase");
       const token = await requestForToken();
+      
+      const { toast } = await import("react-toastify");
       if (token) {
         await API.post("/api/auth/save-fcm-token", { fcmToken: token }, { withCredentials: true });
+        toast.success("Push Notifications Enabled!");
+      } else {
+        toast.error("Failed to get FCM Token. Please allow notifications.");
       }
 
       const unsubscribe = onMessageListener((payload) => {
         console.log("Foreground notification received:", payload);
-        // Optional: Display toast notification here if needed
-        import("react-toastify").then(({ toast }) => {
-           toast.info(`${payload.notification.title}: ${payload.notification.body}`);
-        });
+        toast.info(`${payload.notification.title}: ${payload.notification.body}`);
       });
       
       return () => {

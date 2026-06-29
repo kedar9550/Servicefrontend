@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       if (token) {
+        localStorage.setItem("fcmToken", token);
         await API.post("/api/auth/save-fcm-token", { fcmToken: token }, { withCredentials: true });
         toast.success("Push Notifications Enabled!");
       } else {
@@ -129,13 +130,15 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       setLoading(true);
+      const fcmToken = localStorage.getItem("fcmToken");
 
       await API.post(
         "/api/auth/logout",
-        {},
+        { fcmToken },
         { withCredentials: true }
       );
 
+      localStorage.removeItem("fcmToken");
       setUser(null);
     } finally {
       setLoading(false);

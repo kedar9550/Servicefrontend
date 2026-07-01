@@ -207,9 +207,9 @@ const GenerateTicket = () => {
                   <label className="form-label fw-semibold small text-uppercase tracking-wider">Title *</label>
                   <div className="input-group mb-2">
                     <span className="input-group-text border-end-0"><i className="bi bi-pencil text-primary"></i></span>
-                    <input className={`form-control border-start-0 ${fieldErrors.title ? "is-invalid" : ""}`} name="title" value={form.title} onChange={handleChange} placeholder="Enter short issue title (Max 30 chars)" maxLength={30} />
+                    <input className={`form-control border-start-0 ${fieldErrors.title ? "is-invalid" : ""}`} name="title" value={form.title} onChange={handleChange} placeholder="Enter short issue title (Max 80 chars)" maxLength={80} />
                   </div>
-                  <small className="text-muted">Summarize the issue in a few words (Max 30 chars)</small>
+                  <small className="text-muted">Summarize the issue in a few words (Max 80 chars)</small>
                 </div>
 
                 <div className="mb-4">

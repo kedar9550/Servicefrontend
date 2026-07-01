@@ -313,7 +313,7 @@ const TicketDetails = () => {
 
             <div className="d-flex flex-column gap-3 mb-3 mb-md-4">
               {comments.map((c) => {
-                const isMine = c.user?._id === user?._id || c.user?._id === user?.id || c.user?.institutionId === user?.institutionId;
+                const isMine = (c.user?._id || c.user) === (user?._id || user?.id) || c.user?.institutionId === user?.institutionId;
 
                 return (
                   <div key={c._id} className={`d-flex ${isMine ? 'flex-row-reverse' : 'flex-row'} align-items-end`}>

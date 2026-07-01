@@ -134,7 +134,7 @@ const TicketDetails = () => {
   const getCurrentStage = () => {
     if (ticket.status === "RESOLVED" || ticket.status === "REJECTED" || ticket.status === "CLOSED") return 3;
     if (ticket.status === "IN_PROGRESS") return 2;
-    if (ticket.assignedTo?.length) return 1;
+    if (ticket.assignedTo?.filter(a => a.status !== "REJECTED").length) return 1;
     return 0;
   };
 
@@ -191,8 +191,8 @@ const TicketDetails = () => {
               <div className="col-md-3">
                 <strong>Assigned To</strong>
                 <p>
-                  {ticket.assignedTo?.length
-                    ? ticket.assignedTo.map(u => u.user?.name).filter(Boolean).join(", ")
+                  {ticket.assignedTo?.filter(a => a.status !== "REJECTED").length
+                    ? ticket.assignedTo.filter(a => a.status !== "REJECTED").map(u => u.user?.name).filter(Boolean).join(", ")
                     : "Not Assigned"}
                 </p>
               </div>
@@ -347,8 +347,18 @@ const TicketDetails = () => {
 
                       {stage.key === "ASSIGNED" && ticket.assignedTo?.length > 0 && (
                         <div className="text-muted small">
-                          <FaUser size={12} /> Assigned to{" "}
-                          {ticket.assignedTo.map(u => u.user?.name).filter(Boolean).join(", ")}
+                          {ticket.assignedTo.some(a => a.status !== "REJECTED") && (
+                            <div>
+                              <FaUser size={12} /> Assigned to{" "}
+                              {ticket.assignedTo.filter(a => a.status !== "REJECTED").map(u => u.user?.name).filter(Boolean).join(", ")}
+                            </div>
+                          )}
+                          {ticket.assignedTo.some(a => a.status === "REJECTED") && (
+                            <div className="text-danger mt-1">
+                              <FaTimesCircle size={12} /> Rejected by{" "}
+                              {ticket.assignedTo.filter(a => a.status === "REJECTED").map(u => u.user?.name).filter(Boolean).join(", ")}
+                            </div>
+                          )}
                         </div>
                       )}
 

@@ -14,8 +14,8 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024
       },
       manifest: {
-        name: 'Ticket Generation',
-        short_name: 'TicketGen',
+        name: 'AUS | Digital Services',
+        short_name: 'AUS Services',
         description: 'Service Request and Ticket Management System',
         theme_color: '#0b5299',
         background_color: '#ffffff',

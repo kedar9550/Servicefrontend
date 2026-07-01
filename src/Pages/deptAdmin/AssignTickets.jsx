@@ -370,7 +370,7 @@ function AssignTickets() {
                                                 ? selectedDevelopers[activeTicket._id]
                                                     .map(id => developerData.find(d => d._id === id)?.name)
                                                     .join(", ")
-                                                : "Select Developer"}
+                                                : (activeTicket?.service?.name?.toLowerCase() === "hardware" ? "Select Technician" : "Select Developer")}
                                         </button>
                                         <ul className="dropdown-menu w-100 p-3 shadow-sm border-0">
                                             {developerData.map((dev) => (

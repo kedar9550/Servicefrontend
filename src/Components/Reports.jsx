@@ -106,7 +106,8 @@ function Reports() {
             }));
             const worksheet = XLSX.utils.json_to_sheet(data);
             const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Tickets Report");
+            const selectedDeptName = filters.serviceId === 'all' ? "All Services" : (departments.find(d => d._id === filters.serviceId)?.name || stats?.departmentName || "All Services");
+            XLSX.utils.book_append_sheet(workbook, worksheet, `Report - ${selectedDeptName}`.substring(0, 31));
             XLSX.writeFile(workbook, `Tickets_Report_${new Date().toISOString().split('T')[0]}.xlsx`);
             toast.success("Excel export initiated.");
         } catch (error) {
@@ -123,7 +124,8 @@ function Reports() {
         }
         try {
             const doc = new jsPDF();
-            doc.text("Tickets Report", 14, 15);
+            const selectedDeptName = filters.serviceId === 'all' ? "All Services" : (departments.find(d => d._id === filters.serviceId)?.name || stats?.departmentName || "All Services");
+            doc.text(`Tickets Report - ${selectedDeptName}`, 14, 15);
             const tableColumn = ["Ticket ID", "Subject", "Assigned To", "Status", "Priority", "Created Date", "Due Date"];
             const tableRows = stats.recentTickets.map(t => [
                 t.ticketNumber,
@@ -219,7 +221,7 @@ function Reports() {
             {/* Header */}
             <div className="d-flex justify-content-between align-items-center mb-4 gap-2">
                 <h3 className="fw-bold mb-0 flex-grow-1" style={{ fontSize: "1.5rem" }}>
-                    Reports {stats?.departmentName ? `- ${stats.departmentName}` : ''}
+                    Reports - {filters.serviceId === 'all' ? "All Services" : (departments.find(d => d._id === filters.serviceId)?.name || stats?.departmentName || "All Services")}
                 </h3>
                 <div className="dropdown">
                     <button 
@@ -340,7 +342,7 @@ function Reports() {
 
                     {isSuperAdmin() && (
                         <div className="w-100-mobile" style={{ flex: "1 1 200px", minWidth: "200px" }}>
-                            <label className="form-label small text-muted fw-bold">Department</label>
+                            <label className="form-label small text-muted fw-bold">Type of Service</label>
                             <select 
                                 className="form-select fw-medium w-100" 
                                 style={{ backgroundColor: "var(--input-bg)", color: "var(--text-color)", borderColor: "var(--border-color)" }}
@@ -348,7 +350,7 @@ function Reports() {
                                 value={filters.serviceId}
                                 onChange={handleFilterChange}
                             >
-                                <option value="all">All Departments</option>
+                                <option value="all">All Services</option>
                                 {departments.map(dept => (
                                     <option key={dept._id} value={dept._id}>{dept.name}</option>
                                 ))}

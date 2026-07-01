@@ -7,6 +7,7 @@ import {
   Eye,
   Activity,
   UserPlus,
+  AlertCircle,
 } from "lucide-react";
 
 import Loader from "../../Components/Loader";
@@ -52,8 +53,9 @@ const DeptDashboard = () => {
   const inProgressCount = getStatusCount("In Progress");
   const completedCount = getStatusCount("Resolved") || getStatusCount("Completed");
   const rejectedCount = getStatusCount("Rejected");
+  const employeeRejectedCount = getStatusCount("Rejected Assignments");
 
-  const totalTickets = pendingCount + assignedCount + inProgressCount + completedCount + rejectedCount;
+  const totalTickets = pendingCount + assignedCount + inProgressCount + completedCount + rejectedCount + employeeRejectedCount;
 
   const getPercentage = (val) => totalTickets > 0 ? `${Math.round((val / totalTickets) * 100)}%` : "0%";
 
@@ -208,7 +210,7 @@ const DeptDashboard = () => {
 
         {completedCount > 0 && (
           <StatCard
-            title="Resolved Tickets"
+            title="Resolved / Closed Tickets"
             value={completedCount}
             progress={getPercentage(completedCount)}
             icon={<CheckCircle size={24} strokeWidth={2.5} />}
@@ -218,25 +220,30 @@ const DeptDashboard = () => {
           />
         )}
 
-        <StatCard
-          title="Total Team Members"
-          value={teamStats?.summary?.totalMembers || 0}
-          progress="100%"
-          icon={<Users size={24} strokeWidth={2.5} />}
-          iconBg="#f0f3ff"
-          iconColor="#4361ee"
-          progressColor="#4361ee"
-        />
+        {employeeRejectedCount > 0 && (
+          <StatCard
+            title="Rejected Assignments"
+            value={employeeRejectedCount}
+            progress={getPercentage(employeeRejectedCount)}
+            icon={<AlertCircle size={24} strokeWidth={2.5} />}
+            iconBg="#fff0f0"
+            iconColor="#dc2626"
+            progressColor="#dc2626"
+            onClick={() => navigate("/rejected")}
+          />
+        )}
 
-        <StatCard
-          title="Pending Assignments"
-          value={pendingCount}
-          progress={getPercentage(pendingCount)}
-          icon={<Clock size={24} strokeWidth={2.5} />}
-          iconBg="#fff0ed"
-          iconColor="#e76f51"
-          progressColor="#e76f51"
-        />
+        {pendingCount > 0 && (
+          <StatCard
+            title="Pending Assignments"
+            value={pendingCount}
+            progress={getPercentage(pendingCount)}
+            icon={<Clock size={24} strokeWidth={2.5} />}
+            iconBg="#fff0ed"
+            iconColor="#e76f51"
+            progressColor="#e76f51"
+          />
+        )}
       </div>
 
       {/* ================= RECENT TICKETS TABLE ================= */}
@@ -265,15 +272,17 @@ const StatCard = ({
   iconBg,
   iconColor,
   progressColor,
+  onClick
 }) => {
   return (
     <div className="col">
       <div
         className="card shadow-sm rounded-4 p-4 h-100 border-0"
+        onClick={onClick}
         style={{
           backgroundColor: "var(--stat-card-bg)",
           transition: "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
-          cursor: "default",
+          cursor: onClick ? "pointer" : "default",
           transformOrigin: "center"
         }}
         onMouseOver={(e) => {

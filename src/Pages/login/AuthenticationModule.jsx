@@ -431,7 +431,7 @@ function AuthenticationModule() {
 
   return (
     <div className="bg_container d-flex flex-column" style={{ minHeight: "100vh", overflowX: "hidden" }}>
-      
+
       {/* HEADER */}
       <div className="d-flex flex-column flex-md-row align-items-center position-relative header-section w-100">
         <img
@@ -445,7 +445,7 @@ function AuthenticationModule() {
             className="h1 fw-bold m-0 text-center w-100"
             style={{ fontFamily: "Poppins", color: "var(--primary-color)" }}
           >
-            Ticket Generation
+            Digital Services
           </p>
         </div>
       </div>
@@ -454,7 +454,7 @@ function AuthenticationModule() {
       <div className="main-container flex-grow-1 d-flex align-items-center justify-content-center">
         <div className="container-fluid p-0">
           <div className="row m-0 w-100 align-items-center justify-content-center">
-            
+
             {location.pathname === "/login" ? (
               <>
                 {/* LOGIN FORM */}
@@ -828,7 +828,7 @@ function AuthenticationModule() {
                 <div className="col-12 col-lg-4 d-flex justify-content-center align-items-center">
                   <form onSubmit={(e) => e.preventDefault()} className="login_card shadow w-100 mx-auto" style={{ marginTop: 0 }}>
                     <p className="h5 fw-bold text-center mb-4 " style={{ color: "var(--primary-color)", fontFamily: "'Poppins', !important", fontWeight: "bold" }}>FORGOT PASSWORD</p>
-                    
+
                     {/* STEP 1 – EMAIL */}
                     {forgotStep === 1 && (
                       <>
@@ -918,7 +918,7 @@ function AuthenticationModule() {
                     )}
 
                     {forgotMessage && <p className="message text-center mt-2" style={{ color: "var(--danger-color)" }}>{forgotMessage}</p>}
-                    
+
                     <p className="mt-4 text-center">
                       Remember your password?{" "}
                       <span
@@ -933,7 +933,7 @@ function AuthenticationModule() {
                     </p>
                   </form>
                 </div>
-                
+
                 {/* RIGHT SIDE IMAGES */}
                 <div className="col-12 col-lg-7 d-flex justify-content-center align-items-center d-none d-lg-flex">
                   <img src={forgetIllustration} className="forget_img" style={{ maxWidth: "55%" }} alt="illustration" />

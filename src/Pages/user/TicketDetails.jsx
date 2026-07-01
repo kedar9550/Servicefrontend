@@ -389,6 +389,12 @@ const TicketDetails = () => {
                   }}
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleAddComment();
+                    }
+                  }}
                 />
                 <button
                   className="btn btn-primary d-flex align-items-center justify-content-center"
